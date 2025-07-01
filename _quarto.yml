@@ -1,0 +1,38 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "24BSE2113D-Computational Methods for Electronics & Robotics Lab"
+  author: "Siju K S"
+  date: "today"
+  chapters:
+    - index.qmd
+    - part: "Fundamentals"
+      chapters: 
+        - 01-intro-python.qmd
+    - part: "Partial Differential Equations"
+      chapters:
+        - 02-pde-numerical.qmd
+    - part: "Laplace Transforms & System Analysis"
+      chapters:
+        - 03-laplace-basics.qmd
+        - 04-laplace-apps.qmd
+    - part: "Optimization"
+      chapters:
+        - 05-optimization.qmd
+  
+  page-footer: 
+    left: "B.Tech ECE/Robotics Lab"
+    right: 
+      - icon: github
+        href: https://github.com/your-repo # Optional link to a repo
+
+format:
+  html:
+    theme: cosmo
+    code-fold: true
+    code-tools: false
+# To execute python code
+execute:
+  freeze: auto # Caches results to speed up rendering

@@ -1,0 +1,19 @@
+# Welcome to the Computational Methods Lab
+
+This interactive lab manual is designed for third-semester B.Tech students in Electronics and Robotics. The goal of this course is to introduce powerful computational techniques for solving common engineering problems using the Python programming language.
+
+## Why Python?
+
+While MATLAB is a traditional tool in engineering, Python has become the industry standard in modern robotics, machine learning, and data science. By learning Python, you are acquiring a versatile skill that is highly sought after in today's tech landscape. It's free, open-source, and has a vast ecosystem of libraries that we will leverage throughout this course.
+
+## Software Setup
+
+Before you begin, please ensure you have the following installed on your system. We highly recommend installing the **Anaconda Distribution**, which packages Python and all the necessary libraries together.
+
+*   **Python 3.8+**
+*   **NumPy:** For numerical operations.
+*   **Matplotlib:** For plotting and visualization.
+*   **SymPy:** For symbolic mathematics (algebra and calculus).
+*   **SciPy:** For scientific computing, including optimization.
+
+You can run the code in this book interactively by using a **Jupyter Notebook** or an IDE like **Spyder** or **VS Code** with Python extensions.

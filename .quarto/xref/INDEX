@@ -1,0 +1,29 @@
+{
+  "index.qmd": {
+    "index.html": "53f1d2c1"
+  },
+  "intro.qmd": {
+    "intro.html": "24fe465d"
+  },
+  "summary.qmd": {
+    "summary.html": "e985b587"
+  },
+  "references.qmd": {
+    "references.html": "000b0b65"
+  },
+  "01-intro-python.qmd": {
+    "01-intro-python.html": "ee295c5e"
+  },
+  "02-pde-numerical.qmd": {
+    "02-pde-numerical.html": "e631d4fa"
+  },
+  "03-laplace-basics.qmd": {
+    "03-laplace-basics.html": "948a49d0"
+  },
+  "04-laplace-apps.qmd": {
+    "04-laplace-apps.html": "ca2e750c"
+  },
+  "05-optimization.qmd": {
+    "05-optimization.html": "97419984"
+  }
+}

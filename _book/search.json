@@ -1,0 +1,82 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "24BSE2113-D Partial Differential Equations, Transforms Optimization Techniques",
+    "section": "",
+    "text": "1 Welcome to the Computational Methods Lab\nThis interactive lab manual is designed for third-semester B.Tech students in Electronics and Robotics. The goal of this course is to introduce powerful computational techniques for solving common engineering problems using the Python programming language.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome to the Computational Methods Lab</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#why-python",
+    "href": "index.html#why-python",
+    "title": "24BSE2113-D Partial Differential Equations, Transforms Optimization Techniques",
+    "section": "1.1 Why Python?",
+    "text": "1.1 Why Python?\nWhile MATLAB is a traditional tool in engineering, Python has become the industry standard in modern robotics, machine learning, and data science. By learning Python, you are acquiring a versatile skill that is highly sought after in today’s tech landscape. It’s free, open-source, and has a vast ecosystem of libraries that we will leverage throughout this course.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome to the Computational Methods Lab</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#software-setup",
+    "href": "index.html#software-setup",
+    "title": "24BSE2113-D Partial Differential Equations, Transforms Optimization Techniques",
+    "section": "1.2 Software Setup",
+    "text": "1.2 Software Setup\nBefore you begin, please ensure you have the following installed on your system. We highly recommend installing the Anaconda Distribution, which packages Python and all the necessary libraries together.\n\nPython 3.8+\nNumPy: For numerical operations.\nMatplotlib: For plotting and visualization.\nSymPy: For symbolic mathematics (algebra and calculus).\nSciPy: For scientific computing, including optimization.\n\nYou can run the code in this book interactively by using a Jupyter Notebook or an IDE like Spyder or VS Code with Python extensions.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome to the Computational Methods Lab</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "2  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "01-intro-python.html",
+    "href": "01-intro-python.html",
+    "title": "2  Lab Session 1: Python’s Scientific Stack",
+    "section": "",
+    "text": "2.1 Experiment 1: The Core Trio - NumPy, Matplotlib, and SymPy\nThis session introduces the fundamental libraries that make Python a powerhouse for engineering.\nObjective: To get comfortable creating arrays, plotting data, and performing symbolic calculations.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Lab Session 1: Python's Scientific Stack</span>"
+    ]
+  },
+  {
+    "objectID": "01-intro-python.html#experiment-1-the-core-trio---numpy-matplotlib-and-sympy",
+    "href": "01-intro-python.html#experiment-1-the-core-trio---numpy-matplotlib-and-sympy",
+    "title": "2  Lab Session 1: Python’s Scientific Stack",
+    "section": "",
+    "text": "2.1.1 Part A: NumPy for Numerical Data\nNumPy’s ndarray is the foundation for numerical computing in Python. It’s like a MATLAB matrix but more powerful.\nApplication: Let’s model the voltage of a charging capacitor in an RC circuit. The formula is \\(V(t) = V_s (1 - e^{-t/RC})\\).\n#| label: fig-rc-circuit #| fig-cap: “Voltage across a charging capacitor in an RC circuit.”\nimport numpy as np import matplotlib.pyplot as plt",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Lab Session 1: Python's Scientific Stack</span>"
+    ]
+  }
+]
