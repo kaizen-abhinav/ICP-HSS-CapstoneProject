@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Chapter 4 – 24BSE2113D-Computational Methods for Electronics &amp; Robotics Lab</title>
+<title>5&nbsp; Lab Session 4: Applications of Laplace Transform – 24BSE2113D-Computational Methods for Electronics &amp; Robotics Lab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -70,6 +105,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-laplace-basics.html">Laplace Transforms &amp; System Analysis</a></li><li class="breadcrumb-item"><a href="./04-laplace-apps.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chapter 4</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-laplace-basics.html">Laplace Transforms &amp; System Analysis</a></li><li class="breadcrumb-item"><a href="./04-laplace-apps.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab Session 4: Applications of Laplace Transform</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -165,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-laplace-apps.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chapter 4</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab Session 4: Applications of Laplace Transform</span></span></a>
   </div>
 </li>
       </ul>
@@ -182,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-optimization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chapter 5</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab Session 5: Optimization Methods in Engineering</span></span></a>
   </div>
 </li>
       </ul>
@@ -192,15 +256,38 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#experiment-7-solving-differential-equations-with-laplace-transforms" id="toc-experiment-7-solving-differential-equations-with-laplace-transforms" class="nav-link active" data-scroll-target="#experiment-7-solving-differential-equations-with-laplace-transforms"><span class="header-section-number">5.1</span> Experiment 7: Solving Differential Equations with Laplace Transforms</a>
+  <ul class="collapse">
+  <li><a href="#aim" id="toc-aim" class="nav-link" data-scroll-target="#aim"><span class="header-section-number">5.1.1</span> Aim</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">5.1.2</span> Objectives</a></li>
+  <li><a href="#algorithm-the-laplace-transform-method-for-odes" id="toc-algorithm-the-laplace-transform-method-for-odes" class="nav-link" data-scroll-target="#algorithm-the-laplace-transform-method-for-odes"><span class="header-section-number">5.1.3</span> Algorithm: The Laplace Transform Method for ODEs</a></li>
+  <li><a href="#case-study-first-order-rc-circuit-model" id="toc-case-study-first-order-rc-circuit-model" class="nav-link" data-scroll-target="#case-study-first-order-rc-circuit-model"><span class="header-section-number">5.1.4</span> Case Study: First-Order RC Circuit Model</a></li>
+  <li><a href="#result-and-discussion" id="toc-result-and-discussion" class="nav-link" data-scroll-target="#result-and-discussion"><span class="header-section-number">5.1.5</span> Result and Discussion</a></li>
+  <li><a href="#application-problem-mass-spring-damper-system" id="toc-application-problem-mass-spring-damper-system" class="nav-link" data-scroll-target="#application-problem-mass-spring-damper-system"><span class="header-section-number">5.1.6</span> Application Problem: Mass-Spring-Damper System</a></li>
+  </ul></li>
+  <li><a href="#experiment-8-laplace-transforms-of-piecewise-and-impulse-functions" id="toc-experiment-8-laplace-transforms-of-piecewise-and-impulse-functions" class="nav-link" data-scroll-target="#experiment-8-laplace-transforms-of-piecewise-and-impulse-functions"><span class="header-section-number">5.2</span> Experiment 8: Laplace Transforms of Piecewise and Impulse Functions</a>
+  <ul class="collapse">
+  <li><a href="#aim-1" id="toc-aim-1" class="nav-link" data-scroll-target="#aim-1"><span class="header-section-number">5.2.1</span> Aim</a></li>
+  <li><a href="#objectives-1" id="toc-objectives-1" class="nav-link" data-scroll-target="#objectives-1"><span class="header-section-number">5.2.2</span> Objectives</a></li>
+  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm"><span class="header-section-number">5.2.3</span> Algorithm</a></li>
+  <li><a href="#case-study-the-unit-step-function" id="toc-case-study-the-unit-step-function" class="nav-link" data-scroll-target="#case-study-the-unit-step-function"><span class="header-section-number">5.2.4</span> Case Study: The Unit Step Function</a></li>
+  <li><a href="#application-challenge-rl-circuit-response-to-a-voltage-pulse" id="toc-application-challenge-rl-circuit-response-to-a-voltage-pulse" class="nav-link" data-scroll-target="#application-challenge-rl-circuit-response-to-a-voltage-pulse"><span class="header-section-number">5.2.5</span> Application Challenge: RL Circuit Response to a Voltage Pulse</a></li>
+  <li><a href="#solution-to-the-application-challenge" id="toc-solution-to-the-application-challenge" class="nav-link" data-scroll-target="#solution-to-the-application-challenge"><span class="header-section-number">5.2.6</span> Solution to the Application Challenge</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-laplace-basics.html">Laplace Transforms &amp; System Analysis</a></li><li class="breadcrumb-item"><a href="./04-laplace-apps.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chapter 4</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-laplace-basics.html">Laplace Transforms &amp; System Analysis</a></li><li class="breadcrumb-item"><a href="./04-laplace-apps.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab Session 4: Applications of Laplace Transform</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chapter 4</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab Session 4: Applications of Laplace Transform</span></h1>
 </div>
 
 
@@ -217,8 +304,554 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>The true power of the Laplace Transform in engineering is its ability to convert complex differential equations (in the time domain) into simple algebraic equations (in the <span class="math inline">\(s\)</span>-domain). This experiment demonstrates this powerful technique.</p>
+<section id="experiment-7-solving-differential-equations-with-laplace-transforms" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="experiment-7-solving-differential-equations-with-laplace-transforms"><span class="header-section-number">5.1</span> Experiment 7: Solving Differential Equations with Laplace Transforms</h2>
+<section id="aim" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="aim"><span class="header-section-number">5.1.1</span> Aim</h3>
+<p>To solve an ordinary differential equation (ODE) using the Laplace Transform method and to visualize the resulting solution.</p>
+</section>
+<section id="objectives" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="objectives"><span class="header-section-number">5.1.2</span> Objectives</h3>
+<ul>
+<li>To understand the process of transforming an entire ODE into the s-domain.</li>
+<li>To solve for the system’s response algebraically in the s-domain.</li>
+<li>To use the Inverse Laplace Transform to bring the solution back into the time domain.</li>
+<li>To obtain and visualize both the symbolic and numerical solutions.</li>
+</ul>
+<hr>
+</section>
+<section id="algorithm-the-laplace-transform-method-for-odes" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="algorithm-the-laplace-transform-method-for-odes"><span class="header-section-number">5.1.3</span> Algorithm: The Laplace Transform Method for ODEs</h3>
+<p>The process follows a clear, three-step “detour” through the s-domain:</p>
+<ol type="1">
+<li><p><strong>Transform:</strong> Take the Laplace Transform of every term in the differential equation. Use the transform properties for derivatives:</p>
+<ul>
+<li><span class="math inline">\(\mathcal{L}\{y'(t)\} = sY(s) - y(0)\)</span></li>
+<li><span class="math inline">\(\mathcal{L}\{y''(t)\} = s^2Y(s) - sy(0) - y'(0)\)</span> This step converts the ODE into an algebraic equation in terms of <span class="math inline">\(Y(s)\)</span>, automatically incorporating the initial conditions.</li>
+</ul></li>
+<li><p><strong>Solve Algebraically:</strong> Rearrange the resulting algebraic equation to solve for <span class="math inline">\(Y(s)\)</span>. This <span class="math inline">\(Y(s)\)</span> is the Laplace Transform of the solution to the ODE.</p></li>
+<li><p><strong>Inverse Transform:</strong> Apply the Inverse Laplace Transform to <span class="math inline">\(Y(s)\)</span> to find the final solution, <span class="math inline">\(y(t) = \mathcal{L}^{-1}\{Y(s)\}\)</span>.</p></li>
+</ol>
+<p>This method elegantly bypasses the need for finding homogeneous and particular solutions, as is done in traditional time-domain methods.</p>
+<hr>
+</section>
+<section id="case-study-first-order-rc-circuit-model" class="level3" data-number="5.1.4">
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="case-study-first-order-rc-circuit-model"><span class="header-section-number">5.1.4</span> Case Study: First-Order RC Circuit Model</h3>
+<p><strong>Problem:</strong> Using the Laplace Transform, find the solution of the differential equation <span class="math inline">\(y' + y = 1\)</span> with the initial condition <span class="math inline">\(y(0)=0\)</span>. This equation models the voltage across a capacitor in a simple RC circuit (with R=1, C=1) connected to a 1V DC source.</p>
+<p><strong>Step-by-Step Solution:</strong></p>
+<ol type="1">
+<li><p><strong>Transform the ODE:</strong></p>
+<ul>
+<li><span class="math inline">\(\mathcal{L}\{y'(t)\} + \mathcal{L}\{y(t)\} = \mathcal{L}\{1\}\)</span></li>
+<li><span class="math inline">\(\left[ sY(s) - y(0) \right] + Y(s) = \frac{1}{s}\)</span></li>
+</ul></li>
+<li><p><strong>Incorporate Initial Conditions and Solve for Y(s):</strong></p>
+<ul>
+<li>Since <span class="math inline">\(y(0)=0\)</span>, the equation becomes: <span class="math inline">\(sY(s) + Y(s) = \frac{1}{s}\)</span></li>
+<li>Factor out <span class="math inline">\(Y(s)\)</span>: <span class="math inline">\(Y(s)(s + 1) = \frac{1}{s}\)</span></li>
+<li>Solve for <span class="math inline">\(Y(s)\)</span>: <span class="math inline">\(Y(s) = \frac{1}{s(s+1)}\)</span></li>
+</ul></li>
+<li><p><strong>Inverse Transform:</strong></p>
+<ul>
+<li>Find <span class="math inline">\(y(t) = \mathcal{L}^{-1}\left\{\frac{1}{s(s+1)}\right\}\)</span>. This can be done using partial fraction expansion, yielding <span class="math inline">\(y(t) = 1 - e^{-t}\)</span>.</li>
+</ul></li>
+</ol>
+<p>Let’s verify this process using Python.</p>
+<div class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Define Symbols and the ODE ---</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> sp.Symbol(<span class="st">'t'</span>, positive<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> sp.Symbol(<span class="st">'s'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sp.Function(<span class="st">'y'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the differential equation: y'(t) + y(t) - 1 = 0</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ode <span class="op">=</span> y(t).diff(t) <span class="op">+</span> y(t) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Solve directly using SymPy's dsolve with Laplace method ---</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># This automates the transform, solve, and inverse transform steps.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># We provide the initial condition y(0)=0 via the 'ics' argument.</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>solution <span class="op">=</span> sp.dsolve(ode, ics<span class="op">=</span>{y(<span class="dv">0</span>): <span class="dv">0</span>})</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the symbolic solution</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The symbolic solution is:"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>display(solution)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>y_t <span class="op">=</span> solution.rhs <span class="co"># Extract the right-hand side for plotting</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Visualize the Solution ---</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the symbolic solution into a numerical function for plotting</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>y_func <span class="op">=</span> sp.lambdify(t, y_t, modules<span class="op">=</span>[<span class="st">'numpy'</span>])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate time values for the plot</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>t_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">400</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>y_vals <span class="op">=</span> y_func(t_vals)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the result</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.plot(t_vals, y_vals, label<span class="op">=</span><span class="ss">f"y(t) = </span><span class="sc">{</span>y_t<span class="sc">}</span><span class="ss">"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Solution of y' + y = 1 using Laplace Transform"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time (t)"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y(t)"</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>The symbolic solution is:</code></pre>
+</div>
+<div id="fig-laplace-ode-1st" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="1">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-laplace-ode-1st-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fig-laplace-ode-1st-1" class="cell-output cell-output-display cell-output-markdown quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-laplace-ode-1st-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><span class="math inline">\(\displaystyle y{\left(t \right)} = 1 - e^{- t}\)</span></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-laplace-ode-1st-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Solution of y’ + y = 1 with y(0)=0, representing a charging capacitor.
+</figcaption>
+</figure>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-laplace-ode-1st-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="449" width="663">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-laplace-ode-1st-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-laplace-apps_files/figure-html/fig-laplace-ode-1st-output-3.png" id="fig-laplace-ode-1st-2" data-ref-parent="fig-laplace-ode-1st" width="663" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-laplace-ode-1st-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-laplace-ode-1st-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="result-and-discussion" class="level3" data-number="5.1.5">
+<h3 data-number="5.1.5" class="anchored" data-anchor-id="result-and-discussion"><span class="header-section-number">5.1.5</span> Result and Discussion</h3>
+<p>The solution obtained is <span class="math inline">\(y(t)=1−e^{−t}\)</span>. The visualization confirms the behavior described by this function: The solution curve starts at the point <span class="math inline">\((0,0)\)</span>, satisfying the initial condition <span class="math inline">\(y(0)=0\)</span>. As time t increases, the exponential term <span class="math inline">\(e^{−t}\)</span> decays towards zero. Consequently, the solution <span class="math inline">\(y(t)\)</span> asymptotically approaches the value of 1, which is the steady-state response of the system. This behavior is characteristic of a first-order system (like an RC circuit) responding to a step input.</p>
+</section>
+<section id="application-problem-mass-spring-damper-system" class="level3" data-number="5.1.6">
+<h3 data-number="5.1.6" class="anchored" data-anchor-id="application-problem-mass-spring-damper-system"><span class="header-section-number">5.1.6</span> Application Problem: Mass-Spring-Damper System</h3>
+<p>In robotics and mechanical engineering, a mass-spring-damper system is a fundamental model for oscillatory behavior, such as a robot arm with flexibility or a vehicle’s suspension. Governing Equation: The motion of the mass <span class="math inline">\(y(t)\)</span> is described by the second-order linear ODE: <span class="math display">\[
+my''(t)+cy'(t)+ky(t)=F(t)
+\]</span></p>
+<p>Your Task:</p>
+<p>Solve for the motion of a system with the following parameters: - Mass (m): 1 kg - Damping coefficient (c): 2 Ns/m (This represents friction/drag) - Spring constant (k): 5 N/m - External Force (F(t)): 0 (The system is disturbed and then left alone) - Initial Conditions: The system is pulled from its equilibrium position and released from rest.</p>
+<p>Initial position: <span class="math inline">\(y(0)=1\)</span> meter Initial velocity: <span class="math inline">\(y'(0)=0\)</span> m/s</p>
+<p>Use the Laplace Transform method in <code>SymPy</code> to find and visualize the displacement <span class="math inline">\(y(t)\)</span>.</p>
+<blockquote class="blockquote">
+<p>Solution to the Application Problem: Mass-Spring-Damper System</p>
+</blockquote>
+<p>We will now solve the second-order ODE for the mass-spring-damper system using the same <code>sympy.dsolve</code> method, which internally uses the Laplace transform technique.</p>
+<p><strong>Problem Recap:</strong></p>
+<ul>
+<li><strong>Equation:</strong> <span class="math inline">\(1 \cdot y''(t) + 2 \cdot y'(t) + 5 \cdot y(t) = 0\)</span></li>
+<li><strong>Initial Conditions:</strong> <span class="math inline">\(y(0) = 1\)</span>, <span class="math inline">\(y'(0) = 0\)</span></li>
+</ul>
+<p><strong>Manual Laplace Transform Steps (for understanding):</strong></p>
+<ol type="1">
+<li><p><strong>Transform the ODE:</strong></p>
+<ul>
+<li><span class="math inline">\(\mathcal{L}\{y''\} + 2\mathcal{L}\{y'\} + 5\mathcal{L}\{y\} = \mathcal{L}\{0\}\)</span></li>
+<li><span class="math inline">\(\left[s^2Y(s) - sy(0) - y'(0)\right] + 2\left[sY(s) - y(0)\right] + 5Y(s) = 0\)</span></li>
+</ul></li>
+<li><p><strong>Incorporate Initial Conditions:</strong></p>
+<ul>
+<li><span class="math inline">\(\left[s^2Y(s) - s(1) - 0\right] + 2\left[sY(s) - 1\right] + 5Y(s) = 0\)</span></li>
+<li><span class="math inline">\(s^2Y(s) - s + 2sY(s) - 2 + 5Y(s) = 0\)</span></li>
+</ul></li>
+<li><p><strong>Solve for Y(s):</strong></p>
+<ul>
+<li><span class="math inline">\(Y(s)(s^2 + 2s + 5) = s + 2\)</span></li>
+<li><span class="math inline">\(Y(s) = \frac{s+2}{s^2 + 2s + 5}\)</span></li>
+</ul></li>
+<li><p><strong>Inverse Transform:</strong> Find <span class="math inline">\(y(t) = \mathcal{L}^{-1}\left\{ \frac{s+2}{s^2 + 2s + 5} \right\}\)</span>. This requires completing the square in the denominator and using the transform pairs for damped sinusoids.</p></li>
+</ol>
+<p>Let’s use Python to perform these steps automatically and visualize the result.</p>
+<section id="python-implementation" class="level4" data-number="5.1.6.1">
+<h4 data-number="5.1.6.1" class="anchored" data-anchor-id="python-implementation"><span class="header-section-number">5.1.6.1</span> Python Implementation</h4>
+<div class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Define Symbols, Function, and Parameters ---</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> sp.Symbol(<span class="st">'t'</span>, positive<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sp.Function(<span class="st">'y'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># System parameters</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>c_damp <span class="op">=</span> <span class="fl">2.0</span>  <span class="co"># Renamed to avoid conflict with sympy's 'c' symbol</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Define and Solve the ODE ---</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the differential equation: my'' + cy' + ky = 0</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>ode <span class="op">=</span> m <span class="op">*</span> y(t).diff(t, <span class="dv">2</span>) <span class="op">+</span> c_damp <span class="op">*</span> y(t).diff(t) <span class="op">+</span> k <span class="op">*</span> y(t)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the initial conditions in a dictionary</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># The derivative at t=0 is specified using .subs()</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>ics <span class="op">=</span> {y(<span class="dv">0</span>): <span class="dv">1</span>, y(t).diff(t).subs(t, <span class="dv">0</span>): <span class="dv">0</span>}</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve the ODE using dsolve. SymPy automatically handles this structure.</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>solution <span class="op">=</span> sp.dsolve(ode, ics<span class="op">=</span>ics)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the symbolic solution</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The symbolic solution for the system's motion is:"</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>display(solution)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>y_t <span class="op">=</span> solution.rhs</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Visualize the Solution ---</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the symbolic solution into a numerical function</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>y_func <span class="op">=</span> sp.lambdify(t, y_t, modules<span class="op">=</span>[<span class="st">'numpy'</span>])</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate time values for the plot</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>t_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">500</span>)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>y_vals <span class="op">=</span> y_func(t_vals)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the result</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>plt.plot(t_vals, y_vals, label<span class="op">=</span><span class="ss">f"y(t)"</span>, color<span class="op">=</span><span class="st">'purple'</span>)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot an exponential decay envelope to highlight the damping</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>envelope <span class="op">=</span> np.exp(<span class="op">-</span>t_vals) <span class="co"># From the e^(-t) term in the solution</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>plt.plot(t_vals, envelope, <span class="st">'k--'</span>, label<span class="op">=</span><span class="st">'Damping Envelope e^(-t)'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>plt.plot(t_vals, <span class="op">-</span>envelope, <span class="st">'k--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Motion of an Underdamped Mass-Spring-Damper System"</span>)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time (t) [s]"</span>)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Displacement y(t) [m]"</span>)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>The symbolic solution for the system's motion is:</code></pre>
+</div>
+<div id="fig-laplace-ode-2nd" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-laplace-ode-2nd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fig-laplace-ode-2nd-1" class="cell-output cell-output-display cell-output-markdown quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-laplace-ode-2nd-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><span class="math inline">\(\displaystyle y{\left(t \right)} = \left(0.5 \sin{\left(2.0 t \right)} + 1.0 \cos{\left(2.0 t \right)}\right) e^{- 1.0 t}\)</span></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-laplace-ode-2nd-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Underdamped oscillatory motion of a mass-spring-damper system.
+</figcaption>
+</figure>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-laplace-ode-2nd-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="523" width="832">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-laplace-ode-2nd-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-laplace-apps_files/figure-html/fig-laplace-ode-2nd-output-3.png" id="fig-laplace-ode-2nd-2" data-ref-parent="fig-laplace-ode-2nd" width="832" height="523" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-laplace-ode-2nd-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-laplace-ode-2nd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="results-and-discussion" class="level4" data-number="5.1.6.2">
+<h4 data-number="5.1.6.2" class="anchored" data-anchor-id="results-and-discussion"><span class="header-section-number">5.1.6.2</span> Results and Discussion</h4>
+<p>Symbolic Solution: The solution obtained is <span class="math inline">\(y(t)=(\sin(2t)+\cos(2t))e^{−t}\)</span>. This mathematical form is characteristic of an underdamped second-order system. It consists of two parts:</p>
+<ul>
+<li><p>Oscillatory Part: <span class="math inline">\(y(t)=(\sin(2t)+\cos(2t))e^{-t}\)</span> represents the natural oscillation of the mass on the spring. The frequency of this oscillation is <span class="math inline">\(\omega=2\)</span> rad/s.</p></li>
+<li><p>Decay Part: <span class="math inline">\(e^{-t}\)</span> is an exponential decay envelope that multiplies the oscillation. This term represents the effect of the damper (friction), which removes energy from the system over time.</p></li>
+<li><p>Visual Analysis: The plot clearly visualizes this behavior.</p></li>
+<li><p>Initial Conditions: The curve starts at <span class="math inline">\(y=1\)</span> and its initial slope is zero (horizontal), perfectly matching the initial conditions <span class="math inline">\(y(0)=0\)</span>, and <span class="math inline">\(y'(0)=0\)</span>.</p></li>
+<li><p>Oscillation: The mass oscillates back and forth around its equilibrium position (<span class="math inline">\(y=0\)</span>). Damping: The amplitude of these oscillations is not constant; it progressively decreases over time, confined within the black dashed lines representing the damping envelope. Eventually, the mass will come to rest at <span class="math inline">\(y=0\)</span>.</p></li>
+<li><p>Engineering Significance: This result is fundamental in control systems and robotics. If this were a robot arm, this “ringing” or oscillation after a command might be undesirable. An engineer would use this model to perhaps increase the damping (<span class="math inline">\(c\_damp\)</span>) to achieve a critically damped or overdamped response, where the arm moves to its target position smoothly without overshooting and oscillating. The Laplace Transform method is the cornerstone of this type of analysis.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="experiment-8-laplace-transforms-of-piecewise-and-impulse-functions" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="experiment-8-laplace-transforms-of-piecewise-and-impulse-functions"><span class="header-section-number">5.2</span> Experiment 8: Laplace Transforms of Piecewise and Impulse Functions</h2>
+<p>In engineering, signals are not always smooth, continuous functions. They often involve abrupt changes, switching on or off, or extremely short, high-energy events. This experiment focuses on two special functions that model these scenarios: the <strong>Heaviside step function</strong> for switching events and the <strong>Dirac delta function</strong> for impulses.</p>
+<section id="aim-1" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="aim-1"><span class="header-section-number">5.2.1</span> Aim</h3>
+<p>To evaluate and visualize the Laplace Transform of common piecewise and impulse functions.</p>
+</section>
+<section id="objectives-1" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="objectives-1"><span class="header-section-number">5.2.2</span> Objectives</h3>
+<ul>
+<li>To define piecewise functions in SymPy.</li>
+<li>To understand the Laplace transform of the Heavyside (unit step) and Dirac delta (unit impulse) functions.</li>
+<li>To apply these concepts to analyze the response of an electrical circuit to an impulsive input.</li>
+</ul>
+<hr>
+</section>
+<section id="algorithm" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">5.2.3</span> Algorithm</h3>
+<ol type="1">
+<li><strong>Import Libraries:</strong> Import <code>sympy</code>, <code>numpy</code>, and <code>matplotlib</code>.</li>
+<li><strong>Define Symbols:</strong> Define the symbolic variables for time (<code>t</code>) and complex frequency (<code>s</code>).</li>
+<li><strong>Define the Piecewise Function:</strong> Use SymPy’s <code>sp.Piecewise</code>, <code>sp.Heaviside</code>, or <code>sp.DiracDelta</code> to construct the function in the time domain. The Heaviside function, <span class="math inline">\(u(t)\)</span>, is particularly useful as it can be used to “switch on” other functions at a specific time.</li>
+<li><strong>Compute Laplace Transform:</strong> Use <code>sp.laplace_transform()</code> to find the corresponding function <span class="math inline">\(F(s)\)</span> in the s-domain.</li>
+<li><strong>Visualize:</strong> Create plots of both the original function <span class="math inline">\(f(t)\)</span> and its transform <span class="math inline">\(F(s)\)</span> to understand the relationship between the two domains.</li>
+</ol>
+<hr>
+</section>
+<section id="case-study-the-unit-step-function" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="case-study-the-unit-step-function"><span class="header-section-number">5.2.4</span> Case Study: The Unit Step Function</h3>
+<p><strong>Problem:</strong> Evaluate the Laplace transform of the Heaviside unit step function, <span class="math inline">\(f(t) = u(t)\)</span>, and visualize it. The unit step function is formally defined as: <span class="math display">\[
+f(t) = \begin{cases} 0 &amp; \text{if } t &lt; 0 \\ 1 &amp; \text{if } t \ge 0 \end{cases}
+\]</span> This function represents an input that is turned on to a value of 1 at <span class="math inline">\(t=0\)</span> and stays on forever.</p>
+<div id="cell-fig-heaviside" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. &amp; 2. Define symbolic variables ---</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>t, s <span class="op">=</span> sp.symbols(<span class="st">'t s'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Define piecewise function (Heaviside step function) ---</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># SymPy has a built-in Heaviside function which is more robust</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> sp.Heaviside(t)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. Compute Laplace transform ---</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The result is a tuple (transform, convergence plane, conditions)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>F_tuple <span class="op">=</span> sp.laplace_transform(f, t, s)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>F <span class="op">=</span> F_tuple[<span class="dv">0</span>]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The Laplace Transform of </span><span class="sc">{</span>f<span class="sc">}</span><span class="ss"> is F(s) = </span><span class="sc">{</span>F<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 5. Visualize ---</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert symbolic functions to numerical functions for plotting</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>f_numeric <span class="op">=</span> sp.lambdify(t, f, <span class="st">'numpy'</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>F_numeric <span class="op">=</span> sp.lambdify(s, F, <span class="st">'numpy'</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create time and frequency arrays for plotting</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>t_vals <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">500</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># For F(s)=1/s, we must avoid s=0 for numerical stability</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>s_vals <span class="op">=</span> np.linspace(<span class="fl">0.1</span>, <span class="dv">5</span>, <span class="dv">500</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Time-domain plot</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>plt.plot(t_vals, f_numeric(t_vals), label<span class="op">=</span><span class="st">'f(t) = Heaviside(t)'</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Time Domain: Unit Step Function"</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time (t)"</span>)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"f(t)"</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency-domain plot</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>plt.plot(s_vals, F_numeric(s_vals), label<span class="op">=</span><span class="st">'F(s) = 1/s'</span>)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"s-Domain: Laplace Transform"</span>)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Frequency (s)"</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"F(s)"</span>)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>The Laplace Transform of Heaviside(t) is F(s) = 1/s</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-heaviside" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heaviside-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-laplace-apps_files/figure-html/fig-heaviside-output-2.png" width="1142" height="470" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heaviside-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.3: The Heaviside unit step function in the time domain and its Laplace Transform.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="result-and-discussion-1" class="level4" data-number="5.2.4.1">
+<h4 data-number="5.2.4.1" class="anchored" data-anchor-id="result-and-discussion-1"><span class="header-section-number">5.2.4.1</span> Result and Discussion</h4>
+<p>The Laplace Transform of the Heaviside unit step function is <span class="math inline">\(F(s)=\frac{1}{s}\)</span>.</p>
+<ul>
+<li><p>Time Domain: The plot shows a function that is zero for <span class="math inline">\(t&lt;0\)</span> and abruptly jumps to 1 at <span class="math inline">\(t=0\)</span>, representing a switch being flipped.</p></li>
+<li><p>Frequency (s-Domain): The transform <span class="math inline">\(\frac{1}{s}\)</span> is a curve that has a very high value for small <span class="math inline">\(s\)</span> (low frequencies) and decreases as <span class="math inline">\(s\)</span> increases. This makes intuitive sense: a step function is dominated by its DC component (zero frequency), so its representation in the frequency domain is strongest near <span class="math inline">\(s=0\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="application-challenge-rl-circuit-response-to-a-voltage-pulse" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="application-challenge-rl-circuit-response-to-a-voltage-pulse"><span class="header-section-number">5.2.5</span> Application Challenge: RL Circuit Response to a Voltage Pulse</h3>
+<p>Instead of an instantaneous impulse, let’s consider a more realistic scenario where a voltage is applied for a fixed duration. This creates a rectangular voltage pulse.</p>
+<section id="your-task" class="level4" data-number="5.2.5.1">
+<h4 data-number="5.2.5.1" class="anchored" data-anchor-id="your-task"><span class="header-section-number">5.2.5.1</span> Your Task</h4>
+<p>Model the same RL circuit (<span class="math inline">\(R=10 \Omega\)</span>, <span class="math inline">\(L=1 H\)</span>) but change the input voltage. The new input, <span class="math inline">\(V_{in}(t)\)</span>, is a <strong>5V pulse that starts at t=1 second and ends at t=3 seconds</strong>. * <strong>Input Voltage:</strong> <span class="math display">\[
+    V_{in}(t) = \begin{cases} 0 &amp; t &lt; 1 \\ 5 &amp; 1 \le t &lt; 3 \\ 0 &amp; t \ge 3 \end{cases}
+    \]</span></p>
+<ul>
+<li><p><strong>Governing Equation:</strong> <span class="math inline">\(L \frac{di(t)}{dt} + R i(t) = V_{in}(t)\)</span></p></li>
+<li><p><strong>Initial Condition:</strong> The circuit starts with zero current, <span class="math inline">\(i(0)=0\)</span>.</p></li>
+</ul>
+<p>Find and visualize the current response <span class="math inline">\(i(t)\)</span>.</p>
+</section>
+<section id="the-challenge" class="level4" data-number="5.2.5.2">
+<h4 data-number="5.2.5.2" class="anchored" data-anchor-id="the-challenge"><span class="header-section-number">5.2.5.2</span> The Challenge</h4>
+<ol type="1">
+<li><p>Represent the rectangular voltage pulse, <span class="math inline">\(V_{in}(t)\)</span>, using a combination of two Heaviside step functions.</p></li>
+<li><p>Set up the differential equation in SymPy with this new input.</p></li>
+<li><p>Use <code>dsolve</code> with the initial condition to find the symbolic solution for the current, <span class="math inline">\(i(t)\)</span>.</p></li>
+<li><p>Plot both the input voltage pulse and the resulting current on the same graph to see the cause-and-effect relationship.</p></li>
+</ol>
+</section>
+<section id="hint" class="level4" data-number="5.2.5.3">
+<h4 data-number="5.2.5.3" class="anchored" data-anchor-id="hint"><span class="header-section-number">5.2.5.3</span> Hint</h4>
+<p>A pulse that turns on at <span class="math inline">\(t=a\)</span> and off at <span class="math inline">\(t=b\)</span> with height <code>H</code> can be constructed as: <span class="math inline">\(f(t) = H \cdot [u(t-a) - u(t-b)]\)</span>. In <code>SymPy</code>, this would be <code>H * (sp.Heaviside(t - a) - sp.Heaviside(t - b))</code>.</p>
+<hr>
+</section>
+</section>
+<section id="solution-to-the-application-challenge" class="level3" data-number="5.2.6">
+<h3 data-number="5.2.6" class="anchored" data-anchor-id="solution-to-the-application-challenge"><span class="header-section-number">5.2.6</span> Solution to the Application Challenge</h3>
+<p>Here is the complete Python implementation and analysis for the RL circuit’s response to the defined voltage pulse.</p>
+<section id="python-implementation-1" class="level4" data-number="5.2.6.1">
+<h4 data-number="5.2.6.1" class="anchored" data-anchor-id="python-implementation-1"><span class="header-section-number">5.2.6.1</span> Python Implementation</h4>
+<div class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Define Symbols, Function, and Parameters ---</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> sp.Symbol(<span class="st">'t'</span>, positive<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> sp.Function(<span class="st">'i'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># System parameters</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>V_amp <span class="op">=</span> <span class="fl">5.0</span> <span class="co"># Amplitude of the voltage pulse</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Define the Pulse Input and the ODE ---</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the rectangular pulse using two Heaviside functions</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>V_in <span class="op">=</span> V_amp <span class="op">*</span> (sp.Heaviside(t <span class="op">-</span> <span class="dv">1</span>) <span class="op">-</span> sp.Heaviside(t <span class="op">-</span> <span class="dv">3</span>))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the differential equation</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>ode <span class="op">=</span> L <span class="op">*</span> i(t).diff(t) <span class="op">+</span> R <span class="op">*</span> i(t) <span class="op">-</span> V_in</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve using dsolve with the initial condition i(0)=0</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>solution <span class="op">=</span> sp.dsolve(ode, ics<span class="op">=</span>{i(<span class="dv">0</span>): <span class="dv">0</span>})</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the symbolic solution</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The symbolic solution for the current i(t) is:"</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>display(solution)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>i_t <span class="op">=</span> solution.rhs</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Visualize the Solution and the Input ---</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Create numerical functions for plotting</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>i_func <span class="op">=</span> sp.lambdify(t, i_t, <span class="st">'numpy'</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>V_func <span class="op">=</span> sp.lambdify(t, V_in, <span class="st">'numpy'</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>t_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">1000</span>) <span class="co"># Plot for 5 seconds to see the full decay</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>i_vals <span class="op">=</span> [i_func(t_val) <span class="cf">for</span> t_val <span class="kw">in</span> t_vals]</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>V_vals <span class="op">=</span> V_func(t_vals)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the current (left y-axis)</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>color <span class="op">=</span> <span class="st">'tab:blue'</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Time (t) [s]'</span>)</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Current i(t) [A]'</span>, color<span class="op">=</span>color)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>ax1.plot(t_vals, i_vals, color<span class="op">=</span>color, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Current i(t)'</span>)</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>ax1.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span>color)</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>ax1.grid(<span class="va">True</span>)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a second y-axis for the voltage</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>color <span class="op">=</span> <span class="st">'tab:red'</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Voltage V_in(t) [V]'</span>, color<span class="op">=</span>color)</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>ax2.plot(t_vals, V_vals, color<span class="op">=</span>color, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Input Voltage V(t)'</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span>color)</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>ax2.set_ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="dv">6</span>) <span class="co"># Set voltage limits for clarity</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'RL Circuit Response to a Voltage Pulse'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine legends from both axes</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>lines, labels <span class="op">=</span> ax1.get_legend_handles_labels()</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>lines2, labels2 <span class="op">=</span> ax2.get_legend_handles_labels()</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>ax2.legend(lines <span class="op">+</span> lines2, labels <span class="op">+</span> labels2, loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>fig.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.96</span>])</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>The symbolic solution for the current i(t) is:</code></pre>
+</div>
+<div id="fig-pulse-response" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pulse-response-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fig-pulse-response-1" class="cell-output cell-output-display cell-output-markdown quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-pulse-response-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><span class="math inline">\(\displaystyle i{\left(t \right)} = 0\)</span></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pulse-response-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Current response of an RL circuit to a rectangular voltage pulse.
+</figcaption>
+</figure>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-pulse-response-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="569" width="950">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-pulse-response-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-laplace-apps_files/figure-html/fig-pulse-response-output-3.png" id="fig-pulse-response-2" data-ref-parent="fig-pulse-response" width="950" height="569" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pulse-response-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-pulse-response-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.4
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="results-and-discussion-1" class="level4" data-number="5.2.6.2">
+<h4 data-number="5.2.6.2" class="anchored" data-anchor-id="results-and-discussion-1"><span class="header-section-number">5.2.6.2</span> Results and Discussion</h4>
+<ul>
+<li><p>Symbolic Solution: The solution provided by <code>SymPy</code> is a piecewise function. This is the correct mathematical representation, as the behavior of the current is described by different equations during different time intervals, corresponding to when the voltage is off, on, and off again.</p></li>
+<li><p>Visual Analysis &amp; Physical Interpretation: The plot clearly shows three distinct phases of behavior: Phase 1 (<span class="math inline">\(0 \leq t &lt; 1\)</span>): The input voltage is zero. The circuit is at rest, and the current <span class="math inline">\(i(t)\)</span> remains zero, satisfying the initial condition.</p></li>
+<li><p>Phase 2 (<span class="math inline">\(1 \leq t &lt; 3\)</span>): The 5V pulse is applied. The current begins to rise exponentially, following the characteristic charging curve of an RL circuit. It aims for a steady-state value of <span class="math inline">\(I
+_{max} =\frac{V}{R}=5V/10\Omega =0.5A\)</span>. However, the voltage is turned off before it can reach this steady state.</p></li>
+<li><p>Phase 3 (<span class="math inline">\(t \geq 3\)</span>): The input voltage drops back to zero. The inductor, which had stored energy in its magnetic field, now acts as a temporary source. It forces the current to continue flowing, but with the circuit now closed and the external source gone, the current decays exponentially as the stored energy is dissipated by the resistor.</p></li>
+<li><p>Engineering Significance: This simulation is extremely practical. It models how a digital logic signal (a pulse) affects an inductive load like a relay or motor winding. The solution shows that the current doesn’t instantaneously follow the voltage; there is a lag due to the inductor’s opposition to a change in current. It also demonstrates that even after the input signal is removed, a current can persist for a short time, a crucial consideration for timing in high-speed circuits. The use of Heaviside functions provides a powerful and elegant way to model and analyze these common switching phenomena.</p></li>
+</ul>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -627,8 +1260,8 @@ ul.task-list li input[type="checkbox"] {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-optimization.html" class="pagination-link" aria-label="Chapter 5">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chapter 5</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05-optimization.html" class="pagination-link" aria-label="Lab Session 5: Optimization Methods in Engineering">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab Session 5: Optimization Methods in Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -644,7 +1277,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/your-repo">
+    <a class="nav-link" href="https://github.com/sijuswamyresearch/PDE-T-and-OT">
       <i class="bi bi-github" role="img">
 </i> 
     </a>

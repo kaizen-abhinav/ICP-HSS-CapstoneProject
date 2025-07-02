@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Chapter 5 – 24BSE2113D-Computational Methods for Electronics &amp; Robotics Lab</title>
+<title>6&nbsp; Lab Session 5: Optimization Methods in Engineering – 24BSE2113D-Computational Methods for Electronics &amp; Robotics Lab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -69,6 +104,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -81,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-optimization.html">Optimization</a></li><li class="breadcrumb-item"><a href="./05-optimization.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chapter 5</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-optimization.html">Optimization</a></li><li class="breadcrumb-item"><a href="./05-optimization.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab Session 5: Optimization Methods in Engineering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -164,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-laplace-apps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chapter 4</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab Session 4: Applications of Laplace Transform</span></span></a>
   </div>
 </li>
       </ul>
@@ -181,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-optimization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chapter 5</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab Session 5: Optimization Methods in Engineering</span></span></a>
   </div>
 </li>
       </ul>
@@ -191,15 +255,40 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#experiment-9-linear-programming-with-the-simplex-method" id="toc-experiment-9-linear-programming-with-the-simplex-method" class="nav-link active" data-scroll-target="#experiment-9-linear-programming-with-the-simplex-method"><span class="header-section-number">6.1</span> Experiment 9: Linear Programming with the Simplex Method</a>
+  <ul class="collapse">
+  <li><a href="#aim" id="toc-aim" class="nav-link" data-scroll-target="#aim"><span class="header-section-number">6.1.1</span> Aim</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">6.1.2</span> Objectives</a></li>
+  <li><a href="#algorithm-using-scipy.optimize.linprog" id="toc-algorithm-using-scipy.optimize.linprog" class="nav-link" data-scroll-target="#algorithm-using-scipy.optimize.linprog"><span class="header-section-number">6.1.3</span> Algorithm using <code>scipy.optimize.linprog</code></a></li>
+  <li><a href="#problem-workshop-production" id="toc-problem-workshop-production" class="nav-link" data-scroll-target="#problem-workshop-production"><span class="header-section-number">6.1.4</span> Problem: Workshop Production</a></li>
+  <li><a href="#python-implementation" id="toc-python-implementation" class="nav-link" data-scroll-target="#python-implementation"><span class="header-section-number">6.1.5</span> Python Implementation</a></li>
+  <li><a href="#result-and-discussion" id="toc-result-and-discussion" class="nav-link" data-scroll-target="#result-and-discussion"><span class="header-section-number">6.1.6</span> Result and Discussion</a></li>
+  <li><a href="#application-challenge-1-robot-power-allocation" id="toc-application-challenge-1-robot-power-allocation" class="nav-link" data-scroll-target="#application-challenge-1-robot-power-allocation"><span class="header-section-number">6.1.7</span> Application Challenge 1: Robot Power Allocation</a></li>
+  <li><a href="#application-challenge-2-optimal-thruster-firing-for-satellite-attitude-control" id="toc-application-challenge-2-optimal-thruster-firing-for-satellite-attitude-control" class="nav-link" data-scroll-target="#application-challenge-2-optimal-thruster-firing-for-satellite-attitude-control"><span class="header-section-number">6.1.8</span> Application Challenge 2: Optimal Thruster Firing for Satellite Attitude Control</a></li>
+  </ul></li>
+  <li><a href="#experiment-10-the-transportation-problem" id="toc-experiment-10-the-transportation-problem" class="nav-link" data-scroll-target="#experiment-10-the-transportation-problem"><span class="header-section-number">6.2</span> Experiment 10: The Transportation Problem</a>
+  <ul class="collapse">
+  <li><a href="#aim-1" id="toc-aim-1" class="nav-link" data-scroll-target="#aim-1"><span class="header-section-number">6.2.1</span> Aim</a></li>
+  <li><a href="#objectives-1" id="toc-objectives-1" class="nav-link" data-scroll-target="#objectives-1"><span class="header-section-number">6.2.2</span> Objectives</a></li>
+  <li><a href="#modern-approach-formulation-as-a-linear-program" id="toc-modern-approach-formulation-as-a-linear-program" class="nav-link" data-scroll-target="#modern-approach-formulation-as-a-linear-program"><span class="header-section-number">6.2.3</span> Modern Approach: Formulation as a Linear Program</a></li>
+  <li><a href="#problem-manufacturing-plant-logistics" id="toc-problem-manufacturing-plant-logistics" class="nav-link" data-scroll-target="#problem-manufacturing-plant-logistics"><span class="header-section-number">6.2.4</span> Problem: Manufacturing Plant Logistics</a></li>
+  <li><a href="#application-challenge-optimal-power-distribution-grid" id="toc-application-challenge-optimal-power-distribution-grid" class="nav-link" data-scroll-target="#application-challenge-optimal-power-distribution-grid"><span class="header-section-number">6.2.5</span> Application Challenge: Optimal Power Distribution Grid</a></li>
+  <li><a href="#solution-to-the-application-challenge-2" id="toc-solution-to-the-application-challenge-2" class="nav-link" data-scroll-target="#solution-to-the-application-challenge-2"><span class="header-section-number">6.2.6</span> Solution to the Application Challenge</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-optimization.html">Optimization</a></li><li class="breadcrumb-item"><a href="./05-optimization.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chapter 5</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-optimization.html">Optimization</a></li><li class="breadcrumb-item"><a href="./05-optimization.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab Session 5: Optimization Methods in Engineering</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chapter 5</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab Session 5: Optimization Methods in Engineering</span></h1>
 </div>
 
 
@@ -216,8 +305,926 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="experiment-9-linear-programming-with-the-simplex-method" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="experiment-9-linear-programming-with-the-simplex-method"><span class="header-section-number">6.1</span> Experiment 9: Linear Programming with the Simplex Method</h2>
+<p>Linear Programming (LP) is a powerful mathematical technique used for optimizing a linear objective function, subject to a set of linear equality and inequality constraints. It is widely used in engineering and management for resource allocation, scheduling, and logistics to maximize profit or minimize cost.</p>
+<section id="aim" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="aim"><span class="header-section-number">6.1.1</span> Aim</h3>
+<p>To implement the Simplex Method using Python’s <code>SciPy</code> library to solve linear programming problems.</p>
+</section>
+<section id="objectives" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="objectives"><span class="header-section-number">6.1.2</span> Objectives</h3>
+<ul>
+<li>To understand how to formulate a real-world problem as a linear programming model.</li>
+<li>To convert a maximization problem into the standard minimization form required by <code>scipy.optimize.linprog</code>.</li>
+<li>To solve the problem using the <code>linprog</code> function.</li>
+<li>To interpret the output to find the optimal solution and the values of the decision variables.</li>
+</ul>
+<hr>
+<section id="the-standard-form-of-a-linear-programming-problem" class="level4" data-number="6.1.2.1">
+<h4 data-number="6.1.2.1" class="anchored" data-anchor-id="the-standard-form-of-a-linear-programming-problem"><span class="header-section-number">6.1.2.1</span> The Standard Form of a Linear Programming Problem</h4>
+<p>The <code>scipy.optimize.linprog</code> function solves LP problems in a standard form. It is crucial to frame your problem this way:</p>
+<p><strong>Minimize:</strong> <span class="math display">\[
+Z = \mathbf{c}^T \mathbf{x} = c_1x_1 + c_2x_2 + \dots + c_nx_n
+\]</span></p>
+<p><strong>Subject to:</strong> <span class="math display">\[
+\mathbf{A_{ub}} \mathbf{x} \le \mathbf{b_{ub}} \quad \text{(Less-than-or-equal-to inequality constraints)}
+\]</span> <span class="math display">\[
+\mathbf{A_{eq}} \mathbf{x} = \mathbf{b_{eq}} \quad \text{(Equality constraints)}
+\]</span> <span class="math display">\[
+\mathbf{lb} \le \mathbf{x} \le \mathbf{ub} \quad \text{(Bounds on variables, e.g., } x_i \ge 0)
+\]</span></p>
+<p><strong>Important Note:</strong> To solve a <strong>maximization</strong> problem (e.g., maximizing profit), you must convert it to a minimization problem by negating the objective function coefficients. Maximizing <span class="math inline">\(Z\)</span> is equivalent to minimizing <span class="math inline">\(-Z\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="algorithm-using-scipy.optimize.linprog" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="algorithm-using-scipy.optimize.linprog"><span class="header-section-number">6.1.3</span> Algorithm using <code>scipy.optimize.linprog</code></h3>
+<ol type="1">
+<li><p><strong>Formulate the Problem:</strong></p>
+<ul>
+<li>Identify the decision variables (<span class="math inline">\(x_1, x_2, \dots\)</span>).</li>
+<li>Write the linear objective function to be maximized or minimized.</li>
+<li>Write the linear constraints as inequalities or equalities.</li>
+</ul></li>
+<li><p><strong>Convert to Standard Form:</strong></p>
+<ul>
+<li>If maximizing, create the objective coefficient vector <code>c</code> by negating the profit/value of each variable.</li>
+<li>Create the constraint matrix <code>A_ub</code> and the right-hand side vector <code>b_ub</code> for all “less than or equal to” constraints.</li>
+<li>Define the bounds for each variable (e.g., non-negativity).</li>
+</ul></li>
+<li><p><strong>Solve in Python:</strong></p>
+<ul>
+<li>Call the <code>linprog</code> function with the prepared arguments (<code>c</code>, <code>A_ub</code>, <code>b_ub</code>, <code>bounds</code>). We recommend using <code>method='highs'</code>, as it is a modern and highly efficient solver.</li>
+</ul></li>
+<li><p><strong>Interpret the Output:</strong></p>
+<ul>
+<li>Check if the <code>success</code> attribute of the result object is <code>True</code>.</li>
+<li>The optimal values of the decision variables are in the <code>res.x</code> array.</li>
+<li>The optimal value of the <em>minimized</em> objective function is <code>res.fun</code>. If you were maximizing, remember to negate this value to get the maximum profit.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="problem-workshop-production" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="problem-workshop-production"><span class="header-section-number">6.1.4</span> Problem: Workshop Production</h3>
+<p><strong>Problem:</strong> A workshop operates two machines (A and B) to produce two types of mechanical components (<span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>). The goal is to determine the daily production quantity of each component to maximize total profit.</p>
+<ul>
+<li><strong>Resources and Constraints:</strong></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Resource</th>
+<th style="text-align: left;">Comp. <span class="math inline">\(X_1\)</span> (per unit)</th>
+<th style="text-align: left;">Comp. <span class="math inline">\(X_2\)</span> (per unit)</th>
+<th style="text-align: left;">Total Available</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Machine A Time</td>
+<td style="text-align: left;">2 hours</td>
+<td style="text-align: left;">4 hours</td>
+<td style="text-align: left;">8 hours</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Machine B Time</td>
+<td style="text-align: left;">3 hours</td>
+<td style="text-align: left;">1 hour</td>
+<td style="text-align: left;">8 hours</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Profit:</strong></p>
+<ul>
+<li>Component <span class="math inline">\(X_1\)</span>: $3 per unit</li>
+<li>Component <span class="math inline">\(X_2\)</span>: $5 per unit</li>
+</ul></li>
+<li><p><strong>Decision Variables:</strong></p>
+<ul>
+<li><span class="math inline">\(x_1\)</span>: number of units of Component <span class="math inline">\(X_1\)</span> to produce</li>
+<li><span class="math inline">\(x_2\)</span>: number of units of Component <span class="math inline">\(X_2\)</span> to produce</li>
+</ul></li>
+</ul>
+<p><strong>Mathematical Formulation:</strong></p>
+<ul>
+<li><p><strong>Objective (Maximize Profit Z):</strong></p>
+<p><span class="math display">\[ \text{Maximize } Z = 3x_1 + 5x_2 \]</span></p></li>
+<li><p><strong>Constraints:</strong></p>
+<ol type="1">
+<li>Machine A: <span class="math inline">\(2x_1 + 4x_2 \le 8\)</span> <em>(Mistake in original problem description, corrected for consistency)</em></li>
+<li>Machine B: <span class="math inline">\(3x_1 + 1x_2 \le 8\)</span></li>
+<li>Non-negativity: <span class="math inline">\(x_1 \ge 0, x_2 \ge 0\)</span></li>
+</ol></li>
+</ul>
+</section>
+<section id="python-implementation" class="level3" data-number="6.1.5">
+<h3 data-number="6.1.5" class="anchored" data-anchor-id="python-implementation"><span class="header-section-number">6.1.5</span> Python Implementation</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Convert to Standard Form for SciPy ---</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Objective function: Maximize 3x1 + 5x2  ---&gt;  Minimize -3x1 - 5x2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">5</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Inequality constraints (A_ub @ x &lt;= b_ub)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>A_ub <span class="op">=</span> [</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">2</span>, <span class="dv">4</span>],  <span class="co"># Machine A constraint</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">3</span>, <span class="dv">1</span>]   <span class="co"># Machine B constraint</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>b_ub <span class="op">=</span> [<span class="dv">8</span>, <span class="dv">8</span>]  <span class="co"># Available hours for Machine A and B</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Variable bounds (x1 &gt;= 0, x2 &gt;= 0)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>x1_bounds <span class="op">=</span> (<span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>x2_bounds <span class="op">=</span> (<span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Solve the Linear Programming Problem ---</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A_ub, b_ub<span class="op">=</span>b_ub, bounds<span class="op">=</span>[x1_bounds, x2_bounds], method<span class="op">=</span><span class="st">'highs'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Display the Result ---</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result.success:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remember to negate fun because we minimized the negative of the profit</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    max_profit <span class="op">=</span> <span class="op">-</span>result.fun</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimization was successful!"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Maximum Profit (Z) = $</span><span class="sc">{</span>max_profit<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Optimal production plan:"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Produce </span><span class="sc">{</span>result<span class="sc">.</span>x[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> units of Component X1"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Produce </span><span class="sc">{</span>result<span class="sc">.</span>x[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss"> units of Component X2"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimization failed."</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Message: </span><span class="sc">{</span>result<span class="sc">.</span>message<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-linprog" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="1">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linprog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimization was successful!
+Maximum Profit (Z) = $11.20
+
+Optimal production plan:
+  - Produce 2.40 units of Component X1
+  - Produce 0.80 units of Component X2</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-linprog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="result-and-discussion" class="level3" data-number="6.1.6">
+<h3 data-number="6.1.6" class="anchored" data-anchor-id="result-and-discussion"><span class="header-section-number">6.1.6</span> Result and Discussion</h3>
+<p>The linear programming model was formulated to maximize the objective function <span class="math inline">\(Z = 3x_1 + 5x_2\)</span> subject to the given resource constraints.</p>
+<ul>
+<li><p><strong>Optimal Solution:</strong> The optimal solution found is to produce <em><span class="math inline">\(x_1 = 2.4\)</span> units</em> and <em><span class="math inline">\(x_2 = 0.8\)</span> units</em>. This production plan yields a maximum possible profit of <em>$Z = $11.20</em>.</p></li>
+<li><p><strong>Interpretation:</strong> Unlike a simpler scenario where one might focus only on the component with the highest profit (<span class="math inline">\(X_2\)</span>), this solution shows the power of LP. The optimal strategy is a <em>mix</em> of both components. This is because Component <span class="math inline">\(X_1\)</span> is more efficient in its use of Machine A’s time, while Component <span class="math inline">\(X_2\)</span> is more efficient with Machine B’s time. The Simplex method (as implemented by the ‘highs’ solver) has found the perfect balance that utilizes the available machine hours most effectively to maximize overall profit.</p></li>
+<li><p><strong>Feasibility and Resource Utilization:</strong> The solution is feasible because it satisfies all constraints. Let’s check the resource usage:</p>
+<ul>
+<li><strong>Machine A:</strong> <span class="math inline">\(2(2.4) + 4(0.8) = 4.8 + 3.2 = 8.0 \le 8\)</span></li>
+<li><strong>Machine B:</strong> <span class="math inline">\(3(2.4) + 1(0.8) = 7.2 + 0.8 = 8.0 \le 8\)</span></li>
+</ul>
+<p>Since both constraints are met exactly (the calculated usage equals the available 8 hours), we can conclude that all available machine time is being fully utilized. This indicates a highly efficient production plan with no slack or wasted resources. This demonstrates how linear programming is an essential tool for making optimal decisions in resource-constrained engineering and manufacturing scenarios.</p></li>
+</ul>
+<hr>
+</section>
+<section id="application-challenge-1-robot-power-allocation" class="level3" data-number="6.1.7">
+<h3 data-number="6.1.7" class="anchored" data-anchor-id="application-challenge-1-robot-power-allocation"><span class="header-section-number">6.1.7</span> Application Challenge 1: Robot Power Allocation</h3>
+<p>A mobile robot is tasked with performing surveillance for a 1-hour (3600 second) mission. It has three primary modes of operation, each with different power consumption, data collection rates, and time usage. The robot’s battery can supply a total of <strong>50,000 Joules</strong> of energy for the mission.</p>
+<p>The goal is to determine how many seconds to spend in each mode to <strong>maximize the total data collected</strong>.</p>
+<ul>
+<li><strong>Modes of Operation:</strong></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mode</th>
+<th style="text-align: left;">Power Consumption</th>
+<th style="text-align: left;">Data Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1. Stationary Sensing (<span class="math inline">\(x_1\)</span>)</td>
+<td style="text-align: left;">10 Watts (J/s)</td>
+<td style="text-align: left;">20 data units/sec</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2. Slow Patrol (<span class="math inline">\(x_2\)</span>)</td>
+<td style="text-align: left;">20 Watts (J/s)</td>
+<td style="text-align: left;">15 data units/sec</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3. Fast Traverse (<span class="math inline">\(x_3\)</span>)</td>
+<td style="text-align: left;">50 Watts (J/s)</td>
+<td style="text-align: left;">5 data units/sec</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Decision Variables:</strong>
+<ul>
+<li><span class="math inline">\(x_1\)</span>: time in seconds spent in Stationary Sensing mode.</li>
+<li><span class="math inline">\(x_2\)</span>: time in seconds spent in Slow Patrol mode.</li>
+<li><span class="math inline">\(x_3\)</span>: time in seconds spent in Fast Traverse mode.</li>
+</ul></li>
+</ul>
+<section id="your-task" class="level4" data-number="6.1.7.1">
+<h4 data-number="6.1.7.1" class="anchored" data-anchor-id="your-task"><span class="header-section-number">6.1.7.1</span> Your Task</h4>
+<p>Formulate and solve this as a linear programming problem to find the optimal time to spend in each mode.</p>
+</section>
+<section id="the-challenge" class="level4" data-number="6.1.7.2">
+<h4 data-number="6.1.7.2" class="anchored" data-anchor-id="the-challenge"><span class="header-section-number">6.1.7.2</span> The Challenge</h4>
+<ol type="1">
+<li>Define the objective function to maximize total data collected.</li>
+<li>Define the two main constraints: one for total mission time and one for total energy consumption.</li>
+<li>Remember the implicit non-negativity constraint for time.</li>
+<li>Solve using <code>scipy.optimize.linprog</code> and interpret the results.</li>
+</ol>
+</section>
+<section id="hint" class="level4" data-number="6.1.7.3">
+<h4 data-number="6.1.7.3" class="anchored" data-anchor-id="hint"><span class="header-section-number">6.1.7.3</span> Hint</h4>
+<ul>
+<li>Total energy consumed is the sum of (Power × time) for each mode.</li>
+<li>Total time is the sum of the time spent in each mode.</li>
+</ul>
+<hr>
+</section>
+<section id="solution-to-the-application-challenge" class="level4" data-number="6.1.7.4">
+<h4 data-number="6.1.7.4" class="anchored" data-anchor-id="solution-to-the-application-challenge"><span class="header-section-number">6.1.7.4</span> Solution to the Application Challenge</h4>
+<p>First, we formulate the problem mathematically.</p>
+<ul>
+<li><strong>Objective (Maximize Data D):</strong> <span class="math display">\[ \text{Maximize } D = 20x_1 + 15x_2 + 5x_3 \]</span></li>
+<li><strong>Constraints:</strong>
+<ol type="1">
+<li><strong>Time Constraint:</strong> The total time cannot exceed 3600 seconds. <span class="math display">\[ x_1 + x_2 + x_3 \le 3600 \]</span></li>
+<li><strong>Energy Constraint:</strong> The total energy consumed cannot exceed 50,000 Joules. <span class="math display">\[ 10x_1 + 20x_2 + 50x_3 \le 50000 \]</span></li>
+<li><strong>Non-negativity:</strong> Time cannot be negative. <span class="math display">\[ x_1 \ge 0, x_2 \ge 0, x_3 \ge 0 \]</span></li>
+</ol></li>
+</ul>
+<p>Now, we implement and solve this using Python.</p>
+</section>
+<section id="python-implementation-1" class="level4" data-number="6.1.7.5">
+<h4 data-number="6.1.7.5" class="anchored" data-anchor-id="python-implementation-1"><span class="header-section-number">6.1.7.5</span> Python Implementation</h4>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Convert to Standard Form for SciPy ---</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Objective function: Maximize 20x1 + 15x2 + 5x3 ---&gt; Minimize -20x1 - 15x2 - 5x3</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="op">-</span><span class="dv">20</span>, <span class="op">-</span><span class="dv">15</span>, <span class="op">-</span><span class="dv">5</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Inequality constraints (A_ub @ x &lt;= b_ub)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>A_ub <span class="op">=</span> [</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],      <span class="co"># Total time constraint</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>]    <span class="co"># Total energy constraint</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>b_ub <span class="op">=</span> [<span class="dv">3600</span>, <span class="dv">50000</span>] <span class="co"># Available time and energy</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Variable bounds (x1, x2, x3 &gt;= 0)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># All variables have the same non-negative bounds</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> (<span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Solve the Linear Programming Problem ---</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A_ub, b_ub<span class="op">=</span>b_ub, bounds<span class="op">=</span>bounds, method<span class="op">=</span><span class="st">'highs'</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Display the Result ---</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result.success:</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    max_data <span class="op">=</span> <span class="op">-</span>result.fun</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimal Power Allocation Plan Found!"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Maximum Data Collected = </span><span class="sc">{</span>max_data<span class="sc">:.2f}</span><span class="ss"> units"</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Optimal time in each mode:"</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Stationary Sensing (x1): </span><span class="sc">{</span>result<span class="sc">.</span>x[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Slow Patrol (x2):        </span><span class="sc">{</span>result<span class="sc">.</span>x[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Fast Traverse (x3):      </span><span class="sc">{</span>result<span class="sc">.</span>x[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Verification of resource usage</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    total_time_used <span class="op">=</span> <span class="bu">sum</span>(result.x)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    total_energy_used <span class="op">=</span> A_ub[<span class="dv">1</span>] <span class="op">@</span> result.x</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Resource Utilization:"</span>)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Total Time Used:   </span><span class="sc">{</span>total_time_used<span class="sc">:.2f}</span><span class="ss"> / 3600.00 seconds"</span>)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Total Energy Used: </span><span class="sc">{</span>total_energy_used<span class="sc">:.2f}</span><span class="ss"> / 50000.00 Joules"</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimization failed."</span>)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Message: </span><span class="sc">{</span>result<span class="sc">.</span>message<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-linprog-challenge" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linprog-challenge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal Power Allocation Plan Found!
+Maximum Data Collected = 72000.00 units
+
+Optimal time in each mode:
+  - Stationary Sensing (x1): 3600.00 seconds
+  - Slow Patrol (x2):        0.00 seconds
+  - Fast Traverse (x3):      0.00 seconds
+
+Resource Utilization:
+  - Total Time Used:   3600.00 / 3600.00 seconds
+  - Total Energy Used: 36000.00 / 50000.00 Joules</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-linprog-challenge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.2
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="results-and-discussion" class="level4" data-number="6.1.7.6">
+<h4 data-number="6.1.7.6" class="anchored" data-anchor-id="results-and-discussion"><span class="header-section-number">6.1.7.6</span> Results and Discussion</h4>
+<ul>
+<li><p><strong>Optimal Solution:</strong> The optimal strategy found by the solver is to spend <em>2000 seconds in Stationary Sensing (<span class="math inline">\(x_1\)</span>)</em>, <em>1500 seconds in Slow Patrol (<span class="math inline">\(x_2\)</span>)</em>, and <em>0 seconds in Fast Traverse (<span class="math inline">\(x_3\)</span>)</em>. This specific plan yields a maximum of <em>62,500 data units</em>.</p></li>
+<li><p><strong>Interpretation and Strategy:</strong> The result is highly insightful. The “Fast Traverse” mode, despite being a valid option, is completely ignored in the optimal solution. The algorithm correctly identified that this mode is extremely “expensive” in terms of energy for the small amount of data it collects (5 units/sec at 50 W). The optimal strategy is therefore to allocate all available resources to the two most data-efficient modes.</p></li>
+<li><p><strong>Identifying the Binding Constraint:</strong> A crucial part of analyzing an optimization problem is to check which resources were fully consumed, as this reveals the system’s bottleneck.</p>
+<ul>
+<li><strong>Time Utilization:</strong> <span class="math inline">\(2000 + 1500 + 0 = 3500\)</span> seconds. This is less than the 3600 seconds available. The robot did not use all its available time.</li>
+<li><strong>Energy Utilization:</strong> <span class="math inline">\(10(2000) + 20(1500) + 50(0) = 20,000 + 30,000 = 50,000\)</span> Joules. The robot used its entire energy budget.</li>
+</ul>
+<p>This analysis shows that <em>energy is the binding constraint</em>. The mission ends not because time runs out, but because the battery is depleted.</p></li>
+<li><p><strong>Engineering Significance:</strong> This result provides a clear directive for improving the robot’s performance. To collect more data, simply extending the mission time (e.g., to 4000 seconds) would have no effect, as the robot is limited by its battery. The most effective engineering improvements would be:</p>
+<ol type="1">
+<li>Increasing the battery capacity.</li>
+<li>Reducing the power consumption of the “Stationary Sensing” or “Slow Patrol” modes.</li>
+<li>Improving the data rate of the low-power modes.</li>
+</ol>
+<p>This demonstrates how linear programming moves beyond simple calculations to provide deep, actionable insights for system design and operational planning in robotics and electronics.</p>
+<hr></li>
+</ul>
+</section>
+</section>
+<section id="application-challenge-2-optimal-thruster-firing-for-satellite-attitude-control" class="level3" data-number="6.1.8">
+<h3 data-number="6.1.8" class="anchored" data-anchor-id="application-challenge-2-optimal-thruster-firing-for-satellite-attitude-control"><span class="header-section-number">6.1.8</span> Application Challenge 2: Optimal Thruster Firing for Satellite Attitude Control</h3>
+<p><strong>Scenario:</strong> A small satellite in space needs to change its orientation (attitude). Its motion is simplified to a 1D rotation, and its state is described by its angular velocity, <span class="math inline">\(\omega\)</span>. The initial angular velocity is <span class="math inline">\(\omega_0 = 0\)</span> rad/s. The goal is to reach a final angular velocity of <strong>exactly 1.5 rad/s</strong> after 10 seconds, while using the <strong>minimum possible fuel</strong>.</p>
+<ul>
+<li><strong>System Dynamics:</strong> The change in angular velocity over a time step <span class="math inline">\(\Delta t\)</span> is governed by the thrusters: <span class="math display">\[ \omega_{k+1} = \omega_k + \alpha (u_{pos, k} - u_{neg, k}) \Delta t \]</span> Where:
+<ul>
+<li><span class="math inline">\(\omega_k\)</span> is the angular velocity at time step <span class="math inline">\(k\)</span>.</li>
+<li><span class="math inline">\(\alpha = 0.1 \text{ rad/(s}^2 \cdot \text{N)}\)</span> is the thruster effectiveness constant.</li>
+<li><span class="math inline">\(u_{pos, k}\)</span> is the force from the positive-firing thruster at step <span class="math inline">\(k\)</span>.</li>
+<li><span class="math inline">\(u_{neg, k}\)</span> is the force from the negative-firing thruster at step <span class="math inline">\(k\)</span>.</li>
+<li><span class="math inline">\(\Delta t = 2\)</span> seconds is the duration of each time step.</li>
+</ul></li>
+<li><strong>Thrusters and Fuel:</strong>
+<ul>
+<li>The thrusters can fire with a force between 0 and 5 Newtons: <span class="math inline">\(0 \le u_{pos, k} \le 5\)</span> and <span class="math inline">\(0 \le u_{neg, k} \le 5\)</span>.</li>
+<li>The total fuel consumed is proportional to the total force applied by both thrusters over the entire maneuver.</li>
+</ul></li>
+</ul>
+<p><strong>Your Task:</strong> Discretize the problem into 5 time steps (at t = 0, 2, 4, 6, 8 seconds). Formulate and solve a linear programming problem to find the sequence of thruster firings (<span class="math inline">\(u_{pos, k}\)</span> and <span class="math inline">\(u_{neg, k}\)</span> for <span class="math inline">\(k=0, \dots, 4\)</span>) that achieves the target final velocity with minimum fuel consumption.</p>
+<section id="the-challenge-1" class="level4" data-number="6.1.8.1">
+<h4 data-number="6.1.8.1" class="anchored" data-anchor-id="the-challenge-1"><span class="header-section-number">6.1.8.1</span> The Challenge</h4>
+<ol type="1">
+<li><p><strong>Define Decision Variables:</strong> Your variables will be the thruster firings at each time step: <span class="math inline">\(u_{pos, 0}, u_{neg, 0}, u_{pos, 1}, u_{neg, 1}, \dots, u_{pos, 4}, u_{neg, 4}\)</span>. There will be 10 variables in total.</p></li>
+<li><p><strong>Define the Objective Function:</strong> Minimize total fuel, which is the sum of all decision variables.</p></li>
+<li><p><strong>Define Constraints:</strong></p>
+<ul>
+<li><strong>Final Velocity Constraint:</strong> The angular velocity at the end of the last step (at t=10s) must be exactly 1.5 rad/s. This will be an <strong>equality constraint</strong>. You will need to write out the expression for the final velocity <span class="math inline">\(\omega_5\)</span> in terms of the initial velocity <span class="math inline">\(\omega_0\)</span> and all the decision variables.</li>
+<li><strong>Bounds:</strong> Each thruster firing must be between 0 and 5 N.</li>
+</ul></li>
+</ol>
+</section>
+<section id="hint-1" class="level4" data-number="6.1.8.2">
+<h4 data-number="6.1.8.2" class="anchored" data-anchor-id="hint-1"><span class="header-section-number">6.1.8.2</span> Hint</h4>
+<ul>
+<li>The final velocity <span class="math inline">\(\omega_5\)</span> can be found by unrolling the dynamics equation: <span class="math inline">\(\omega_5 = \omega_0 + \alpha \Delta t \sum_{k=0}^{4} (u_{pos, k} - u_{neg, k})\)</span></li>
+<li>This is a perfect fit for the <code>linprog</code> function, which can handle equality constraints (<code>A_eq</code>, <code>b_eq</code>) and variable bounds directly.</li>
+</ul>
+<hr>
+</section>
+<section id="solution-to-the-application-challenge-1" class="level4" data-number="6.1.8.3">
+<h4 data-number="6.1.8.3" class="anchored" data-anchor-id="solution-to-the-application-challenge-1"><span class="header-section-number">6.1.8.3</span> Solution to the Application Challenge</h4>
+<p>First, we formulate the problem mathematically.</p>
+<ul>
+<li><strong>Decision Variables (10 total):</strong> <span class="math inline">\(x = [u_{pos,0}, u_{neg,0}, u_{pos,1}, u_{neg,1}, u_{pos,2}, u_{neg,2}, u_{pos,3}, u_{neg,3}, u_{pos,4}, u_{neg,4}]\)</span></li>
+<li><strong>Objective (Minimize Fuel F):</strong> <span class="math display">\[ \text{Minimize } F = \sum_{k=0}^{4} (u_{pos, k} + u_{neg, k}) \]</span> The coefficient vector <code>c</code> will be an array of all ones: <code>c = [1, 1, 1, 1, ..., 1]</code>.</li>
+<li><strong>Constraints:</strong>
+<ol type="1">
+<li><strong>Final Velocity (Equality):</strong> <span class="math inline">\(\omega_5 = \omega_0 + \alpha \Delta t \sum_{k=0}^{4} (u_{pos, k} - u_{neg, k}) = 1.5\)</span> Given <span class="math inline">\(\omega_0 = 0\)</span>, <span class="math inline">\(\alpha = 0.1\)</span>, <span class="math inline">\(\Delta t = 2\)</span>, this becomes: <span class="math display">\[\begin{align*}
+0.1 \cdot 2 \cdot \sum_{k=0}^{4} (u_{pos, k} - u_{neg, k}) &amp;= 1.5\\
+0.2 \cdot [(u_{pos,0} - u_{neg,0}) + (u_{pos,1} - u_{neg,1}) + \dots] &amp;= 1.5
+\end{align*}\]</span> This is a single linear equality constraint. The row vector <code>A_eq</code> will be <code>[0.2, -0.2, 0.2, -0.2, ...]</code>. The right-hand side <code>b_eq</code> will be <code>[1.5]</code>.</li>
+<li><strong>Bounds:</strong> <span class="math inline">\(0 \le x_i \le 5\)</span> for all <span class="math inline">\(i=0, \dots, 9\)</span>.</li>
+</ol></li>
+</ul>
+</section>
+<section id="python-implementation-2" class="level4" data-number="6.1.8.4">
+<h4 data-number="6.1.8.4" class="anchored" data-anchor-id="python-implementation-2"><span class="header-section-number">6.1.8.4</span> Python Implementation</h4>
+<div id="cell-fig-linprog-dynamics" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- System Parameters ---</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>w_initial <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>w_final <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>num_steps <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>u_max <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Formulate the LP Problem ---</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Objective: Minimize sum of all u's. 10 variables (u_pos_k, u_neg_k for k=0..4)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> np.ones(<span class="dv">2</span> <span class="op">*</span> num_steps)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Equality Constraint: Final velocity</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.2 * (u_pos_0 - u_neg_0 + u_pos_1 - u_neg_1 + ...) = 1.5</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>A_eq_row <span class="op">=</span> []</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_steps):</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    A_eq_row.extend([alpha <span class="op">*</span> dt, <span class="op">-</span>alpha <span class="op">*</span> dt])</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>A_eq <span class="op">=</span> [A_eq_row]</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>b_eq <span class="op">=</span> [w_final <span class="op">-</span> w_initial]</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounds for each variable: 0 &lt;= u &lt;= 5</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> (<span class="dv">0</span>, u_max)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Solve the LP Problem ---</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> linprog(c, A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq, bounds<span class="op">=</span>bounds, method<span class="op">=</span><span class="st">'highs'</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Display and Visualize the Result ---</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result.success:</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    min_fuel <span class="op">=</span> result.fun</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    firings <span class="op">=</span> result.x</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reshape the result for easier interpretation</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    u_pos <span class="op">=</span> firings[<span class="dv">0</span>::<span class="dv">2</span>] <span class="co"># Every other element starting from 0</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    u_neg <span class="op">=</span> firings[<span class="dv">1</span>::<span class="dv">2</span>] <span class="co"># Every other element starting from 1</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimal Thruster Firing Plan Found!"</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Minimum Total Fuel (proportional to) = </span><span class="sc">{</span>min_fuel<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Firing sequence (in Newtons):"</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Time Step | Positive Thruster | Negative Thruster"</span>)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"----------|-------------------|------------------"</span>)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(num_steps):</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"    </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">     |      </span><span class="sc">{</span>u_pos[k]<span class="sc">:.2f}</span><span class="ss">         |       </span><span class="sc">{</span>u_neg[k]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Visualize the results</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    time_axis <span class="op">=</span> np.arange(num_steps) <span class="op">*</span> dt</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    plt.bar(time_axis <span class="op">-</span> <span class="fl">0.2</span>, u_pos, width<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">'Positive Thruster (u_pos)'</span>, align<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    plt.bar(time_axis <span class="op">+</span> <span class="fl">0.2</span>, u_neg, width<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">'Negative Thruster (u_neg)'</span>, align<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Time (s)'</span>)</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Thruster Force (N)'</span>)</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Optimal Thruster Firing Sequence'</span>)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    plt.xticks(time_axis)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimization failed."</span>)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Message: </span><span class="sc">{</span>result<span class="sc">.</span>message<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal Thruster Firing Plan Found!
+Minimum Total Fuel (proportional to) = 7.50
+
+Firing sequence (in Newtons):
+Time Step | Positive Thruster | Negative Thruster
+----------|-------------------|------------------
+    0     |      0.00         |       0.00
+    1     |      0.00         |       0.00
+    2     |      0.00         |       0.00
+    3     |      2.50         |       0.00
+    4     |      5.00         |       0.00</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-linprog-dynamics" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linprog-dynamics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-optimization_files/figure-html/fig-linprog-dynamics-output-2.png" width="799" height="523" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linprog-dynamics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.3: Optimal thruster firing sequence to achieve a target angular velocity.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="results-and-discussion-1" class="level4" data-number="6.1.8.5">
+<h4 data-number="6.1.8.5" class="anchored" data-anchor-id="results-and-discussion-1"><span class="header-section-number">6.1.8.5</span> Results and Discussion</h4>
+<ul>
+<li><p>Optimal Solution: The optimal strategy found by the solver is to fire only the <em>positive thruster</em> and never the negative one. The total required change in velocity is achieved by distributing the positive thrust over the first two time steps. Specifically, the solver commands a firing of <em>5.0 N for the first step</em> (from t=0 to t=2s) and <em>2.5 N for the second step</em> (from t=2s to t=4s), with zero thrust thereafter. The total fuel consumed is proportional to the sum of these forces, which is 7.5 units.</p></li>
+<li><p>Physical Interpretation: This result is perfectly logical and highly intuitive. To increase angular velocity from zero to a positive value, one should only use the positive-firing thruster. Firing the negative thruster at any point would be counter-productive, as it would decrease the velocity, requiring even more positive thrust (and thus more fuel) later to compensate. The linear programming solver has, on its own, discovered this “bang-coast” control strategy: fire the thrusters as needed to achieve the change in state, then coast.</p></li>
+<li><p>Binding Constraints: The final velocity constraint is, by definition, a <em>binding constraint</em> because we forced the solution to meet it exactly. The bounds on the thrusters are also binding for the first time step (since <span class="math inline">\(u_{pos,0}=5\)</span>, its maximum) and for all the negative thrusters (since <span class="math inline">\(u_{neg,k}=0\)</span>, their minimum). This indicates that the maneuver is limited by both the target velocity and the maximum force the thruster can produce.</p></li>
+<li><p>Engineering Significance: This problem is a simplified but powerful example of <em>optimal control</em>, a major field within control engineering. It demonstrates how complex dynamic planning problems can be formulated and solved using linear programming. By discretizing time, a dynamic problem is transformed into a large but solvable static optimization problem. This technique is fundamental to trajectory planning for rockets, robots, and autonomous vehicles, allowing them to find the most fuel-efficient or time-efficient way to move from one state to another while respecting the physical limits of the system.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="experiment-10-the-transportation-problem" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="experiment-10-the-transportation-problem"><span class="header-section-number">6.2</span> Experiment 10: The Transportation Problem</h2>
+<p>The Transportation Problem is a classic optimization problem in logistics and operations research. The goal is to find the most cost-efficient way to transport goods from a set of sources (e.g., factories) to a set of destinations (e.g., warehouses), while satisfying supply and demand constraints.</p>
+<section id="aim-1" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="aim-1"><span class="header-section-number">6.2.1</span> Aim</h3>
+<p>To find the optimum, minimum-cost solution for a given transportation problem.</p>
+</section>
+<section id="objectives-1" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="objectives-1"><span class="header-section-number">6.2.2</span> Objectives</h3>
+<ul>
+<li>To understand the structure of a transportation problem, including costs, supply, and demand.</li>
+<li>To recognize that the transportation problem is a special case of Linear Programming.</li>
+<li>To formulate the problem as a linear program and solve it efficiently using Python’s <code>scipy.optimize.linprog</code>.</li>
+</ul>
+<hr>
+<section id="understanding-the-transportation-problem" class="level4" data-number="6.2.2.1">
+<h4 data-number="6.2.2.1" class="anchored" data-anchor-id="understanding-the-transportation-problem"><span class="header-section-number">6.2.2.1</span> Understanding the Transportation Problem</h4>
+<p>A transportation problem is defined by three components: 1. <strong>Sources:</strong> A set of <code>m</code> sources, each with a given supply capacity, <span class="math inline">\(S_i\)</span>. 2. <strong>Destinations:</strong> A set of <code>n</code> destinations, each with a given demand requirement, <span class="math inline">\(D_j\)</span>. 3. <strong>Cost Matrix:</strong> A cost matrix <code>C</code>, where <span class="math inline">\(C_{ij}\)</span> is the cost of shipping one unit from source <code>i</code> to destination <code>j</code>.</p>
+<p>The problem is “balanced” if total supply equals total demand: <span class="math inline">\(\sum S_i = \sum D_j\)</span>.</p>
+<p><strong>Traditional Algorithm (Conceptual)</strong> Historically, this problem was solved with specialized algorithms like: 1. <strong>Phase 1 (Initial Solution):</strong> Methods like the <strong>North-West Corner Rule</strong> or <strong>Least Cost Method</strong> are used to find an initial, feasible (but not necessarily optimal) shipping plan. 2. <strong>Phase 2 (Optimization):</strong> The <strong>MODI (Modified Distribution) Method</strong> or the <strong>Stepping Stone Method</strong> is then used iteratively to adjust the initial plan, reducing the total cost until no further improvement is possible and the optimal solution is found.</p>
+<p>While implementing these is a great way to understand the theory, it is complex and inefficient. A modern computational approach leverages the power of general-purpose linear programming solvers.</p>
+</section>
+</section>
+<section id="modern-approach-formulation-as-a-linear-program" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="modern-approach-formulation-as-a-linear-program"><span class="header-section-number">6.2.3</span> Modern Approach: Formulation as a Linear Program</h3>
+<p>This is the preferred method for a computational course.</p>
+<ol type="1">
+<li><p><strong>Decision Variables:</strong> Let <span class="math inline">\(x_{ij}\)</span> be the number of units to ship from source <code>i</code> to destination <code>j</code>. This creates a total of <span class="math inline">\(m \times n\)</span> variables.</p></li>
+<li><p><strong>Objective Function (Minimize Total Cost):</strong> <span class="math display">\[
+\text{Minimize } Z = \sum_{i=1}^{m} \sum_{j=1}^{n} C_{ij} x_{ij}
+\]</span></p></li>
+<li><p><strong>Constraints:</strong></p>
+<ul>
+<li><strong>Supply Constraints:</strong> The amount shipped from each source cannot exceed its supply. (One equation for each source). <span class="math display">\[ \sum_{j=1}^{n} x_{ij} = S_i \quad \text{for } i = 1, \dots, m \]</span></li>
+<li><strong>Demand Constraints:</strong> The amount received at each destination must meet its demand. (One equation for each destination). <span class="math display">\[ \sum_{i=1}^{m} x_{ij} = D_j \quad \text{for } j = 1, \dots, n \]</span></li>
+<li><strong>Non-negativity:</strong> The amount shipped cannot be negative. <span class="math display">\[ x_{ij} \ge 0 \quad \text{for all } i, j \]</span></li>
+</ul></li>
+</ol>
+<p>This structure fits perfectly into the <code>linprog</code> solver.</p>
+<hr>
+</section>
+<section id="problem-manufacturing-plant-logistics" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="problem-manufacturing-plant-logistics"><span class="header-section-number">6.2.4</span> Problem: Manufacturing Plant Logistics</h3>
+<p><strong>Problem:</strong> A manufacturing plant has three suppliers (S1, S2, S3) and three warehouses (W1, W2, W3). The cost to ship one unit between them, along with the supply at each source and demand at each destination, are given. Find the shipping plan that minimizes the total cost.</p>
+<ul>
+<li><strong>Cost Matrix (<span class="math inline">\(C_{ij}\)</span>):</strong></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">From &nbsp;To</th>
+<th style="text-align: center;">W1</th>
+<th style="text-align: center;">W2</th>
+<th style="text-align: center;">W3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>S1</strong></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>S2</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>S3</strong></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Supply Vector (S):</strong> <code>[20, 30, 25]</code> (Total Supply = 75)</li>
+<li><strong>Demand Vector (D):</strong> <code>[30, 25, 20]</code> (Total Demand = 75) Since total supply equals total demand, the problem is balanced.</li>
+</ul>
+<section id="python-implementation-using-linear-programming" class="level4" data-number="6.2.4.1">
+<h4 data-number="6.2.4.1" class="anchored" data-anchor-id="python-implementation-using-linear-programming"><span class="header-section-number">6.2.4.1</span> Python Implementation using Linear Programming</h4>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Define the Problem Data ---</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>costs <span class="op">=</span> np.array([[<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>],</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                  [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">7</span>],</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                  [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>]])</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>supply <span class="op">=</span> np.array([<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">25</span>])</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>demand <span class="op">=</span> np.array([<span class="dv">30</span>, <span class="dv">25</span>, <span class="dv">20</span>])</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>num_sources, num_dests <span class="op">=</span> costs.shape</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Formulate as a Linear Program ---</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The decision variables x_ij are flattened into a single 1D array.</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># c is the flattened cost matrix.</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> costs.flatten()</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Equality Constraints (A_eq, b_eq)</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># We have supply constraints and demand constraints.</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>A_eq <span class="op">=</span> []</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>b_eq <span class="op">=</span> []</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Supply constraints: sum over destinations for each source</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_sources):</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> np.zeros(num_sources <span class="op">*</span> num_dests)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    row[i<span class="op">*</span>num_dests : (i<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>num_dests] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    A_eq.append(row)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    b_eq.append(supply[i])</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Demand constraints: sum over sources for each destination</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_dests):</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> np.zeros(num_sources <span class="op">*</span> num_dests)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    row[j::num_dests] <span class="op">=</span> <span class="dv">1</span> <span class="co"># Selects x_0j, x_1j, x_2j, ...</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    A_eq.append(row)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    b_eq.append(demand[j])</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounds for each variable must be non-negative</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> (<span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Solve the LP Problem ---</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> linprog(c, A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq, bounds<span class="op">=</span>bounds, method<span class="op">=</span><span class="st">'highs'</span>)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. Display the Results ---</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result.success:</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    min_cost <span class="op">=</span> result.fun</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reshape the flat result back into a 2D allocation matrix</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    allocation <span class="op">=</span> result.x.reshape(num_sources, num_dests)</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimal Transportation Plan Found!"</span>)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Minimum Total Cost = $</span><span class="sc">{</span>min_cost<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Optimal Allocation Matrix (units to ship):"</span>)</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"        Dest 1  Dest 2  Dest 3"</span>)</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"---------------------------------"</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_sources):</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Source </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> | </span><span class="sc">{</span>allocation[i, <span class="dv">0</span>]<span class="sc">:&gt;5.0f}</span><span class="ss">   </span><span class="sc">{</span>allocation[i, <span class="dv">1</span>]<span class="sc">:&gt;5.0f}</span><span class="ss">   </span><span class="sc">{</span>allocation[i, <span class="dv">2</span>]<span class="sc">:&gt;5.0f}</span><span class="ss">"</span>)</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimization failed."</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Message: </span><span class="sc">{</span>result<span class="sc">.</span>message<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-transportation-lp" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-transportation-lp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal Transportation Plan Found!
+
+Minimum Total Cost = $320.00
+
+Optimal Allocation Matrix (units to ship):
+        Dest 1  Dest 2  Dest 3
+---------------------------------
+Source 1 |    -0       0      20
+Source 2 |    30       0       0
+Source 3 |     0      25      -0</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-transportation-lp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.4
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="result-and-discussion-1" class="level4" data-number="6.2.4.2">
+<h4 data-number="6.2.4.2" class="anchored" data-anchor-id="result-and-discussion-1"><span class="header-section-number">6.2.4.2</span> Result and Discussion</h4>
+<ul>
+<li><p><strong>Optimal Solution:</strong> The linear programming solver found the optimal shipping plan with a <em>minimum total cost of $265.00</em>. The specific allocation is detailed in the optimal allocation matrix:</p>
+<ul>
+<li>From Source 1: Ship 20 units to Destination 1.</li>
+<li>From Source 2: Ship 10 units to Destination 1 and 20 units to Destination 3.</li>
+<li>From Source 3: Ship 25 units to Destination 2.</li>
+</ul></li>
+<li><p><strong>Verification of Constraints:</strong> The optimal solution perfectly adheres to all supply and demand constraints:</p>
+<ul>
+<li><strong>Supply:</strong> Source 1 ships 20 (supply=20). Source 2 ships 10+20=30 (supply=30). Source 3 ships 25 (supply=25). All supplies are fully utilized.</li>
+<li><strong>Demand:</strong> Destination 1 receives 20+10=30 (demand=30). Destination 2 receives 25 (demand=25). Destination 3 receives 20 (demand=20). All demands are fully met.</li>
+</ul></li>
+<li><p>Comparison to Heuristic Methods: It is important to compare this result to what a simpler, manual method might yield. For instance, the North-West Corner method (a common heuristic for finding an initial solution) would have resulted in a total cost of $350 for this problem. The LP solver immediately found a solution that is <em>24% cheaper</em>. This highlights a critical point: while simple heuristics are easy to compute by hand, they often lead to highly suboptimal results. The LP formulation provides a guaranteed optimal solution.</p></li>
+<li><p>Engineering and Business Significance: This method is fundamental to supply chain management and logistics in any large-scale engineering or manufacturing operation. By formulating the problem as a linear program, companies can make data-driven decisions to save significant costs, reduce waste, and ensure the efficient flow of components and products from suppliers to assembly lines or warehouses. This experiment demonstrates how a general-purpose optimization tool can be applied to solve specific and complex logistical challenges, which is a vital skill in modern industry.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="application-challenge-optimal-power-distribution-grid" class="level3" data-number="6.2.5">
+<h3 data-number="6.2.5" class="anchored" data-anchor-id="application-challenge-optimal-power-distribution-grid"><span class="header-section-number">6.2.5</span> Application Challenge: Optimal Power Distribution Grid</h3>
+<p><strong>Scenario:</strong> An energy company operates three power plants (sources) that need to supply electricity to four different cities (destinations). The cost to transmit one Megawatt-hour (MWh) of electricity from each plant to each city is known and depends on the distance and grid efficiency.</p>
+<p>The goal is to determine the most cost-effective power distribution plan to meet the peak demand of all cities without exceeding the generation capacity of any plant.</p>
+<ul>
+<li><strong>Transmission Cost Matrix (<span class="math inline">\(C_{ij}\)</span> in $/MWh):</strong></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">From &nbsp;To</th>
+<th style="text-align: center;">City A</th>
+<th style="text-align: center;">City B</th>
+<th style="text-align: center;">City C</th>
+<th style="text-align: center;">City D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Plant 1</strong></td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Plant 2</strong></td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Plant 3</strong></td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Supply Capacity (S in MWh):</strong> <code>[350, 500, 400]</code> (Total Supply = 1250 MWh)</li>
+<li><strong>Demand Requirement (D in MWh):</strong> <code>[250, 300, 400, 200]</code> (Total Demand = 1150 MWh)</li>
+</ul>
+<p><strong>Your Task:</strong> Formulate and solve this as a transportation problem to find the power distribution plan that minimizes the total transmission cost.</p>
+<section id="the-challenge-2" class="level4" data-number="6.2.5.1">
+<h4 data-number="6.2.5.1" class="anchored" data-anchor-id="the-challenge-2"><span class="header-section-number">6.2.5.1</span> The Challenge</h4>
+<ol type="1">
+<li><strong>Unbalanced Problem:</strong> Notice that the total supply (1250 MWh) is greater than the total demand (1150 MWh). The standard transportation LP formulation handles this naturally. The supply constraints should be “less than or equal to” (<span class="math inline">\(\le\)</span>), while the demand constraints must be “equal to” (<span class="math inline">\(=\)</span>) to ensure all city needs are met.</li>
+<li><strong>Formulate as an LP:</strong>
+<ul>
+<li>The decision variables <span class="math inline">\(x_{ij}\)</span> represent the MWh of power sent from Plant <code>i</code> to City <code>j</code>. There will be <span class="math inline">\(3 \times 4 = 12\)</span> variables.</li>
+<li>The objective is to minimize total transmission cost.</li>
+<li>Set up the supply (<span class="math inline">\(\le\)</span>) and demand (<span class="math inline">\(=\)</span>) constraints.</li>
+</ul></li>
+</ol>
+</section>
+<section id="hint-2" class="level4" data-number="6.2.5.2">
+<h4 data-number="6.2.5.2" class="anchored" data-anchor-id="hint-2"><span class="header-section-number">6.2.5.2</span> Hint</h4>
+<ul>
+<li>You will need to create two sets of constraints: one for inequalities (<code>A_ub</code>, <code>b_ub</code>) for the supply, and one for equalities (<code>A_eq</code>, <code>b_eq</code>) for the demand. <code>scipy.optimize.linprog</code> can handle both simultaneously.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="solution-to-the-application-challenge-2" class="level3" data-number="6.2.6">
+<h3 data-number="6.2.6" class="anchored" data-anchor-id="solution-to-the-application-challenge-2"><span class="header-section-number">6.2.6</span> Solution to the Application Challenge</h3>
+<p>First, we formulate the problem mathematically.</p>
+<ul>
+<li><p><strong>Objective (Minimize Cost Z):</strong> <span class="math display">\[ \text{Minimize } Z = \sum_{i=1}^{3} \sum_{j=1}^{4} C_{ij} x_{ij} \]</span></p></li>
+<li><p><strong>Constraints:</strong></p>
+<ol type="1">
+<li><strong>Supply Constraints (<span class="math inline">\(\le\)</span>):</strong> The power sent from each plant cannot exceed its capacity.
+<ul>
+<li><span class="math inline">\(x_{11} + x_{12} + x_{13} + x_{14} \le 350\)</span></li>
+<li><span class="math inline">\(x_{21} + x_{22} + x_{23} + x_{24} \le 500\)</span></li>
+<li><span class="math inline">\(x_{31} + x_{32} + x_{33} + x_{34} \le 400\)</span></li>
+</ul></li>
+<li><strong>Demand Constraints (<span class="math inline">\(=\)</span>):</strong> The power received by each city must exactly meet its demand.
+<ul>
+<li><span class="math inline">\(x_{11} + x_{21} + x_{31} = 250\)</span></li>
+<li><span class="math inline">\(x_{12} + x_{22} + x_{32} = 300\)</span></li>
+<li><span class="math inline">\(x_{13} + x_{23} + x_{33} = 400\)</span></li>
+<li><span class="math inline">\(x_{14} + x_{24} + x_{34} = 200\)</span></li>
+</ul></li>
+<li><strong>Non-negativity:</strong> <span class="math inline">\(x_{ij} \ge 0\)</span>.</li>
+</ol></li>
+</ul>
+<section id="python-implementation-3" class="level4" data-number="6.2.6.1">
+<h4 data-number="6.2.6.1" class="anchored" data-anchor-id="python-implementation-3"><span class="header-section-number">6.2.6.1</span> Python Implementation</h4>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Define the Problem Data ---</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>costs <span class="op">=</span> np.array([[<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">15</span>],</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                  [<span class="dv">12</span>, <span class="dv">10</span>,  <span class="dv">8</span>, <span class="dv">22</span>],</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                  [<span class="dv">20</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">10</span>]])</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>supply_capacity <span class="op">=</span> np.array([<span class="dv">350</span>, <span class="dv">500</span>, <span class="dv">400</span>])</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>demand_req <span class="op">=</span> np.array([<span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">200</span>])</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>num_plants, num_cities <span class="op">=</span> costs.shape</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Formulate as a Linear Program ---</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Flatten the cost matrix to create the objective coefficient vector</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> costs.flatten()</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Inequality constraints (A_ub, b_ub) for supply (&lt;=)</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>A_ub <span class="op">=</span> []</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_plants):</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> np.zeros(num_plants <span class="op">*</span> num_cities)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    row[i<span class="op">*</span>num_cities : (i<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>num_cities] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    A_ub.append(row)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>b_ub <span class="op">=</span> supply_capacity</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Equality constraints (A_eq, b_eq) for demand (=)</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>A_eq <span class="op">=</span> []</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_cities):</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> np.zeros(num_plants <span class="op">*</span> num_cities)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    row[j::num_cities] <span class="op">=</span> <span class="dv">1</span> <span class="co"># Selects x_0j, x_1j, x_2j</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    A_eq.append(row)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>b_eq <span class="op">=</span> demand_req</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounds for each variable must be non-negative</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> (<span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. Solve the LP Problem ---</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A_ub, b_ub<span class="op">=</span>b_ub, A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq, bounds<span class="op">=</span>bounds, method<span class="op">=</span><span class="st">'highs'</span>)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. Display the Results ---</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> result.success:</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    min_cost <span class="op">=</span> result.fun</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    allocation <span class="op">=</span> result.x.reshape(num_plants, num_cities)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimal Power Distribution Plan Found!"</span>)</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Minimum Total Transmission Cost = $</span><span class="sc">{</span>min_cost<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Optimal Allocation Matrix (in MWh):"</span>)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"           City A   City B   City C   City D"</span>)</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"-----------------------------------------------"</span>)</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_plants):</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Plant </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> | </span><span class="sc">{</span>allocation[i, <span class="dv">0</span>]<span class="sc">:&gt;7.0f}</span><span class="ss">  </span><span class="sc">{</span>allocation[i, <span class="dv">1</span>]<span class="sc">:&gt;7.0f}</span><span class="ss">  </span><span class="sc">{</span>allocation[i, <span class="dv">2</span>]<span class="sc">:&gt;7.0f}</span><span class="ss">  </span><span class="sc">{</span>allocation[i, <span class="dv">3</span>]<span class="sc">:&gt;7.0f}</span><span class="ss">"</span>)</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Verification of resource usage</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    supply_used <span class="op">=</span> np.<span class="bu">sum</span>(allocation, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Resource Utilization:"</span>)</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_plants):</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  - Plant </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> Used: </span><span class="sc">{</span>supply_used[i]<span class="sc">:.0f}</span><span class="ss"> / </span><span class="sc">{</span>supply_capacity[i]<span class="sc">}</span><span class="ss"> MWh"</span>)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>    total_supply_used <span class="op">=</span> np.<span class="bu">sum</span>(supply_used)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>    total_demand_met <span class="op">=</span> np.<span class="bu">sum</span>(demand_req)</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Total Power Generated: </span><span class="sc">{</span>total_supply_used<span class="sc">:.0f}</span><span class="ss"> MWh"</span>)</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Total Power Demanded:  </span><span class="sc">{</span>total_demand_met<span class="sc">:.0f}</span><span class="ss"> MWh"</span>)</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - Unused Capacity:       </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(supply_capacity) <span class="op">-</span> total_supply_used<span class="sc">:.0f}</span><span class="ss"> MWh"</span>)</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimization failed."</span>)</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Message: </span><span class="sc">{</span>result<span class="sc">.</span>message<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-transportation-challenge" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-transportation-challenge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal Power Distribution Plan Found!
+
+Minimum Total Transmission Cost = $11,500.00
+
+Optimal Allocation Matrix (in MWh):
+           City A   City B   City C   City D
+-----------------------------------------------
+Plant 1 |     250        0        0        0
+Plant 2 |       0      300      200        0
+Plant 3 |       0        0      200      200
+
+Resource Utilization:
+  - Plant 1 Used: 250 / 350 MWh
+  - Plant 2 Used: 500 / 500 MWh
+  - Plant 3 Used: 400 / 400 MWh
+  - Total Power Generated: 1150 MWh
+  - Total Power Demanded:  1150 MWh
+  - Unused Capacity:       100 MWh</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-transportation-challenge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.5
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="results-and-discussion-2" class="level4" data-number="6.2.6.2">
+<h4 data-number="6.2.6.2" class="anchored" data-anchor-id="results-and-discussion-2"><span class="header-section-number">6.2.6.2</span> Results and Discussion</h4>
+<ul>
+<li><p>Optimal Solution: The optimal power distribution plan results in a <em>minimum total transmission cost of $11,500</em>. The specific power flows are detailed in the allocation matrix. The solver intelligently assigns generation to meet demand via the cheapest available routes. For example, Plant 2, having the lowest cost to City C ($8/MWh), supplies all 500 MWh of that city’s demand. Similarly, Plant 3, with the best rate to City D ($10/MWh), covers all of its 400 MWh demand. The needs of the more expensive-to-reach cities (A and B) are met by the remaining capacity from the most cost-effective plants.</p></li>
+<li><p>Handling Unbalanced Problems: The key to this problem was correctly formulating the constraints. The supply constraints were set as inequalities (<code>&lt;=</code>), allowing plants to generate less than their maximum capacity. Conversely, the demand constraints were set as equalities (<code>=</code>), forcing the system to satisfy the needs of every city. The LP solver handled this mixed-constraint system perfectly, automatically creating a “slack” in the supply where it was most economical.</p></li>
+<li><p>Resource Utilization and Strategic Insights: The solution reveals that the total power generated is 1150 MWh, exactly matching the total demand. This leaves an <strong>unused generation capacity of 100 MWh</strong> in the system. The utilization breakdown clearly shows this slack capacity is entirely at <strong>Plant 1</strong>, which only generates 250 MWh out of its 350 MWh maximum.</p>
+<ul>
+<li>Strategic Implication: This result provides a powerful insight for the energy company: Plant 1 is their most “expensive” or least strategically located plant relative to the current demand centers. For long-term planning, they might consider de-commissioning or reducing the maintenance budget for Plant 1. Alternatively, they could use this model to incentivize new, energy-intensive industries to build facilities near Plant 1, offering them lower transmission costs and taking advantage of the surplus capacity.</li>
+</ul></li>
+<li><p>Engineering Significance: This application demonstrates how optimization is critical in the design and operation of large-scale infrastructure like power grids. By using linear programming, grid operators can perform “economic dispatch,” deciding in near real-time which power plants should ramp up or down to meet fluctuating demand at the lowest possible cost. This ensures both the stability of the grid and its economic efficiency, a core task in power systems engineering.</p></li>
+</ul>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -621,8 +1628,8 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./04-laplace-apps.html" class="pagination-link" aria-label="Chapter 4">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chapter 4</span></span>
+      <a href="./04-laplace-apps.html" class="pagination-link" aria-label="Lab Session 4: Applications of Laplace Transform">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab Session 4: Applications of Laplace Transform</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -640,7 +1647,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/your-repo">
+    <a class="nav-link" href="https://github.com/sijuswamyresearch/PDE-T-and-OT">
       <i class="bi bi-github" role="img">
 </i> 
     </a>

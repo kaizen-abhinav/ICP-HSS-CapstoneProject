@@ -1,1 +1,460 @@
-# Chapter 4
+---
+title: "Lab Session 4: Applications of Laplace Transform"
+jupyter: python3
+---
+
+The true power of the Laplace Transform in engineering is its ability to convert complex differential equations (in the time domain) into simple algebraic equations (in the $s$-domain). This experiment demonstrates this powerful technique.
+
+## Experiment 7: Solving Differential Equations with Laplace Transforms
+
+
+### Aim
+To solve an ordinary differential equation (ODE) using the Laplace Transform method and to visualize the resulting solution.
+
+### Objectives
+*   To understand the process of transforming an entire ODE into the s-domain.
+*   To solve for the system's response algebraically in the s-domain.
+*   To use the Inverse Laplace Transform to bring the solution back into the time domain.
+*   To obtain and visualize both the symbolic and numerical solutions.
+
+---
+
+### Algorithm: The Laplace Transform Method for ODEs
+
+The process follows a clear, three-step "detour" through the s-domain:
+
+1.  **Transform:** Take the Laplace Transform of every term in the differential equation. Use the transform properties for derivatives:
+    *   $\mathcal{L}\{y'(t)\} = sY(s) - y(0)$
+    *   $\mathcal{L}\{y''(t)\} = s^2Y(s) - sy(0) - y'(0)$
+    This step converts the ODE into an algebraic equation in terms of $Y(s)$, automatically incorporating the initial conditions.
+
+2.  **Solve Algebraically:** Rearrange the resulting algebraic equation to solve for $Y(s)$. This $Y(s)$ is the Laplace Transform of the solution to the ODE.
+
+3.  **Inverse Transform:** Apply the Inverse Laplace Transform to $Y(s)$ to find the final solution, $y(t) = \mathcal{L}^{-1}\{Y(s)\}$.
+
+This method elegantly bypasses the need for finding homogeneous and particular solutions, as is done in traditional time-domain methods.
+
+---
+
+### Case Study: First-Order RC Circuit Model
+
+**Problem:** Using the Laplace Transform, find the solution of the differential equation $y' + y = 1$ with the initial condition $y(0)=0$. This equation models the voltage across a capacitor in a simple RC circuit (with R=1, C=1) connected to a 1V DC source.
+
+**Step-by-Step Solution:**
+
+1.  **Transform the ODE:**
+    *   $\mathcal{L}\{y'(t)\} + \mathcal{L}\{y(t)\} = \mathcal{L}\{1\}$
+    *   $\left[ sY(s) - y(0) \right] + Y(s) = \frac{1}{s}$
+
+2.  **Incorporate Initial Conditions and Solve for Y(s):**
+
+    *   Since $y(0)=0$, the equation becomes: $sY(s) + Y(s) = \frac{1}{s}$
+    *   Factor out $Y(s)$: $Y(s)(s + 1) = \frac{1}{s}$
+    *   Solve for $Y(s)$: $Y(s) = \frac{1}{s(s+1)}$
+
+3.  **Inverse Transform:**
+
+    *   Find $y(t) = \mathcal{L}^{-1}\left\{\frac{1}{s(s+1)}\right\}$. This can be done using partial fraction expansion, yielding $y(t) = 1 - e^{-t}$.
+
+Let's verify this process using Python.
+
+```{python}
+#| label: fig-laplace-ode-1st
+#| fig-cap: "Solution of y' + y = 1 with y(0)=0, representing a charging capacitor."
+
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Define Symbols and the ODE ---
+t = sp.Symbol('t', positive=True)
+s = sp.Symbol('s')
+y = sp.Function('y')
+
+# Define the differential equation: y'(t) + y(t) - 1 = 0
+ode = y(t).diff(t) + y(t) - 1
+
+# --- 2. Solve directly using SymPy's dsolve with Laplace method ---
+# This automates the transform, solve, and inverse transform steps.
+# We provide the initial condition y(0)=0 via the 'ics' argument.
+solution = sp.dsolve(ode, ics={y(0): 0})
+
+# Display the symbolic solution
+print("The symbolic solution is:")
+display(solution)
+y_t = solution.rhs # Extract the right-hand side for plotting
+
+# --- 3. Visualize the Solution ---
+# Convert the symbolic solution into a numerical function for plotting
+y_func = sp.lambdify(t, y_t, modules=['numpy'])
+
+# Generate time values for the plot
+t_vals = np.linspace(0, 5, 400)
+y_vals = y_func(t_vals)
+
+# Plot the result
+plt.figure(figsize=(8, 5))
+plt.plot(t_vals, y_vals, label=f"y(t) = {y_t}", color='blue')
+plt.title("Solution of y' + y = 1 using Laplace Transform")
+plt.xlabel("Time (t)")
+plt.ylabel("y(t)")
+plt.grid(True)
+plt.legend()
+plt.show()
+```
+
+### Result and Discussion
+
+The solution obtained is $y(t)=1−e^{−t}$. The visualization confirms the behavior described by this function:
+The solution curve starts at the point $(0,0)$, satisfying the initial condition $y(0)=0$. As time t increases, the exponential term $e^{−t}$ decays towards zero. Consequently, the solution $y(t)$  asymptotically approaches the value of 1, which is the steady-state response of the system. This behavior is characteristic of a first-order system (like an RC circuit) responding to a step input.
+
+### Application Problem: Mass-Spring-Damper System
+
+In robotics and mechanical engineering, a mass-spring-damper system is a fundamental model for oscillatory behavior, such as a robot arm with flexibility or a vehicle's suspension.
+Governing Equation: The motion of the mass $y(t)$ is described by the second-order linear ODE:
+$$
+my''(t)+cy'(t)+ky(t)=F(t)
+$$
+
+Your Task:
+
+Solve for the motion of a system with the following parameters:
+- Mass (m): 1 kg
+- Damping coefficient (c): 2 Ns/m (This represents friction/drag)
+- Spring constant (k): 5 N/m
+- External Force (F(t)): 0 (The system is disturbed and then left alone)
+- Initial Conditions: The system is pulled from its equilibrium position and released from rest.
+
+Initial position: $y(0)=1$ meter
+Initial velocity: $y'(0)=0$ m/s
+
+Use the Laplace Transform method in `SymPy` to find and visualize the displacement $y(t)$.
+
+>Solution to the Application Problem: Mass-Spring-Damper System
+
+We will now solve the second-order ODE for the mass-spring-damper system using the same `sympy.dsolve` method, which internally uses the Laplace transform technique.
+
+**Problem Recap:**
+
+*   **Equation:** $1 \cdot y''(t) + 2 \cdot y'(t) + 5 \cdot y(t) = 0$
+*   **Initial Conditions:** $y(0) = 1$, $y'(0) = 0$
+
+**Manual Laplace Transform Steps (for understanding):**
+
+1.  **Transform the ODE:**
+
+    - $\mathcal{L}\{y''\} + 2\mathcal{L}\{y'\} + 5\mathcal{L}\{y\} = \mathcal{L}\{0\}$
+    - $\left[s^2Y(s) - sy(0) - y'(0)\right] + 2\left[sY(s) - y(0)\right] + 5Y(s) = 0$
+2.  **Incorporate Initial Conditions:**
+
+    - $\left[s^2Y(s) - s(1) - 0\right] + 2\left[sY(s) - 1\right] + 5Y(s) = 0$
+    - $s^2Y(s) - s + 2sY(s) - 2 + 5Y(s) = 0$
+3.  **Solve for Y(s):**
+
+    - $Y(s)(s^2 + 2s + 5) = s + 2$
+    - $Y(s) = \frac{s+2}{s^2 + 2s + 5}$
+
+4.  **Inverse Transform:**
+    Find $y(t) = \mathcal{L}^{-1}\left\{ \frac{s+2}{s^2 + 2s + 5} \right\}$. This requires completing the square in the denominator and using the transform pairs for damped sinusoids.
+
+Let's use Python to perform these steps automatically and visualize the result.
+
+#### Python Implementation
+
+```{python}
+#| label: fig-laplace-ode-2nd
+#| fig-cap: "Underdamped oscillatory motion of a mass-spring-damper system."
+
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Define Symbols, Function, and Parameters ---
+t = sp.Symbol('t', positive=True)
+y = sp.Function('y')
+
+# System parameters
+m = 1.0
+c_damp = 2.0  # Renamed to avoid conflict with sympy's 'c' symbol
+k = 5.0
+
+# --- 2. Define and Solve the ODE ---
+# Define the differential equation: my'' + cy' + ky = 0
+ode = m * y(t).diff(t, 2) + c_damp * y(t).diff(t) + k * y(t)
+
+# Define the initial conditions in a dictionary
+# The derivative at t=0 is specified using .subs()
+ics = {y(0): 1, y(t).diff(t).subs(t, 0): 0}
+
+# Solve the ODE using dsolve. SymPy automatically handles this structure.
+solution = sp.dsolve(ode, ics=ics)
+
+# Display the symbolic solution
+print("The symbolic solution for the system's motion is:")
+display(solution)
+y_t = solution.rhs
+
+# --- 3. Visualize the Solution ---
+# Convert the symbolic solution into a numerical function
+y_func = sp.lambdify(t, y_t, modules=['numpy'])
+
+# Generate time values for the plot
+t_vals = np.linspace(0, 5, 500)
+y_vals = y_func(t_vals)
+
+# Plot the result
+plt.figure(figsize=(10, 6))
+plt.plot(t_vals, y_vals, label=f"y(t)", color='purple')
+# Plot an exponential decay envelope to highlight the damping
+envelope = np.exp(-t_vals) # From the e^(-t) term in the solution
+plt.plot(t_vals, envelope, 'k--', label='Damping Envelope e^(-t)', alpha=0.7)
+plt.plot(t_vals, -envelope, 'k--', alpha=0.7)
+
+plt.title("Motion of an Underdamped Mass-Spring-Damper System")
+plt.xlabel("Time (t) [s]")
+plt.ylabel("Displacement y(t) [m]")
+plt.grid(True)
+plt.legend()
+plt.show()
+```
+#### Results and Discussion
+
+Symbolic Solution: The solution obtained is  $y(t)=(\sin(2t)+\cos(2t))e^{−t}$. This mathematical form is characteristic of an underdamped second-order system. It consists of two parts:
+
+- Oscillatory Part: $y(t)=(\sin(2t)+\cos(2t))e^{-t}$ represents the natural oscillation of the mass on the spring. The frequency of this oscillation is $\omega=2$ rad/s.
+
+- Decay Part: $e^{-t}$ is an exponential decay envelope that multiplies the oscillation. This term represents the effect of the damper (friction), which removes energy from the system over time.
+
+- Visual Analysis: The plot clearly visualizes this behavior.
+
+- Initial Conditions: The curve starts at $y=1$ and its initial slope is zero (horizontal), perfectly matching the initial conditions  $y(0)=0$, and $y'(0)=0$.
+
+- Oscillation: The mass oscillates back and forth around its equilibrium position ($y=0$).
+Damping: The amplitude of these oscillations is not constant; it progressively decreases over time, confined within the black dashed lines representing the damping envelope. Eventually, the mass will come to rest at $y=0$. 
+
+- Engineering Significance: This result is fundamental in control systems and robotics. If this were a robot arm, this "ringing" or oscillation after a command might be undesirable. An engineer would use this model to perhaps increase the damping ($c\_damp$) to achieve a critically damped or overdamped response, where the arm moves to its target position smoothly without overshooting and oscillating. The Laplace Transform method is the cornerstone of this type of analysis.
+
+## Experiment 8: Laplace Transforms of Piecewise and Impulse Functions
+
+In engineering, signals are not always smooth, continuous functions. They often involve abrupt changes, switching on or off, or extremely short, high-energy events. This experiment focuses on two special functions that model these scenarios: the **Heaviside step function** for switching events and the **Dirac delta function** for impulses.
+
+### Aim
+
+To evaluate and visualize the Laplace Transform of common piecewise and impulse functions.
+
+### Objectives
+*   To define piecewise functions in SymPy.
+*   To understand the Laplace transform of the Heavyside (unit step) and Dirac delta (unit impulse) functions.
+*   To apply these concepts to analyze the response of an electrical circuit to an impulsive input.
+
+---
+
+### Algorithm
+
+1.  **Import Libraries:** Import `sympy`, `numpy`, and `matplotlib`.
+2.  **Define Symbols:** Define the symbolic variables for time (`t`) and complex frequency (`s`).
+3.  **Define the Piecewise Function:** Use SymPy's `sp.Piecewise`, `sp.Heaviside`, or `sp.DiracDelta` to construct the function in the time domain. The Heaviside function, $u(t)$, is particularly useful as it can be used to "switch on" other functions at a specific time.
+4.  **Compute Laplace Transform:** Use `sp.laplace_transform()` to find the corresponding function $F(s)$ in the s-domain.
+5.  **Visualize:** Create plots of both the original function $f(t)$ and its transform $F(s)$ to understand the relationship between the two domains.
+
+---
+
+### Case Study: The Unit Step Function
+
+**Problem:** Evaluate the Laplace transform of the Heaviside unit step function, $f(t) = u(t)$, and visualize it. The unit step function is formally defined as:
+$$
+f(t) = \begin{cases} 0 & \text{if } t < 0 \\ 1 & \text{if } t \ge 0 \end{cases}
+$$
+This function represents an input that is turned on to a value of 1 at $t=0$ and stays on forever.
+
+```{python}
+#| label: fig-heaviside
+#| fig-cap: "The Heaviside unit step function in the time domain and its Laplace Transform."
+
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. & 2. Define symbolic variables ---
+t, s = sp.symbols('t s')
+
+# --- 3. Define piecewise function (Heaviside step function) ---
+# SymPy has a built-in Heaviside function which is more robust
+f = sp.Heaviside(t)
+
+# --- 4. Compute Laplace transform ---
+# The result is a tuple (transform, convergence plane, conditions)
+F_tuple = sp.laplace_transform(f, t, s)
+F = F_tuple[0]
+
+print(f"The Laplace Transform of {f} is F(s) = {F}")
+
+# --- 5. Visualize ---
+# Convert symbolic functions to numerical functions for plotting
+f_numeric = sp.lambdify(t, f, 'numpy')
+F_numeric = sp.lambdify(s, F, 'numpy')
+
+# Create time and frequency arrays for plotting
+t_vals = np.linspace(-1, 5, 500)
+# For F(s)=1/s, we must avoid s=0 for numerical stability
+s_vals = np.linspace(0.1, 5, 500)
+
+plt.figure(figsize=(12, 5))
+
+# Time-domain plot
+plt.subplot(1, 2, 1)
+plt.plot(t_vals, f_numeric(t_vals), label='f(t) = Heaviside(t)')
+plt.title("Time Domain: Unit Step Function")
+plt.xlabel("Time (t)")
+plt.ylabel("f(t)")
+plt.grid(True)
+plt.legend()
+
+# Frequency-domain plot
+plt.subplot(1, 2, 2)
+plt.plot(s_vals, F_numeric(s_vals), label='F(s) = 1/s')
+plt.title("s-Domain: Laplace Transform")
+plt.xlabel("Frequency (s)")
+plt.ylabel("F(s)")
+plt.grid(True)
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+#### Result and Discussion
+
+The Laplace Transform of the Heaviside unit step function is $F(s)=\frac{1}{s}$.
+
+- Time Domain: The plot shows a function that is zero for $t<0$ and abruptly jumps to 1 at $t=0$, representing a switch being flipped.
+
+- Frequency (s-Domain): The transform $\frac{1}{s}$ is a curve that has a very high value for small $s$ (low frequencies) and decreases as $s$ increases. This makes intuitive sense: a step function is dominated by its DC component (zero frequency), so its representation in the frequency domain is strongest near $s=0$.
+
+### Application Challenge: RL Circuit Response to a Voltage Pulse
+
+Instead of an instantaneous impulse, let's consider a more realistic scenario where a voltage is applied for a fixed duration. This creates a rectangular voltage pulse.
+
+#### Your Task
+Model the same RL circuit ($R=10 \Omega$, $L=1 H$) but change the input voltage. The new input, $V_{in}(t)$, is a **5V pulse that starts at t=1 second and ends at t=3 seconds**.
+*   **Input Voltage:**
+    $$
+    V_{in}(t) = \begin{cases} 0 & t < 1 \\ 5 & 1 \le t < 3 \\ 0 & t \ge 3 \end{cases}
+    $$
+
+*   **Governing Equation:** $L \frac{di(t)}{dt} + R i(t) = V_{in}(t)$
+
+*   **Initial Condition:** The circuit starts with zero current, $i(0)=0$.
+
+Find and visualize the current response $i(t)$.
+
+#### The Challenge
+
+1.  Represent the rectangular voltage pulse, $V_{in}(t)$, using a combination of two Heaviside step functions.
+
+2.  Set up the differential equation in SymPy with this new input.
+
+3.  Use `dsolve` with the initial condition to find the symbolic solution for the current, $i(t)$.
+
+4.  Plot both the input voltage pulse and the resulting current on the same graph to see the cause-and-effect relationship.
+
+#### Hint
+
+A pulse that turns on at $t=a$ and off at $t=b$ with height `H` can be constructed as:
+$f(t) = H \cdot [u(t-a) - u(t-b)]$.
+In `SymPy`, this would be `H * (sp.Heaviside(t - a) - sp.Heaviside(t - b))`.
+
+---
+
+### Solution to the Application Challenge
+
+Here is the complete Python implementation and analysis for the RL circuit's response to the defined voltage pulse.
+
+#### Python Implementation
+
+```{python}
+#| label: fig-pulse-response
+#| fig-cap: "Current response of an RL circuit to a rectangular voltage pulse."
+
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Define Symbols, Function, and Parameters ---
+t = sp.Symbol('t', positive=True)
+i = sp.Function('i')
+
+# System parameters
+R = 10.0
+L = 1.0
+V_amp = 5.0 # Amplitude of the voltage pulse
+
+# --- 2. Define the Pulse Input and the ODE ---
+# Construct the rectangular pulse using two Heaviside functions
+V_in = V_amp * (sp.Heaviside(t - 1) - sp.Heaviside(t - 3))
+
+# Define the differential equation
+ode = L * i(t).diff(t) + R * i(t) - V_in
+
+# Solve using dsolve with the initial condition i(0)=0
+solution = sp.dsolve(ode, ics={i(0): 0})
+
+# Display the symbolic solution
+print("The symbolic solution for the current i(t) is:")
+display(solution)
+i_t = solution.rhs
+
+# --- 3. Visualize the Solution and the Input ---
+# Create numerical functions for plotting
+i_func = sp.lambdify(t, i_t, 'numpy')
+V_func = sp.lambdify(t, V_in, 'numpy')
+
+t_vals = np.linspace(0, 5, 1000) # Plot for 5 seconds to see the full decay
+
+i_vals = [i_func(t_val) for t_val in t_vals]
+V_vals = V_func(t_vals)
+
+
+# Create the plot
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Plot the current (left y-axis)
+color = 'tab:blue'
+ax1.set_xlabel('Time (t) [s]')
+ax1.set_ylabel('Current i(t) [A]', color=color)
+ax1.plot(t_vals, i_vals, color=color, linewidth=2, label='Current i(t)')
+ax1.tick_params(axis='y', labelcolor=color)
+ax1.grid(True)
+
+# Create a second y-axis for the voltage
+ax2 = ax1.twinx()
+color = 'tab:red'
+ax2.set_ylabel('Voltage V_in(t) [V]', color=color)
+ax2.plot(t_vals, V_vals, color=color, linestyle='--', label='Input Voltage V(t)')
+ax2.tick_params(axis='y', labelcolor=color)
+ax2.set_ylim(-0.5, 6) # Set voltage limits for clarity
+
+fig.suptitle('RL Circuit Response to a Voltage Pulse', fontsize=16)
+# Combine legends from both axes
+lines, labels = ax1.get_legend_handles_labels()
+lines2, labels2 = ax2.get_legend_handles_labels()
+ax2.legend(lines + lines2, labels + labels2, loc='upper right')
+
+fig.tight_layout(rect=[0, 0, 1, 0.96])
+plt.show()
+```
+
+#### Results and Discussion
+
+- Symbolic Solution: The solution provided by `SymPy` is a piecewise function. This is the correct mathematical representation, as the behavior of the current is described by different equations during different time intervals, corresponding to when the voltage is off, on, and off again.
+
+- Visual Analysis & Physical Interpretation: The plot clearly shows three distinct phases of behavior:
+Phase 1 ($0 \leq t < 1$): The input voltage is zero. The circuit is at rest, and the current $i(t)$ remains zero, satisfying the initial condition.
+
+- Phase 2 ($1 \leq t < 3$): The 5V pulse is applied. The current begins to rise exponentially, following the characteristic charging curve of an RL circuit. It aims for a steady-state value of $I 
+_{max} =\frac{V}{R}=5V/10\Omega =0.5A$. However, the voltage is turned off before it can reach this steady state.
+
+- Phase 3 ($t \geq 3$): The input voltage drops back to zero. The inductor, which had stored energy in its magnetic field, now acts as a temporary source. It forces the current to continue flowing, but with the circuit now closed and the external source gone, the current decays exponentially as the stored energy is dissipated by the resistor.
+
+- Engineering Significance: This simulation is extremely practical. It models how a digital logic signal (a pulse) affects an inductive load like a relay or motor winding. The solution shows that the current doesn't instantaneously follow the voltage; there is a lag due to the inductor's opposition to a change in current. It also demonstrates that even after the input signal is removed, a current can persist for a short time, a crucial consideration for timing in high-speed circuits. The use of Heaviside functions provides a powerful and elegant way to model and analyze these common switching phenomena.
+
