@@ -9,9 +9,11 @@ The true power of the Laplace Transform in engineering is its ability to convert
 
 
 ### Aim
+
 To solve an ordinary differential equation (ODE) using the Laplace Transform method and to visualize the resulting solution.
 
 ### Objectives
+
 *   To understand the process of transforming an entire ODE into the s-domain.
 *   To solve for the system's response algebraically in the s-domain.
 *   To use the Inverse Laplace Transform to bring the solution back into the time domain.

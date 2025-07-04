@@ -3,7 +3,8 @@ project:
   output-dir: docs
 
 book:
-  title: "24BSE2113D-Computational Methods for Electronics & Robotics Lab"
+  title: "24BSE2113D- Partial Differential Equation, Transform and Optimization"
+  description: "Computational Methods for Electronics & Robotics Lab"
   author: "Siju K S"
   date: "today"
   chapters:

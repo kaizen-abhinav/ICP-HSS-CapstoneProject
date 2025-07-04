@@ -1,5 +1,5 @@
 ---
-title: "Lab Session 3: Symbolic operations in Laplace Trandform"
+title: "Lab Session 3: Symbolic operations in Laplace Transform"
 jupyter: python3
 ---
 
