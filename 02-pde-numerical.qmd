@@ -3,6 +3,10 @@ title: "Lab Session 2: Solving First-Order Linear PDEs Using Finite Difference M
 jupyter: python3
 ---
 
+## Theoretical Background
+
+{{< video https://youtu.be/xoNdZMIiTbc?si=tfu1joIpKh8UX2th >}}
+
 
 ## Experiment 2: 1D Wave Equation (The Advection Equation)
 
@@ -204,6 +208,10 @@ plt.show()
 The application simulation successfully models the physical propagation of a stress wave. However, it also serves as a crucial lesson in computational engineering: every numerical method has inherent errors and limitations. The Upwind Method, while stable and simple, introduces significant numerical diffusion that must be considered when interpreting the results.
 
 ----
+
+## ID Heat Equation- Theoretical Background
+
+{{<video https://youtu.be/i8rnEl8O-r0?si=cB82MUHLk7RYTSzi>}}
 
 ## Experiment 3: Solving the 1D Heat Equation
 
@@ -454,6 +462,10 @@ plt.show()
 The overall behavior remains physically consistent, demonstrating the robustness of the FTCS method when its stability condition is respected.
 
 ----
+
+## Second order 1D Wave Equation- Theoretical Background
+
+{{<video https://youtu.be/9TQCKWWAVjM?si=RYfufQo0Jb0NJP4y>}}
 
 ## Experiment 4: The Second-Order 1D Wave Equation
 

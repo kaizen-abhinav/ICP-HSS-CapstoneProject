@@ -4,6 +4,7 @@ project:
 
 book:
   title: "24BSE2113D- Partial Differential Equation, Transform and Optimization"
+  subtitle: "Computational Methods for Electronics & Robotics Lab"
   description: "Computational Methods for Electronics & Robotics Lab"
   author: "Siju K S"
   date: "today"

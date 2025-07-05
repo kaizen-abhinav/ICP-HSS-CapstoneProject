@@ -2,9 +2,23 @@
 
 This interactive lab manual is designed for third-semester B.Tech students in Electronics and Robotics. The goal of this course is to introduce powerful computational techniques for solving common engineering problems using the Python programming language.
 
+## Do you really need to be a successful Robotics Engineer?
+
+{{< video https://youtu.be/KsirntbBt6I?si=aZmd3XI02K_bdOB8>}}
+
+
+
+## How do you approach learning coding in 2025?
+
+
+
+{{< video https://youtu.be/6Lcy2N3YcIs?si=cJ-dzjhydrezE2Yi>}}
+
 ## Why Python?
 
 While MATLAB is a traditional tool in engineering, Python has become the industry standard in modern robotics, machine learning, and data science. By learning Python, you are acquiring a versatile skill that is highly sought after in today's tech landscape. It's free, open-source, and has a vast ecosystem of libraries that we will leverage throughout this course.
+
+{{<video https://youtu.be/uDwyzIUjTFU?si=IN3rPeNjIFu40R-J>}}
 
 ## Software Setup
 
