@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Computational Methods for Electronics &amp; Robotics Lab">
 
-<title>capstone-project-2</title>
+<title>8&nbsp; Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R. – 24BSE2113D- Partial Differential Equation, Transform and Optimization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,17 +24,51 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="07-capstone-project-2_files/libs/clipboard/clipboard.min.js"></script>
-<script src="07-capstone-project-2_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="07-capstone-project-2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="07-capstone-project-2_files/libs/quarto-html/popper.min.js"></script>
-<script src="07-capstone-project-2_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="07-capstone-project-2_files/libs/quarto-html/anchor.min.js"></script>
-<link href="07-capstone-project-2_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="07-capstone-project-2_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="07-capstone-project-2_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="07-capstone-project-2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="07-capstone-project-2_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./06-capstone-project.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -67,32 +102,203 @@ window.Quarto = {
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-capstone-project.html">Capstone Projects</a></li><li class="breadcrumb-item"><a href="./07-capstone-project-2.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R.</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">24BSE2113D- Partial Differential Equation, Transform and Optimization</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome to the Computational Methods Lab</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-intro-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Lab Session 1: Python’s Scientific Stack</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Partial Differential Equations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-pde-numerical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab Session 2: Solving First-Order Linear PDEs Using Finite Difference Method (FDM)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Laplace Transforms &amp; System Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-laplace-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lab Session 3: Symbolic operations in Laplace Transform</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-laplace-apps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab Session 4: Applications of Laplace Transform</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Optimization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-optimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab Session 5: Optimization Methods in Engineering</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Capstone Projects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-capstone-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Chapter 6: Capstone Project - A.R.E.S.</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-capstone-project-2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R.</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction" id="toc-picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction" class="nav-link active" data-scroll-target="#picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction"><span class="header-section-number">8.1</span> Picking and Assembly Task Handler For Industrial Navigation, Dynamics, and Energy Reduction</a>
+  <ul class="collapse">
+  <li><a href="#introduction-your-mission" id="toc-introduction-your-mission" class="nav-link" data-scroll-target="#introduction-your-mission"><span class="header-section-number">8.1.1</span> Introduction: Your Mission</a></li>
+  <li><a href="#project-structure-core-modules" id="toc-project-structure-core-modules" class="nav-link" data-scroll-target="#project-structure-core-modules"><span class="header-section-number">8.1.2</span> Project Structure &amp; Core Modules</a></li>
+  <li><a href="#module-1-workspace-kinematics" id="toc-module-1-workspace-kinematics" class="nav-link" data-scroll-target="#module-1-workspace-kinematics"><span class="header-section-number">8.1.3</span> Module 1: Workspace &amp; Kinematics</a></li>
+  <li><a href="#module-2-gripper-dynamics-actuation" id="toc-module-2-gripper-dynamics-actuation" class="nav-link" data-scroll-target="#module-2-gripper-dynamics-actuation"><span class="header-section-number">8.1.4</span> Module 2: Gripper Dynamics &amp; Actuation</a></li>
+  <li><a href="#module-3-obstacle-aware-path-planning" id="toc-module-3-obstacle-aware-path-planning" class="nav-link" data-scroll-target="#module-3-obstacle-aware-path-planning"><span class="header-section-number">8.1.5</span> Module 3: Obstacle-Aware Path Planning</a></li>
+  <li><a href="#module-4-energy-time-optimization" id="toc-module-4-energy-time-optimization" class="nav-link" data-scroll-target="#module-4-energy-time-optimization"><span class="header-section-number">8.1.6</span> Module 4: Energy &amp; Time Optimization</a></li>
+  <li><a href="#module-5-integrated-factory-cell-simulation" id="toc-module-5-integrated-factory-cell-simulation" class="nav-link" data-scroll-target="#module-5-integrated-factory-cell-simulation"><span class="header-section-number">8.1.7</span> Module 5: Integrated Factory Cell Simulation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-capstone-project.html">Capstone Projects</a></li><li class="breadcrumb-item"><a href="./07-capstone-project-2.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R.</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R.</span></h1>
+</div>
 
 
 
-<section id="chapter-7-capstone-project-ii---p.a.t.h.f.i.n.d.e.r." class="level1">
-<h1>Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R.</h1>
-<section id="picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction" class="level2">
-<h2 class="anchored" data-anchor-id="picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction">Picking and Assembly Task Handler For Industrial Navigation, Dynamics, and Energy Reduction</h2>
-<section id="introduction-your-mission" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-your-mission">Introduction: Your Mission</h3>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction"><span class="header-section-number">8.1</span> Picking and Assembly Task Handler For Industrial Navigation, Dynamics, and Energy Reduction</h2>
+<section id="introduction-your-mission" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="introduction-your-mission"><span class="header-section-number">8.1.1</span> Introduction: Your Mission</h3>
 <p>Welcome to your second capstone challenge. This project shifts our focus from space exploration to the heart of modern manufacturing: <strong>industrial automation</strong>.</p>
 <p>You are the lead robotics engineer for a “smart factory” cell. Your task is to program a stationary robotic arm to perform a pick-and-place operation. The arm must pick up parts from a designated pickup zone and place them into one of two assembly jigs, navigating around a fixed obstacle in its workspace. The factory’s goal is to <strong>minimize the energy consumption</strong> of the arm for a complete cycle, subject to a strict <strong>cycle time limit</strong> to maintain production throughput.</p>
 <p>This project will test your ability to model a robot’s workspace, analyze its gripper dynamics, plan collision-free paths using PDEs, and optimize its motion for energy efficiency.</p>
 </section>
-<section id="project-structure-core-modules" class="level3">
-<h3 class="anchored" data-anchor-id="project-structure-core-modules">Project Structure &amp; Core Modules</h3>
+<section id="project-structure-core-modules" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="project-structure-core-modules"><span class="header-section-number">8.1.2</span> Project Structure &amp; Core Modules</h3>
 <p>This project follows a five-module structure, applying the course concepts to this new industrial scenario.</p>
 <hr>
 </section>
-<section id="module-1-workspace-kinematics" class="level3">
-<h3 class="anchored" data-anchor-id="module-1-workspace-kinematics">Module 1: Workspace &amp; Kinematics</h3>
+<section id="module-1-workspace-kinematics" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="module-1-workspace-kinematics"><span class="header-section-number">8.1.3</span> Module 1: Workspace &amp; Kinematics</h3>
 <p><strong>(Concepts from: Lab 1 - Linear Algebra &amp; Coordinate Geometry)</strong></p>
 <p>Before the arm can move, we must define its physical capabilities and its environment.</p>
 <ul>
@@ -103,8 +309,8 @@ window.Quarto = {
 </ul>
 <hr>
 </section>
-<section id="module-2-gripper-dynamics-actuation" class="level3">
-<h3 class="anchored" data-anchor-id="module-2-gripper-dynamics-actuation">Module 2: Gripper Dynamics &amp; Actuation</h3>
+<section id="module-2-gripper-dynamics-actuation" class="level3" data-number="8.1.4">
+<h3 data-number="8.1.4" class="anchored" data-anchor-id="module-2-gripper-dynamics-actuation"><span class="header-section-number">8.1.4</span> Module 2: Gripper Dynamics &amp; Actuation</h3>
 <p><strong>(Concepts from: Lab 3 &amp; 4 - Laplace Transforms &amp; ODEs)</strong></p>
 <p>The arm’s gripper is a dynamic system. We must model its closing time to ensure it securely grasps parts.</p>
 <ul>
@@ -125,8 +331,8 @@ m \ddot{x}(t) + c \dot{x}(t) + k x(t) = F_{motor}
 </ul>
 <hr>
 </section>
-<section id="module-3-obstacle-aware-path-planning" class="level3">
-<h3 class="anchored" data-anchor-id="module-3-obstacle-aware-path-planning">Module 3: Obstacle-Aware Path Planning</h3>
+<section id="module-3-obstacle-aware-path-planning" class="level3" data-number="8.1.5">
+<h3 data-number="8.1.5" class="anchored" data-anchor-id="module-3-obstacle-aware-path-planning"><span class="header-section-number">8.1.5</span> Module 3: Obstacle-Aware Path Planning</h3>
 <p><strong>(Concepts from: Lab 2 - Partial Differential Equations)</strong></p>
 <p>To move safely, the arm must navigate around the obstacle. We will implement a classic robotics algorithm called <strong>Potential Field Path Planning</strong>.</p>
 <ul>
@@ -142,8 +348,8 @@ m \ddot{x}(t) + c \dot{x}(t) + k x(t) = F_{motor}
 </ul>
 <hr>
 </section>
-<section id="module-4-energy-time-optimization" class="level3">
-<h3 class="anchored" data-anchor-id="module-4-energy-time-optimization">Module 4: Energy &amp; Time Optimization</h3>
+<section id="module-4-energy-time-optimization" class="level3" data-number="8.1.6">
+<h3 data-number="8.1.6" class="anchored" data-anchor-id="module-4-energy-time-optimization"><span class="header-section-number">8.1.6</span> Module 4: Energy &amp; Time Optimization</h3>
 <p><strong>(Concepts from: Lab 5 - Optimization)</strong></p>
 <p>The factory wants to minimize electricity costs while meeting production quotas. This requires optimizing the arm’s movement speed.</p>
 <ul>
@@ -168,8 +374,8 @@ t_{\text{slow}} + t_{\text{fast}} + \text{gripper_settling_time} \leq 15.
 </ul>
 <hr>
 </section>
-<section id="module-5-integrated-factory-cell-simulation" class="level3">
-<h3 class="anchored" data-anchor-id="module-5-integrated-factory-cell-simulation">Module 5: Integrated Factory Cell Simulation</h3>
+<section id="module-5-integrated-factory-cell-simulation" class="level3" data-number="8.1.7">
+<h3 data-number="8.1.7" class="anchored" data-anchor-id="module-5-integrated-factory-cell-simulation"><span class="header-section-number">8.1.7</span> Module 5: Integrated Factory Cell Simulation</h3>
 <p>This is the final deliverable, combining all modules into a cohesive visualization.</p>
 <ul>
 <li><strong>Task:</strong> Create a live “Factory Dashboard” animation using <code>matplotlib.animation</code>.
@@ -181,12 +387,12 @@ t_{\text{slow}} + t_{\text{fast}} + \text{gripper_settling_time} \leq 15.
 </ol></li>
 <li><strong>Final Deliverable:</strong> A single, executable Python script <code>main_v2.py</code> that runs the entire factory arm simulation, demonstrating one full, optimized pick-and-place cycle.</li>
 </ul>
-</section>
+
+
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -586,7 +792,36 @@ t_{\text{slow}} + t_{\text{fast}} + \text{gripper_settling_time} \leq 15.
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-capstone-project.html" class="pagination-link" aria-label="Chapter 6: Capstone Project - A.R.E.S.">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Chapter 6: Capstone Project - A.R.E.S.</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>B.Tech ECE/Robotics Lab</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/sijuswamyresearch/PDE-T-and-OT">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 
