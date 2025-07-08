@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>capstone-project-2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="07-capstone-project-2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="07-capstone-project-2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="07-capstone-project-2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="07-capstone-project-2_files/libs/quarto-html/popper.min.js"></script>
+<script src="07-capstone-project-2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="07-capstone-project-2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="07-capstone-project-2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="07-capstone-project-2_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="07-capstone-project-2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="07-capstone-project-2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="07-capstone-project-2_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="chapter-7-capstone-project-ii---p.a.t.h.f.i.n.d.e.r." class="level1">
+<h1>Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R.</h1>
+<section id="picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction" class="level2">
+<h2 class="anchored" data-anchor-id="picking-and-assembly-task-handler-for-industrial-navigation-dynamics-and-energy-reduction">Picking and Assembly Task Handler For Industrial Navigation, Dynamics, and Energy Reduction</h2>
+<section id="introduction-your-mission" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-your-mission">Introduction: Your Mission</h3>
+<p>Welcome to your second capstone challenge. This project shifts our focus from space exploration to the heart of modern manufacturing: <strong>industrial automation</strong>.</p>
+<p>You are the lead robotics engineer for a “smart factory” cell. Your task is to program a stationary robotic arm to perform a pick-and-place operation. The arm must pick up parts from a designated pickup zone and place them into one of two assembly jigs, navigating around a fixed obstacle in its workspace. The factory’s goal is to <strong>minimize the energy consumption</strong> of the arm for a complete cycle, subject to a strict <strong>cycle time limit</strong> to maintain production throughput.</p>
+<p>This project will test your ability to model a robot’s workspace, analyze its gripper dynamics, plan collision-free paths using PDEs, and optimize its motion for energy efficiency.</p>
+</section>
+<section id="project-structure-core-modules" class="level3">
+<h3 class="anchored" data-anchor-id="project-structure-core-modules">Project Structure &amp; Core Modules</h3>
+<p>This project follows a five-module structure, applying the course concepts to this new industrial scenario.</p>
+<hr>
+</section>
+<section id="module-1-workspace-kinematics" class="level3">
+<h3 class="anchored" data-anchor-id="module-1-workspace-kinematics">Module 1: Workspace &amp; Kinematics</h3>
+<p><strong>(Concepts from: Lab 1 - Linear Algebra &amp; Coordinate Geometry)</strong></p>
+<p>Before the arm can move, we must define its physical capabilities and its environment.</p>
+<ul>
+<li><p><strong>Task 1: The Workspace.</strong> Create a 2D top-down map of the robot’s workspace. Define the coordinates for the arm’s base, a “Pickup Zone,” two “Assembly Jigs” (A and B), and a fixed “Obstacle” (e.g., a pillar or another piece of machinery).</p></li>
+<li><p><strong>Task 2: Inverse Kinematics.</strong> Model a 2-link planar arm. Instead of forward kinematics, your primary task is to implement a simple <strong>Inverse Kinematics</strong> function. Given a target <code>(x, y)</code> coordinate in the workspace, this function must calculate the required joint angles <span class="math inline">\((\theta_1, \theta_2)\)</span> for the arm to reach it.</p></li>
+<li><p><strong>Task 3: Reachability Check.</strong> Use your inverse kinematics function to create a <code>can_reach(target_pos)</code> helper function. This function will be crucial to confirm that the pickup and assembly zones are physically within the arm’s reach.</p></li>
+<li><p><strong>Deliverable:</strong> A Python script (<code>kinematics_v2.py</code>) with functions for inverse kinematics. Include a plot showing the arm’s configuration when reaching for each of the key locations (pickup and jigs).</p></li>
+</ul>
+<hr>
+</section>
+<section id="module-2-gripper-dynamics-actuation" class="level3">
+<h3 class="anchored" data-anchor-id="module-2-gripper-dynamics-actuation">Module 2: Gripper Dynamics &amp; Actuation</h3>
+<p><strong>(Concepts from: Lab 3 &amp; 4 - Laplace Transforms &amp; ODEs)</strong></p>
+<p>The arm’s gripper is a dynamic system. We must model its closing time to ensure it securely grasps parts.</p>
+<ul>
+<li><strong>Task 1: System Modeling.</strong> Model the gripper’s closing mechanism as a second-order system. The differential equation for the gripper’s finger position, <span class="math inline">\(x(t)\)</span>, in response to a “close” command is: <span class="math display">\[
+m \ddot{x}(t) + c \dot{x}(t) + k x(t) = F_{motor}
+\]</span> where <span class="math inline">\(F_{motor}\)</span> is a constant force applied by the actuator. Use parameters: Mass <span class="math inline">\(m=0.1\)</span>, Damping <span class="math inline">\(c=5\)</span>, Spring-like resistance <span class="math inline">\(k=50\)</span>, and Motor Force <span class="math inline">\(F_{motor}=50\)</span>.</li>
+<li><strong>Task 2: Laplace Analysis.</strong>
+<ul>
+<li>Assume the “close” command is a <strong>step input</strong> of force at <span class="math inline">\(t=0\)</span>.</li>
+<li>Use the <strong>Laplace Transform method</strong> in <code>sympy</code> to solve this ODE for <span class="math inline">\(x(t)\)</span>, with initial conditions <span class="math inline">\(x(0)=0\)</span> and <span class="math inline">\(\dot{x}(0)=0\)</span>.</li>
+</ul></li>
+<li><strong>Task 3: Constraint Discovery - Gripper Settling Time.</strong>
+<ul>
+<li>Plot the step response <span class="math inline">\(x(t)\)</span>.</li>
+<li>Determine the <strong>settling time</strong>: the time it takes for the gripper to close and stabilize. This <code>gripper_settling_time</code> is the minimum time the robot must wait after issuing a “grasp” command before it can start moving the part.</li>
+</ul></li>
+<li><strong>Deliverable:</strong> A Python script (<code>dynamics_v2.py</code>) that solves the gripper ODE and plots its response. Clearly state the calculated <code>gripper_settling_time</code>.</li>
+</ul>
+<hr>
+</section>
+<section id="module-3-obstacle-aware-path-planning" class="level3">
+<h3 class="anchored" data-anchor-id="module-3-obstacle-aware-path-planning">Module 3: Obstacle-Aware Path Planning</h3>
+<p><strong>(Concepts from: Lab 2 - Partial Differential Equations)</strong></p>
+<p>To move safely, the arm must navigate around the obstacle. We will implement a classic robotics algorithm called <strong>Potential Field Path Planning</strong>.</p>
+<ul>
+<li><p><strong>Task 1: The Potential Field.</strong> The workspace is discretized into a grid. The path is found by solving <strong>Laplace’s Equation</strong> over this grid: <span class="math display">\[
+\nabla^2 \phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0
+\]</span></p>
+<ul>
+<li><strong>Boundary Conditions:</strong> Set the potential <span class="math inline">\(\phi\)</span> to a high value at the obstacle’s boundary (e.g., <span class="math inline">\(\phi=1\)</span>) and a low value at the target’s location (e.g., <span class="math inline">\(\phi=0\)</span>).</li>
+</ul></li>
+<li><p><strong>Task 2: Numerical PDE Solution.</strong> Implement an iterative solver (like the <strong>Jacobi method</strong>) to solve for the potential <span class="math inline">\(\phi(x,y)\)</span> at every point on the grid. This creates a smooth “potential surface” where the target is a low point and obstacles are high points.</p></li>
+<li><p><strong>Task 3: Path Generation.</strong> Write a function that finds a path from a start point to the target by using <strong>gradient descent</strong>. From any point on the grid, the next point on the path is in the direction of the steepest descent (the negative gradient, <span class="math inline">\(-\nabla\phi\)</span>).</p></li>
+<li><p><strong>Deliverable:</strong> A Python script (<code>path_planner.py</code>) that computes a potential field for a given target and generates a collision-free path for the arm’s end-effector. Include a heatmap visualization of the potential field with the generated path overlaid.</p></li>
+</ul>
+<hr>
+</section>
+<section id="module-4-energy-time-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="module-4-energy-time-optimization">Module 4: Energy &amp; Time Optimization</h3>
+<p><strong>(Concepts from: Lab 5 - Optimization)</strong></p>
+<p>The factory wants to minimize electricity costs while meeting production quotas. This requires optimizing the arm’s movement speed.</p>
+<ul>
+<li><strong>Task 1: Define Motion Profiles.</strong> The arm can move along the path from Module 3 at two different speeds:
+<ul>
+<li><strong>Slow &amp; Precise:</strong> Low energy cost (20 J/s), speed = 0.5 m/s.</li>
+<li><strong>Fast &amp; Inaccurate:</strong> High energy cost (70 J/s), speed = 1.5 m/s.</li>
+</ul></li>
+<li><strong>Task 2: LP Formulation.</strong> For a complete pick-and-place cycle (Pickup Zone -&gt; Assembly Jig A), formulate a linear program to find the optimal motion profile.
+<ul>
+<li><strong>Decision Variables:</strong> Let <span class="math inline">\(t_{slow}\)</span> be the time spent moving at slow speed, and <span class="math inline">\(t_{fast}\)</span> be the time spent moving at fast speed.</li>
+<li><strong>Objective Function:</strong> <strong>Minimize</strong> total energy: <span class="math inline">\(Z = 20 t_{slow} + 70 t_{fast}\)</span>.</li>
+<li><strong>Constraints:</strong>
+<ol type="1">
+<li><strong>Total Distance Constraint:</strong> The distance covered must equal the path length: <span class="math inline">\(0.5 t_{slow} + 1.5 t_{fast} = \text{Total Path Length}\)</span>. This is an equality constraint.</li>
+<li><strong>Total Time Constraint:</strong> The total time for the cycle must be less than or equal to a factory-imposed limit (e.g., 15 seconds): <span class="math display">\[
+t_{\text{slow}} + t_{\text{fast}} + \text{gripper_settling_time} \leq 15.
+\]</span></li>
+</ol></li>
+</ul></li>
+<li><strong>Deliverable:</strong> A Python script (<code>optimizer_v2.py</code>) using <code>scipy.optimize.linprog</code> that calculates the optimal time to spend at each speed to meet the deadline with minimum energy.</li>
+</ul>
+<hr>
+</section>
+<section id="module-5-integrated-factory-cell-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="module-5-integrated-factory-cell-simulation">Module 5: Integrated Factory Cell Simulation</h3>
+<p>This is the final deliverable, combining all modules into a cohesive visualization.</p>
+<ul>
+<li><strong>Task:</strong> Create a live “Factory Dashboard” animation using <code>matplotlib.animation</code>.
+<ol type="1">
+<li><strong>Workspace View (Main Plot):</strong> A top-down 2D plot showing the workspace, obstacle, pickup/jig locations, and the robotic arm. The arm should animate its movement along the path generated by the potential field planner.</li>
+<li><strong>Potential Field View (Subplot 1):</strong> A heatmap of the potential field from Module 3. An overlaying marker should show the arm’s current position on the gradient.</li>
+<li><strong>System Status (Subplot 2):</strong> Text readouts for <code>Cycle Time</code>, <code>Energy Consumed</code>, and <code>Current Action</code> (e.g., “Moving to Pickup”, “Grasping Part”, “Moving to Jig A”).</li>
+<li><strong>Gripper Dynamics (Subplot 3):</strong> When the action is “Grasping Part,” this plot shows the live gripper closing response from Module 2.</li>
+</ol></li>
+<li><strong>Final Deliverable:</strong> A single, executable Python script <code>main_v2.py</code> that runs the entire factory arm simulation, demonstrating one full, optimized pick-and-place cycle.</li>
+</ul>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

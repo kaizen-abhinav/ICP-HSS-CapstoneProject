@@ -1,0 +1,103 @@
+# Chapter 7: Capstone Project-II - P.A.T.H.F.I.N.D.E.R.
+
+## Picking and Assembly Task Handler For Industrial Navigation, Dynamics, and Energy Reduction
+
+### Introduction: Your Mission
+
+Welcome to your second capstone challenge. This project shifts our focus from space exploration to the heart of modern manufacturing: **industrial automation**.
+
+You are the lead robotics engineer for a "smart factory" cell. Your task is to program a stationary robotic arm to perform a pick-and-place operation. The arm must pick up parts from a designated pickup zone and place them into one of two assembly jigs, navigating around a fixed obstacle in its workspace. The factory's goal is to **minimize the energy consumption** of the arm for a complete cycle, subject to a strict **cycle time limit** to maintain production throughput.
+
+This project will test your ability to model a robot's workspace, analyze its gripper dynamics, plan collision-free paths using PDEs, and optimize its motion for energy efficiency.
+
+ 
+
+### Project Structure & Core Modules
+
+This project follows a five-module structure, applying the course concepts to this new industrial scenario.
+
+---
+
+### Module 1: Workspace & Kinematics
+**(Concepts from: Lab 1 - Linear Algebra & Coordinate Geometry)**
+
+Before the arm can move, we must define its physical capabilities and its environment.
+
+*   **Task 1: The Workspace.** Create a 2D top-down map of the robot's workspace. Define the coordinates for the arm's base, a "Pickup Zone," two "Assembly Jigs" (A and B), and a fixed "Obstacle" (e.g., a pillar or another piece of machinery).
+*   **Task 2: Inverse Kinematics.** Model a 2-link planar arm. Instead of forward kinematics, your primary task is to implement a simple **Inverse Kinematics** function. Given a target `(x, y)` coordinate in the workspace, this function must calculate the required joint angles $(\theta_1, \theta_2)$ for the arm to reach it.
+*   **Task 3: Reachability Check.** Use your inverse kinematics function to create a `can_reach(target_pos)` helper function. This function will be crucial to confirm that the pickup and assembly zones are physically within the arm's reach.
+
+*   **Deliverable:** A Python script (`kinematics_v2.py`) with functions for inverse kinematics. Include a plot showing the arm's configuration when reaching for each of the key locations (pickup and jigs).
+
+---
+
+### Module 2: Gripper Dynamics & Actuation
+**(Concepts from: Lab 3 & 4 - Laplace Transforms & ODEs)**
+
+The arm's gripper is a dynamic system. We must model its closing time to ensure it securely grasps parts.
+
+*   **Task 1: System Modeling.** Model the gripper's closing mechanism as a second-order system. The differential equation for the gripper's finger position, $x(t)$, in response to a "close" command is:
+    $$
+    m \ddot{x}(t) + c \dot{x}(t) + k x(t) = F_{motor}
+    $$
+    where $F_{motor}$ is a constant force applied by the actuator. Use parameters: Mass $m=0.1$, Damping $c=5$, Spring-like resistance $k=50$, and Motor Force $F_{motor}=50$.
+*   **Task 2: Laplace Analysis.**
+    *   Assume the "close" command is a **step input** of force at $t=0$.
+    *   Use the **Laplace Transform method** in `sympy` to solve this ODE for $x(t)$, with initial conditions $x(0)=0$ and $\dot{x}(0)=0$.
+*   **Task 3: Constraint Discovery - Gripper Settling Time.**
+    *   Plot the step response $x(t)$.
+    *   Determine the **settling time**: the time it takes for the gripper to close and stabilize. This `gripper_settling_time` is the minimum time the robot must wait after issuing a "grasp" command before it can start moving the part.
+
+*   **Deliverable:** A Python script (`dynamics_v2.py`) that solves the gripper ODE and plots its response. Clearly state the calculated `gripper_settling_time`.
+
+---
+
+### Module 3: Obstacle-Aware Path Planning
+**(Concepts from: Lab 2 - Partial Differential Equations)**
+
+To move safely, the arm must navigate around the obstacle. We will implement a classic robotics algorithm called **Potential Field Path Planning**.
+
+*   **Task 1: The Potential Field.** The workspace is discretized into a grid. The path is found by solving **Laplace's Equation** over this grid:
+    $$
+    \nabla^2 \phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0
+    $$
+    *   **Boundary Conditions:** Set the potential $\phi$ to a high value at the obstacle's boundary (e.g., $\phi=1$) and a low value at the target's location (e.g., $\phi=0$).
+*   **Task 2: Numerical PDE Solution.** Implement an iterative solver (like the **Jacobi method**) to solve for the potential $\phi(x,y)$ at every point on the grid. This creates a smooth "potential surface" where the target is a low point and obstacles are high points.
+*   **Task 3: Path Generation.** Write a function that finds a path from a start point to the target by using **gradient descent**. From any point on the grid, the next point on the path is in the direction of the steepest descent (the negative gradient, $-\nabla\phi$).
+
+*   **Deliverable:** A Python script (`path_planner.py`) that computes a potential field for a given target and generates a collision-free path for the arm's end-effector. Include a heatmap visualization of the potential field with the generated path overlaid.
+
+---
+
+### Module 4: Energy & Time Optimization
+**(Concepts from: Lab 5 - Optimization)**
+
+The factory wants to minimize electricity costs while meeting production quotas. This requires optimizing the arm's movement speed.
+
+*   **Task 1: Define Motion Profiles.** The arm can move along the path from Module 3 at two different speeds:
+    *   **Slow & Precise:** Low energy cost (20 J/s), speed = 0.5 m/s.
+    *   **Fast & Inaccurate:** High energy cost (70 J/s), speed = 1.5 m/s.
+*   **Task 2: LP Formulation.** For a complete pick-and-place cycle (Pickup Zone -> Assembly Jig A), formulate a linear program to find the optimal motion profile.
+    *   **Decision Variables:** Let $t_{slow}$ be the time spent moving at slow speed, and $t_{fast}$ be the time spent moving at fast speed.
+    *   **Objective Function:** **Minimize** total energy: $Z = 20 t_{slow} + 70 t_{fast}$.
+    *   **Constraints:**
+        1.  **Total Distance Constraint:** The distance covered must equal the path length: $0.5 t_{slow} + 1.5 t_{fast} = \text{Total Path Length}$. This is an equality constraint.
+        2.  **Total Time Constraint:** The total time for the cycle must be less than or equal to a factory-imposed limit (e.g., 15 seconds): 
+        $$
+        t_{\text{slow}} + t_{\text{fast}} + \text{gripper_settling_time} \leq 15.
+        $$
+*   **Deliverable:** A Python script (`optimizer_v2.py`) using `scipy.optimize.linprog` that calculates the optimal time to spend at each speed to meet the deadline with minimum energy.
+
+---
+
+### Module 5: Integrated Factory Cell Simulation
+
+This is the final deliverable, combining all modules into a cohesive visualization.
+
+*   **Task:** Create a live "Factory Dashboard" animation using `matplotlib.animation`.
+    1.  **Workspace View (Main Plot):** A top-down 2D plot showing the workspace, obstacle, pickup/jig locations, and the robotic arm. The arm should animate its movement along the path generated by the potential field planner.
+    2.  **Potential Field View (Subplot 1):** A heatmap of the potential field from Module 3. An overlaying marker should show the arm's current position on the gradient.
+    3.  **System Status (Subplot 2):** Text readouts for `Cycle Time`, `Energy Consumed`, and `Current Action` (e.g., "Moving to Pickup", "Grasping Part", "Moving to Jig A").
+    4.  **Gripper Dynamics (Subplot 3):** When the action is "Grasping Part," this plot shows the live gripper closing response from Module 2.
+
+*   **Final Deliverable:** A single, executable Python script `main_v2.py` that runs the entire factory arm simulation, demonstrating one full, optimized pick-and-place cycle.
