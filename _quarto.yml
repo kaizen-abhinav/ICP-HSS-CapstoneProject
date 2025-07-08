@@ -23,7 +23,9 @@ book:
     - part: "Optimization"
       chapters:
         - 05-optimization.qmd
-  
+    - part: "Capstone Project"
+      chapters:
+        - 06-capstone-project.qmd
   page-footer: 
     left: "B.Tech ECE/Robotics Lab"
     right: 

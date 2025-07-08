@@ -13,6 +13,14 @@ This session introduces the fundamental libraries that make `Python` a powerhous
 
 ### Pyton basics- Recap
 
+:::{.callout-note}
+### Starting `Python` coding with `colab`
+
+You can complete your experiments using `colab`- A cloud jupyter notebook. Please use the following link to run `Python` code in colab.
+<https://colab.google/> (Right click and open in a new tab)
+
+:::
+
 #### Hello World
 
 The classic first program for any language.

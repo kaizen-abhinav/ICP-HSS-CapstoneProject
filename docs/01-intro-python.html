@@ -223,6 +223,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Capstone Project</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-capstone-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Chapter 6: Capstone Project - A.R.E.S.</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -279,10 +296,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Objective:</strong> To get comfortable creating arrays, plotting data, and performing symbolic calculations.</p>
 <section id="pyton-basics--recap" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="pyton-basics--recap"><span class="header-section-number">2.1.1</span> Pyton basics- Recap</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Starting <code>Python</code> coding with <code>colab</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can complete your experiments using <code>colab</code>- A cloud jupyter notebook. Please use the following link to run <code>Python</code> code in colab. <a href="https://colab.google/" class="uri">https://colab.google/</a> (Right click and open in a new tab)</p>
+</div>
+</div>
 <section id="hello-world" class="level4" data-number="2.1.1.1">
 <h4 data-number="2.1.1.1" class="anchored" data-anchor-id="hello-world"><span class="header-section-number">2.1.1.1</span> Hello World</h4>
 <p>The classic first program for any language.</p>
-<div id="3db1e927" class="cell" data-execution_count="1">
+<div id="27b626a8" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, B.Tech Students!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -295,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="variables-and-data-types" class="level4" data-number="2.1.1.2">
 <h4 data-number="2.1.1.2" class="anchored" data-anchor-id="variables-and-data-types"><span class="header-section-number">2.1.1.2</span> Variables and Data Types</h4>
 <p>Introduction to different data types like integers, floats, and strings.</p>
-<div id="cfafe648" class="cell" data-execution_count="2">
+<div id="e62ecb72" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Integer</span></span>
@@ -313,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="conditional-statements" class="level4" data-number="2.1.1.3">
 <h4 data-number="2.1.1.3" class="anchored" data-anchor-id="conditional-statements"><span class="header-section-number">2.1.1.3</span> Conditional Statements</h4>
 <p>Using if, elif, and else statements.</p>
-<div id="9c61a382" class="cell" data-execution_count="3">
+<div id="4711435a" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Integer</span></span>
@@ -331,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="loops-iteratives" class="level4" data-number="2.1.1.4">
 <h4 data-number="2.1.1.4" class="anchored" data-anchor-id="loops-iteratives"><span class="header-section-number">2.1.1.4</span> Loops/ Iteratives</h4>
 <p>Using <code>for</code> and <code>while</code> loops.</p>
-<div id="fd735cc1" class="cell" data-execution_count="4">
+<div id="1d1f9bd4" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For loop</span></span>
@@ -346,7 +376,7 @@ Iteration: 3
 Iteration: 4</code></pre>
 </div>
 </div>
-<div id="35e85da0" class="cell" data-execution_count="5">
+<div id="1a8b9559" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># While loop</span></span>
@@ -365,7 +395,7 @@ While loop iteration: 2</code></pre>
 <section id="functions" class="level4" data-number="2.1.1.5">
 <h4 data-number="2.1.1.5" class="anchored" data-anchor-id="functions"><span class="header-section-number">2.1.1.5</span> Functions</h4>
 <p>Defining and calling functions.</p>
-<div id="f27e424c" class="cell" data-execution_count="6">
+<div id="e6f4019d" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_numbers(a, b):</span>
@@ -382,7 +412,7 @@ While loop iteration: 2</code></pre>
 <section id="basic-numerical-computations-using-numpy" class="level4" data-number="2.1.1.6">
 <h4 data-number="2.1.1.6" class="anchored" data-anchor-id="basic-numerical-computations-using-numpy"><span class="header-section-number">2.1.1.6</span> Basic Numerical Computations using <code>NumPy</code></h4>
 <p><code>NumPy</code> is useful for numerical operations.</p>
-<div id="d418d8d9" class="cell" data-execution_count="7">
+<div id="8be7671b" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solve 2x+3y=54x+4y=6</span></span>
@@ -402,7 +432,7 @@ While loop iteration: 2</code></pre>
 <section id="plotting-graphs-with-matplotlib" class="level4" data-number="2.1.1.7">
 <h4 data-number="2.1.1.7" class="anchored" data-anchor-id="plotting-graphs-with-matplotlib"><span class="header-section-number">2.1.1.7</span> Plotting Graphs with Matplotlib</h4>
 <p>Matplotlib is used for simple visualizations. Install using: <code>pip install matplotlib</code></p>
-<div id="5311e94f" class="cell" data-execution_count="8">
+<div id="49f57bd1" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting a sine wave </span></span>
@@ -484,7 +514,7 @@ Installing <code>Scipy</code>
 <p>The <code>Scipy</code> library can be installed using the <code>pip install scipy</code> command in terminal or using <code>!pip install scipy</code> in colab.</p>
 </div>
 </div>
-<div id="861556e2" class="cell" data-execution_count="10">
+<div id="2e9b7525" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Solving a Simple PDE ∂u/∂x + ∂u/∂t=0</span></span>
@@ -542,7 +572,7 @@ Figure&nbsp;2.2: Solution of PDE.
 <section id="basic-optimization-using-sympy" class="level4" data-number="2.1.1.9">
 <h4 data-number="2.1.1.9" class="anchored" data-anchor-id="basic-optimization-using-sympy"><span class="header-section-number">2.1.1.9</span> Basic Optimization Using <code>SymPy</code></h4>
 <p><code>SymPy</code> is a symbolic mathematics library that can be used to derive analytical solutions to PDEs.</p>
-<div id="8387def5" class="cell" data-execution_count="12">
+<div id="e0752d2e" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
