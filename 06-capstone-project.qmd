@@ -10,7 +10,7 @@ You are the lead software engineer for **Project A.R.E.S.**, a simulated Martian
 
 Your task is to design, model, and simulate the rover's planning and control systems. You will determine the optimal sequence of actions to **maximize the scientific return** of the mission, while respecting the physical limitations of the hardware. This project will directly test your skills in linear algebra, system dynamics (Laplace transforms), partial differential equations, and optimization.
 
-![Conceptual image of the A.R.E.S. rover mission](A.R.E.S.Rover_Simulation.png)
+![Conceptual image of the A.R.E.S. rover mission (created with Sora)](A.R.E.S.Rover_Simulation.png)
 
 ### Project Structure & Core Modules
 
@@ -44,9 +44,11 @@ A real motor doesn't move instantly. We must model its dynamic response to deter
     $$
     Use the following parameters: Inertia $I=1$, Damping $c=4$, and Stiffness $k=13$.
 *   **Task 2: Laplace Analysis.**
+
     *   Assume the rover commands the joint with a **unit step input** (i.e., $\theta_{ref}(t) = u(t)$).
     *   Using the skills from Experiment 7, solve this ODE with the **Laplace Transform method** in `sympy`. Assume the arm starts from rest: $\theta(0)=0$ and $\dot{\theta}(0)=0$.
 *   **Task 3: Constraint Discovery - Settling Time.**
+
     *   Plot the symbolic solution $\theta(t)$.
     *   From your plot and data, determine the **settling time**: the time it takes for the joint's angle to get to and stay within 2% of its final value (which is 1.0). This `settling_time` is a critical mission parameter—it's the minimum time the rover must wait for the arm to be stable before drilling.
 
@@ -64,6 +66,7 @@ Drilling generates significant heat. If the drill bit overheats, it can be damag
     \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2} + Q
     $$
     Use parameters: $\alpha=10^{-5}$ (thermal diffusivity for steel) and a heat generation rate of $Q=50$ (while drilling). Assume the ends of the drill are exposed to the cold Martian atmosphere, so we use boundary conditions: $u(0,t) = u(L,t) = 0^\circ C$.
+
 *   **Task 2: Numerical Solution.** Implement a **Finite Difference Method** (like the FTCS scheme from Experiment 3) to solve this PDE.
 *   **Task 3: Constraint Discovery - Duty Cycle.**
     *   Simulate the temperature rise, starting from $u(x,0) = 0^\circ C$ with the heat source on ($Q=50$).
@@ -103,6 +106,7 @@ With all physical constraints defined, we can now determine the best mission pla
 This is the capstone deliverable, where everything comes together.
 
 *   **Task:** Create a live "Mission Dashboard" using `matplotlib.animation`. The dashboard will visualize the optimal plan determined in Module 4. It should contain several subplots that update in real-time:
+
     1.  **World View:** A 2D plot showing the map and a rover icon moving along the optimal path.
     2.  **System Status:** Text readouts for `Mission Time`, `Energy Remaining`, and `Current Action`.
     3.  **Arm Dynamics Plot:** When the rover's action is "Deploying Arm", this plot shows the joint angle settling over time, as modeled in Module 2.

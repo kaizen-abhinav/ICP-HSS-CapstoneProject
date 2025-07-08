@@ -289,7 +289,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="A.R.E.S.Rover_Simulation.png" class="img-fluid figure-img"></p>
-<figcaption>Conceptual image of the A.R.E.S. rover mission</figcaption>
+<figcaption>Conceptual image of the A.R.E.S. rover mission (created with Sora)</figcaption>
 </figure>
 </div>
 </section>
@@ -319,20 +319,20 @@ window.Quarto = {
 <p><strong>(Concepts from: Lab 3 &amp; 4 - Laplace Transforms &amp; ODEs)</strong></p>
 <p>A real motor doesn’t move instantly. We must model its dynamic response to determine how long it takes to stabilize.</p>
 <ul>
-<li><strong>Task 1: System Modeling.</strong> Model a single joint of the robotic arm as a classic second-order <strong>mass-spring-damper system</strong>. The differential equation for its angular position, <span class="math inline">\(\theta(t)\)</span>, in response to a commanded target angle, <span class="math inline">\(\theta_{ref}(t)\)</span>, is: <span class="math display">\[
+<li><p><strong>Task 1: System Modeling.</strong> Model a single joint of the robotic arm as a classic second-order <strong>mass-spring-damper system</strong>. The differential equation for its angular position, <span class="math inline">\(\theta(t)\)</span>, in response to a commanded target angle, <span class="math inline">\(\theta_{ref}(t)\)</span>, is: <span class="math display">\[
 I \frac{d^2\theta}{dt^2} + c \frac{d\theta}{dt} + k \theta(t) = k \theta_{ref}(t)
-\]</span> Use the following parameters: Inertia <span class="math inline">\(I=1\)</span>, Damping <span class="math inline">\(c=4\)</span>, and Stiffness <span class="math inline">\(k=13\)</span>.</li>
-<li><strong>Task 2: Laplace Analysis.</strong>
+\]</span> Use the following parameters: Inertia <span class="math inline">\(I=1\)</span>, Damping <span class="math inline">\(c=4\)</span>, and Stiffness <span class="math inline">\(k=13\)</span>.</p></li>
+<li><p><strong>Task 2: Laplace Analysis.</strong></p>
 <ul>
 <li>Assume the rover commands the joint with a <strong>unit step input</strong> (i.e., <span class="math inline">\(\theta_{ref}(t) = u(t)\)</span>).</li>
 <li>Using the skills from Experiment 7, solve this ODE with the <strong>Laplace Transform method</strong> in <code>sympy</code>. Assume the arm starts from rest: <span class="math inline">\(\theta(0)=0\)</span> and <span class="math inline">\(\dot{\theta}(0)=0\)</span>.</li>
 </ul></li>
-<li><strong>Task 3: Constraint Discovery - Settling Time.</strong>
+<li><p><strong>Task 3: Constraint Discovery - Settling Time.</strong></p>
 <ul>
 <li>Plot the symbolic solution <span class="math inline">\(\theta(t)\)</span>.</li>
 <li>From your plot and data, determine the <strong>settling time</strong>: the time it takes for the joint’s angle to get to and stay within 2% of its final value (which is 1.0). This <code>settling_time</code> is a critical mission parameter—it’s the minimum time the rover must wait for the arm to be stable before drilling.</li>
 </ul></li>
-<li><strong>Deliverable:</strong> A Python script (<code>dynamics.py</code>) that solves the ODE and plots the step response. Clearly state the calculated <code>settling_time</code>.</li>
+<li><p><strong>Deliverable:</strong> A Python script (<code>dynamics.py</code>) that solves the ODE and plots the step response. Clearly state the calculated <code>settling_time</code>.</p></li>
 </ul>
 <hr>
 </section>
@@ -341,18 +341,18 @@ I \frac{d^2\theta}{dt^2} + c \frac{d\theta}{dt} + k \theta(t) = k \theta_{ref}(t
 <p><strong>(Concepts from: Lab 2 - Partial Differential Equations)</strong></p>
 <p>Drilling generates significant heat. If the drill bit overheats, it can be damaged. We must model this to find safe operational limits.</p>
 <ul>
-<li><strong>Task 1: Heat Modeling.</strong> Model the drill bit as a 1D rod of length <span class="math inline">\(L=0.2\)</span> m. The temperature evolution, <span class="math inline">\(u(x,t)\)</span>, is governed by the <strong>1D Heat Equation</strong> with an internal heat source term, <span class="math inline">\(Q\)</span>, representing friction from drilling: <span class="math display">\[
+<li><p><strong>Task 1: Heat Modeling.</strong> Model the drill bit as a 1D rod of length <span class="math inline">\(L=0.2\)</span> m. The temperature evolution, <span class="math inline">\(u(x,t)\)</span>, is governed by the <strong>1D Heat Equation</strong> with an internal heat source term, <span class="math inline">\(Q\)</span>, representing friction from drilling: <span class="math display">\[
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2} + Q
-\]</span> Use parameters: <span class="math inline">\(\alpha=10^{-5}\)</span> (thermal diffusivity for steel) and a heat generation rate of <span class="math inline">\(Q=50\)</span> (while drilling). Assume the ends of the drill are exposed to the cold Martian atmosphere, so we use boundary conditions: <span class="math inline">\(u(0,t) = u(L,t) = 0^\circ C\)</span>.</li>
-<li><strong>Task 2: Numerical Solution.</strong> Implement a <strong>Finite Difference Method</strong> (like the FTCS scheme from Experiment 3) to solve this PDE.</li>
-<li><strong>Task 3: Constraint Discovery - Duty Cycle.</strong>
+\]</span> Use parameters: <span class="math inline">\(\alpha=10^{-5}\)</span> (thermal diffusivity for steel) and a heat generation rate of <span class="math inline">\(Q=50\)</span> (while drilling). Assume the ends of the drill are exposed to the cold Martian atmosphere, so we use boundary conditions: <span class="math inline">\(u(0,t) = u(L,t) = 0^\circ C\)</span>.</p></li>
+<li><p><strong>Task 2: Numerical Solution.</strong> Implement a <strong>Finite Difference Method</strong> (like the FTCS scheme from Experiment 3) to solve this PDE.</p></li>
+<li><p><strong>Task 3: Constraint Discovery - Duty Cycle.</strong></p>
 <ul>
 <li>Simulate the temperature rise, starting from <span class="math inline">\(u(x,0) = 0^\circ C\)</span> with the heat source on (<span class="math inline">\(Q=50\)</span>).</li>
 <li>Determine the maximum time the rover can continuously drill before any point on the bit exceeds a safety limit of <strong>80°C</strong>.</li>
 <li>Next, turn the heat source off (<span class="math inline">\(Q=0\)</span>) and determine how long it takes for the peak temperature to drop back down to a safe level (e.g., 20°C).</li>
 <li>This gives you a <strong>Drill/Cool Duty Cycle</strong> (e.g., “Drill for 45s, then must cool for 30s”). This is another critical input for the mission planner.</li>
 </ul></li>
-<li><strong>Deliverable:</strong> A Python script (<code>thermal.py</code>) that solves the PDE and outputs the calculated drill and cool times.</li>
+<li><p><strong>Deliverable:</strong> A Python script (<code>thermal.py</code>) that solves the PDE and outputs the calculated drill and cool times.</p></li>
 </ul>
 <hr>
 </section>
@@ -388,14 +388,14 @@ I \frac{d^2\theta}{dt^2} + c \frac{d\theta}{dt} + k \theta(t) = k \theta_{ref}(t
 <h3 data-number="7.1.7" class="anchored" data-anchor-id="module-5-integrated-mission-simulation"><span class="header-section-number">7.1.7</span> Module 5: Integrated Mission Simulation</h3>
 <p>This is the capstone deliverable, where everything comes together.</p>
 <ul>
-<li><strong>Task:</strong> Create a live “Mission Dashboard” using <code>matplotlib.animation</code>. The dashboard will visualize the optimal plan determined in Module 4. It should contain several subplots that update in real-time:
+<li><p><strong>Task:</strong> Create a live “Mission Dashboard” using <code>matplotlib.animation</code>. The dashboard will visualize the optimal plan determined in Module 4. It should contain several subplots that update in real-time:</p>
 <ol type="1">
 <li><strong>World View:</strong> A 2D plot showing the map and a rover icon moving along the optimal path.</li>
 <li><strong>System Status:</strong> Text readouts for <code>Mission Time</code>, <code>Energy Remaining</code>, and <code>Current Action</code>.</li>
 <li><strong>Arm Dynamics Plot:</strong> When the rover’s action is “Deploying Arm”, this plot shows the joint angle settling over time, as modeled in Module 2.</li>
 <li><strong>Drill Temperature Plot:</strong> When the action is “Drilling” or “Cooling”, this plot shows the temperature profile of the drill bit evolving according to the PDE solution from Module 3.</li>
 </ol></li>
-<li><strong>Final Deliverable:</strong> A single, executable Python script <code>main.py</code> that runs the entire simulation, integrating the logic from all other modules.</li>
+<li><p><strong>Final Deliverable:</strong> A single, executable Python script <code>main.py</code> that runs the entire simulation, integrating the logic from all other modules.</p></li>
 </ul>
 </section>
 <section id="submission-requirements" class="level3" data-number="7.1.8">
