@@ -11,7 +11,7 @@ This session introduces the fundamental libraries that make `Python` a powerhous
 
 **Objective:** To get comfortable creating arrays, plotting data, and performing symbolic calculations.
 
-### Pyton basics- Recap
+### Python basics- Recap
 
 :::{.callout-note}
 ### Starting `Python` coding with `colab`
@@ -43,11 +43,12 @@ print(x, y, name, is_student)
 Using if, elif, and else statements.
 ```{python}
 x = 10  # Integer
-y = 3.5  # Float
-name = "Python"  # String
-is_student = True  # Boolean
-
-print(x, y, name, is_student)
+if x>5:
+    print("x is greater than 5")
+elif x==5:
+    print("x is 5")
+else:
+    print("x is less than 5")
 ```
 #### Loops/ Iteratives
 
