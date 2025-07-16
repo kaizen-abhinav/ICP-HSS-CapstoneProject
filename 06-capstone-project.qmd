@@ -65,7 +65,8 @@ Drilling generates significant heat. If the drill bit overheats, it can be damag
     $$
     \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2} + Q
     $$
-    Use parameters: $\alpha=10^{-5}$ (thermal diffusivity for steel) and a heat generation rate of $Q=50$ (while drilling). Assume the ends of the drill are exposed to the cold Martian atmosphere, so we use boundary conditions: $u(0,t) = u(L,t) = 0^\circ C$.
+
+Use parameters: $\alpha=10^{-5}$ (thermal diffusivity for steel) and a heat generation rate of $Q=50$ (while drilling). Assume the ends of the drill are exposed to the cold Martian atmosphere, so we use boundary conditions: $u(0,t) = u(L,t) = 0^\circ C$.
 
 *   **Task 2: Numerical Solution.** Implement a **Finite Difference Method** (like the FTCS scheme from Experiment 3) to solve this PDE.
 *   **Task 3: Constraint Discovery - Duty Cycle.**
@@ -119,3 +120,4 @@ This is the capstone deliverable, where everything comes together.
 1.  **Codebase:** A folder containing all your Python scripts (`kinematics.py`, `dynamics.py`, `thermal.py`, `optimizer.py`, `main.py`).
 2.  **Project Report:** A Quarto (`.qmd`) or PDF report detailing the mathematical formulation, design choices, results, and discussion for each module.
 3.  **Demonstration:** A short video (e.g., screen recording) of your final simulation running on your local machine.
+

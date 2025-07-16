@@ -84,7 +84,7 @@ The factory wants to minimize electricity costs while meeting production quotas.
         1.  **Total Distance Constraint:** The distance covered must equal the path length: $0.5 t_{slow} + 1.5 t_{fast} = \text{Total Path Length}$. This is an equality constraint.
         2.  **Total Time Constraint:** The total time for the cycle must be less than or equal to a factory-imposed limit (e.g., 15 seconds): 
         $$
-        t_{\text{slow}} + t_{\text{fast}} + \text{gripper_settling_time} \leq 15.
+        t_{\text{slow}} + t_{\text{fast}} + \text{gripper settling time} \leq 15.
         $$
 *   **Deliverable:** A Python script (`optimizer_v2.py`) using `scipy.optimize.linprog` that calculates the optimal time to spend at each speed to meet the deadline with minimum energy.
 

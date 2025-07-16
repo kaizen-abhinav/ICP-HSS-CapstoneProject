@@ -348,18 +348,21 @@ I \frac{d^2\theta}{dt^2} + c \frac{d\theta}{dt} + k \theta(t) = k \theta_{ref}(t
 <p><strong>(Concepts from: Lab 2 - Partial Differential Equations)</strong></p>
 <p>Drilling generates significant heat. If the drill bit overheats, it can be damaged. We must model this to find safe operational limits.</p>
 <ul>
-<li><p><strong>Task 1: Heat Modeling.</strong> Model the drill bit as a 1D rod of length <span class="math inline">\(L=0.2\)</span> m. The temperature evolution, <span class="math inline">\(u(x,t)\)</span>, is governed by the <strong>1D Heat Equation</strong> with an internal heat source term, <span class="math inline">\(Q\)</span>, representing friction from drilling: <span class="math display">\[
+<li><strong>Task 1: Heat Modeling.</strong> Model the drill bit as a 1D rod of length <span class="math inline">\(L=0.2\)</span> m. The temperature evolution, <span class="math inline">\(u(x,t)\)</span>, is governed by the <strong>1D Heat Equation</strong> with an internal heat source term, <span class="math inline">\(Q\)</span>, representing friction from drilling: <span class="math display">\[
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2} + Q
-\]</span> Use parameters: <span class="math inline">\(\alpha=10^{-5}\)</span> (thermal diffusivity for steel) and a heat generation rate of <span class="math inline">\(Q=50\)</span> (while drilling). Assume the ends of the drill are exposed to the cold Martian atmosphere, so we use boundary conditions: <span class="math inline">\(u(0,t) = u(L,t) = 0^\circ C\)</span>.</p></li>
-<li><p><strong>Task 2: Numerical Solution.</strong> Implement a <strong>Finite Difference Method</strong> (like the FTCS scheme from Experiment 3) to solve this PDE.</p></li>
-<li><p><strong>Task 3: Constraint Discovery - Duty Cycle.</strong></p>
+\]</span></li>
+</ul>
+<p>Use parameters: <span class="math inline">\(\alpha=10^{-5}\)</span> (thermal diffusivity for steel) and a heat generation rate of <span class="math inline">\(Q=50\)</span> (while drilling). Assume the ends of the drill are exposed to the cold Martian atmosphere, so we use boundary conditions: <span class="math inline">\(u(0,t) = u(L,t) = 0^\circ C\)</span>.</p>
+<ul>
+<li><strong>Task 2: Numerical Solution.</strong> Implement a <strong>Finite Difference Method</strong> (like the FTCS scheme from Experiment 3) to solve this PDE.</li>
+<li><strong>Task 3: Constraint Discovery - Duty Cycle.</strong>
 <ul>
 <li>Simulate the temperature rise, starting from <span class="math inline">\(u(x,0) = 0^\circ C\)</span> with the heat source on (<span class="math inline">\(Q=50\)</span>).</li>
 <li>Determine the maximum time the rover can continuously drill before any point on the bit exceeds a safety limit of <strong>80°C</strong>.</li>
 <li>Next, turn the heat source off (<span class="math inline">\(Q=0\)</span>) and determine how long it takes for the peak temperature to drop back down to a safe level (e.g., 20°C).</li>
 <li>This gives you a <strong>Drill/Cool Duty Cycle</strong> (e.g., “Drill for 45s, then must cool for 30s”). This is another critical input for the mission planner.</li>
 </ul></li>
-<li><p><strong>Deliverable:</strong> A Python script (<code>thermal.py</code>) that solves the PDE and outputs the calculated drill and cool times.</p></li>
+<li><strong>Deliverable:</strong> A Python script (<code>thermal.py</code>) that solves the PDE and outputs the calculated drill and cool times.</li>
 </ul>
 <hr>
 </section>

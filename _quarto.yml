@@ -38,6 +38,8 @@ format:
     theme: cosmo
     code-fold: true
     code-tools: false
+  pdf:
+    documentclass: scrreprt
 # To execute python code
 execute:
   freeze: auto # Caches results to speed up rendering
