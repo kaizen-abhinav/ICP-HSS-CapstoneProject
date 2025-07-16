@@ -8,6 +8,10 @@ book:
   description: "Computational Methods for Electronics & Robotics Lab"
   author: "Siju K S"
   date: "today"
+  search: true
+  repo-url: https://github.com/sijuswamyresearch/PDE-T-and-OT
+  downloads: [pdf, epub]
+  sharing: [twitter, facebook]
   chapters:
     - index.qmd
     - part: "Fundamentals"
