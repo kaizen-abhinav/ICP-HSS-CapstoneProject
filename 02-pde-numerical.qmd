@@ -90,6 +90,62 @@ plt.title("Solution of 1D Advection Equation (Upwind Scheme)")
 plt.grid(True)
 plt.show()
 ```
+#### 3D visualization of the solution
+
+```{python}
+#| label: fig-upwind-exp-3D
+#| fig-cap: "3D Visualization of 1D Advection Equation: $u_t + c u_x = 0$."
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# --- 1. Discretize Domain ---
+nx = 50       # Number of spatial points
+nt = 30       # Number of time steps
+Lx = 5.0      # Domain length
+T = 2.0       # Total time
+dx = Lx / (nx - 1)  # Spatial step
+dt = T / nt         # Time step
+
+c = 1.0       # Wave speed
+
+# --- 2. Check Stability ---
+lambda_ = c * dt / dx
+print(f"CFL Number (lambda) = {lambda_:.4f}")
+if lambda_ > 1:
+    print("Warning: CFL condition not met. The solution may be unstable!")
+
+# --- 3. Set Initial Condition ---
+x = np.linspace(0, Lx, nx)
+u = np.exp(-x)                 # u(x, 0) = e^(-x)
+u_initial = u.copy()
+U = np.zeros((nt + 1, nx))     # Storage for all time steps
+U[0, :] = u.copy()             # Store initial condition
+
+# --- 4. Time Marching Loop ---
+for n in range(1, nt + 1):
+    u_old = u.copy()
+    for i in range(1, nx):
+        u[i] = u_old[i] - lambda_ * (u_old[i] - u_old[i - 1])
+    U[n, :] = u.copy()
+
+# --- 5. Prepare Meshgrid for 3D Plot ---
+X, T_grid = np.meshgrid(x, np.linspace(0, T, nt + 1))
+
+# --- 6. 3D Surface Plot ---
+fig = plt.figure(figsize=(12, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+ax.plot_surface(X, T_grid, U, cmap='viridis')
+ax.set_xlabel("Position (x)")
+ax.set_ylabel("Time (t)")
+ax.set_zlabel("u(x, t)")
+ax.set_title("3D Visualization of 1D Advection Equation: $u_t + c u_x = 0$")
+
+plt.tight_layout()
+plt.show()
+```
+
 
 ### Result and Discussion
 The numerical solution using the Upwind Method for the initial condition $u(x,0)=e^{-x}$ 
@@ -190,6 +246,69 @@ plt.title("Simulation of a Square Stress Wave")
 plt.grid(True)
 plt.show()
 ```
+
+#### 3D visualization of the solution
+
+```{python}
+#| label: fig-upwind-square-3D
+#| fig-cap: "1D First-Order Wave Equation: Evolution of u(x,t) over time."
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 (needed for 3D projection)
+
+# --- 1. Discretize Domain ---
+nx = 101
+nt = 50
+Lx = 2.0
+T = 1.0
+dx = Lx / (nx - 1)
+dt = T / nt
+c = 1.0  # wave speed
+
+lambda_ = c * dt / dx
+print(f"CFL Number (lambda) = {lambda_:.4f}")
+if lambda_ > 1:
+    print("Warning: CFL condition not met. The solution may be unstable!")
+
+# --- 2. Mesh Grid for x and t ---
+x = np.linspace(0, Lx, nx)
+t = np.linspace(0, T, nt + 1)
+X, T_grid = np.meshgrid(x, t)  # For plotting
+
+# --- 3. Initial Condition: Square Pulse ---
+u = np.zeros(nx)
+u[(x >= 0.4) & (x <= 0.6)] = 1.0
+u_initial = u.copy()
+
+# --- 4. Time Evolution ---
+U = np.zeros((nt + 1, nx))  # Store u at all time steps
+U[0, :] = u_initial
+
+for n in range(1, nt + 1):
+    u_old = U[n - 1].copy()
+    u_new = u_old.copy()
+    for i in range(1, nx):
+        u_new[i] = u_old[i] - lambda_ * (u_old[i] - u_old[i - 1])
+    U[n, :] = u_new
+
+# --- 5. Plot 3D Surface ---
+fig = plt.figure(figsize=(12, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Transpose U so rows match x, columns match t
+surf = ax.plot_surface(X, T_grid, U, cmap='viridis', edgecolor='none')
+
+ax.set_xlabel('x (Position)')
+ax.set_ylabel('t (Time)')
+ax.set_zlabel('u(x,t)')
+ax.set_title('1D First-Order Wave Equation: Evolution of u(x,t) over time')
+fig.colorbar(surf, ax=ax, shrink=0.5, aspect=10)
+plt.tight_layout()
+plt.show()
+```
+
+
 #### Discussion of the Square Pulse Result
 
 *Wave Propagation:* The primary success of the simulation is clearly visible: the pulse has moved to the right. The leading edge of the numerical solution is centered around the correct analytical position (x = 1.4 for the start of the pulse), confirming that the model correctly captures the fundamental advection behavior at speed c=1 over time T=1.
@@ -209,11 +328,396 @@ The application simulation successfully models the physical propagation of a str
 
 ----
 
+
+## Second order 1D Wave Equation- Theoretical Background
+
+{{<video https://youtu.be/9TQCKWWAVjM?si=RYfufQo0Jb0NJP4y>}}
+
+## Experiment 3: The Second-Order 1D Wave Equation
+
+This experiment moves from first-order to second-order hyperbolic PDEs by tackling the classic one-dimensional wave equation. This equation models a vast range of physical phenomena, including the vibrations of a guitar string, pressure waves in a tube, and the propagation of electromagnetic waves in a transmission line.
+
+### Aim
+
+To solve the one-dimensional wave equation using the finite difference method with an explicit time-stepping scheme.
+
+### Objectives
+
+*   To solve the second-order wave equation for a 1D domain with given initial and boundary conditions.
+*   To implement the central difference scheme for both time and space derivatives.
+*   To understand the role of initial displacement and initial velocity.
+*   To simulate wave propagation and reflection and observe how waves evolve over time.
+
+
+### Governing Equation and Discretization
+
+The second-order, one-dimensional wave equation is given by:
+$$
+\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2}
+$$
+where $u(x,t)$ is the displacement at position `x` and time `t`, and `c` is the constant wave propagation speed.
+
+To solve this numerically, we use a **central difference** approximation for both derivatives:
+
+*   *Time Derivative:* $\frac{\partial^2 u}{\partial t^2} \approx \frac{u_i^{n+1} - 2u_i^n + u_i^{n-1}}{(\Delta t)^2}$
+
+*   *Space Derivative:* $\frac{\partial^2 u}{\partial x^2} \approx \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{(\Delta x)^2}$
+
+Substituting these into the governing equation and solving for the future displacement $u_i^{n+1}$ gives the explicit update formula.
+
+
+### Algorithm
+
+1.  **Discretize the Domain:**
+    *   Divide the spatial domain of length `L` into discrete points using a step size $\Delta x$.
+    *   Divide the time domain of total duration `T` using a time step $\Delta t$.
+
+2.  **Stability Check (CFL Condition):**
+    *   Calculate the **Courant Number**, $C = \frac{c \Delta t}{\Delta x}$.
+    *   For this explicit scheme to be stable, the Courant number must satisfy $C \le 1$. If $C > 1$, the numerical solution will grow without bound and become meaningless.
+
+3.  **Set Initial Conditions:**
+    *   This is a second-order equation in time, so we need **two** initial conditions:
+        1.  Initial displacement: $u(x, 0) = f(x)$
+        2.  Initial velocity: $\frac{\partial u}{\partial t}(x, 0) = g(x)$
+
+4.  **Set Boundary Conditions:**
+    *   Assume the boundaries of the domain are fixed (e.g., the ends of a guitar string). This is a **Dirichlet boundary condition**: $u(0, t) = u(L, t) = 0$ for all time `t`.
+
+5.  **Time-stepping Loop:**
+    *   The update rule requires information from two previous time steps (`n` and `n-1`). This poses a problem for the very first step (`n=1`), as we don't have a state at `n=-1`. We use a special formula for the first step derived from the initial velocity condition. For zero initial velocity, this simplifies.
+    *   For all subsequent time steps (`n > 1`), use the main finite difference formula:
+    $$
+    u_i^{n+1} = 2u_i^n - u_i^{n-1} + C^2 \left( u_{i+1}^n - 2u_i^n + u_{i-1}^n \right)
+    $$
+
+6.  **Plot and Visualize:**
+    *   After solving for all time steps, plot the wave's displacement `u(x)` at different time instances to observe its motion and reflection.
+
+
+### Application Problem and Python Implementation
+
+**Problem:** The vibration of a stretched string under tension is governed by the 1D wave equation. We are tasked with modeling the vibration of a string of length `L=1.0m` stretched between two fixed points. The string is given an initial displacement in the shape of a sine wave, $u(x,0) = \sin(\pi x)$, but *zero initial velocity*.
+
+```{python}
+#| label: fig-wave-equation-string
+#| fig-cap: "Vibration of a string with an initial sine-wave displacement, showing reflection."
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Parameters & Discretization ---
+L = 1.0             # Length of the domain (string)
+c = 1.0             # Wave speed
+dx = 0.1            # Spatial step size
+dt = 0.05           # Time step size
+T = 2.0             # Total time (enough for one full reflection)
+
+# --- 2. Stability Check ---
+C = c * dt / dx
+print(f"Courant Number C = {C:.2f}")
+if C > 1:
+    raise ValueError("CFL condition (C <= 1) not met. Instability expected.")
+else:
+    print("CFL condition is satisfied.")
+
+# --- Grid setup ---
+x = np.arange(0, L + dx, dx)
+nx = len(x)
+nt = int(T / dt) + 1
+# Create a 2D array to store the solution at all time steps
+u = np.zeros((nt, nx))
+
+# --- 3. Initial Conditions ---
+# Initial displacement: u(x, 0) = sin(pi * x)
+u[0, :] = np.sin(np.pi * x)
+
+# Special formula for the first time step (n=1) assuming zero initial velocity
+# u_i^1 = u_i^0 + C^2/2 * (u_{i+1}^0 - 2u_i^0 + u_{i-1}^0)
+u[1, 1:-1] = u[0, 1:-1] + 0.5 * C**2 * (u[0, 2:] - 2*u[0, 1:-1] + u[0, :-2])
+# Boundary conditions u(0,t)=0 and u(L,t)=0 are already handled by slicing [1:-1]
+
+# --- 5. Time-stepping Loop ---
+for n in range(1, nt - 1):
+    u[n + 1, 1:-1] = (2 * u[n, 1:-1] - u[n - 1, 1:-1] +
+                      C**2 * (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]))
+# Print results
+print("x\t" + "\t".join([f"u^{n}" for n in range(5)]))  # First 5 steps
+for i in range(nx):
+    values = "\t".join(f"{u[n, i]:.4f}" for n in range(5))
+    print(f"{x[i]:.2f}\t{values}")
+# Optional: plot final wave
+# --- 6. Plot and Visualize ---
+plt.figure(figsize=(10, 6))
+plt.plot(x, u[0, :], 'r--', label='Initial (t=0)')
+# Time index for t = T/2
+mid_time_index = int(nt / 2)
+plt.plot(x, u[mid_time_index, :], 'g:', label=f'Mid-time (t={mid_time_index*dt:.2f}s)')
+plt.plot(x, u[-1, :], 'b-', label=f'Final (t={T:.2f}s)')
+
+plt.xlabel('Position along string (x)')
+plt.ylabel('Displacement (u)')
+plt.title('1D Wave Equation: Vibrating String Simulation')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+#### 3D plot of the solution of wave equation
+
+```{python}
+#| label: fig-wave-equation-string-3D
+#| fig-cap: "Wave Propagation Surface."
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Grid setup
+L = 1.0          # Length of domain
+T = 2.0          # Total time
+c = 1.0          # Wave speed
+nx = 100         # Number of spatial points
+nt = 200         # Number of time steps
+dx = L / (nx - 1)
+dt = T / nt
+x = np.linspace(0, L, nx)
+t = np.linspace(0, T, nt)
+C = c * dt / dx  # Courant number
+
+# Check stability
+assert C <= 1, f"Stability condition violated: C = {C} > 1"
+
+# Initialize solution matrix
+u = np.zeros((nt, nx))
+
+# Initial condition: u(x, 0)
+u[0, :] = np.sin(np.pi * x)
+
+# Apply zero initial velocity: u[1, :] from Taylor expansion
+u[1, 1:-1] = u[0, 1:-1] + 0.5 * C**2 * (u[0, 2:] - 2*u[0, 1:-1] + u[0, :-2])
+
+# Time stepping
+for n in range(1, nt-1):
+    u[n+1, 1:-1] = 2*(1 - C**2)*u[n, 1:-1] - u[n-1, 1:-1] + C**2 * (u[n, 2:] + u[n, :-2])
+    # Boundary conditions (Dirichlet)
+    u[n+1, 0] = 0
+    u[n+1, -1] = 0
+
+# Meshgrid for correct 3D plotting
+X, T_mesh = np.meshgrid(x, t)
+
+# 3D plot: u(x, t)
+fig = plt.figure(figsize=(12, 8))
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, T_mesh, u, cmap='viridis')
+
+ax.set_xlabel('$x$ (space)', fontsize=12)
+ax.set_ylabel('$t$ (time)', fontsize=12)
+ax.set_zlabel('$u(x,t)$ (displacement)', fontsize=12)
+ax.set_title('Wave Propagation Surface: $u(x,t)$', fontsize=14)
+plt.tight_layout()
+plt.show()
+```
+
+#### Result and Discussion
+
+The simulation effectively models the behavior of a vibrating string with fixed ends.
+
+- Initial State (t=0): The string starts in its initial sine wave shape, as defined.
+- Propagation and Reflection: At the mid-time point (t=1.0s), the wave has traveled, reflected off the fixed boundaries, and become inverted. This is physically accurate: when a wave on a string hits a fixed end, it reflects back with opposite polarity.
+
+- Final State (t=2.0s): After one full period of oscillation, the wave has traveled to both ends, reflected, and returned to its original position and shape, demonstrating the periodic nature of the solution.
+- Stability: The CFL number was calculated as $C=0.5$ , which satisfies the stability condition , $C\leq 1$. This ensures that the solution remains bounded and physically realistic.
+
+- Numerical Dispersion: While not highly prominent in this example due to the smooth initial condition, some slight changes in the wave's shape might be observed over longer simulation times. This is known as numerical dispersion, an artifact where different frequency components of the wave travel at slightly different speeds in the numerical grid.
+
+**Result**
+
+The explicit finite difference method accurately captures the key dynamics of wave propagation and reflection, making it a powerful tool for analyzing such systems.
+
+---
+
+## Application Challenge: Vibration in a Flexible Robot Link
+
+In modern robotics, lightweight materials are used to create fast and efficient robots. However, these materials are often flexible. When a motor at the base of a robot link starts or stops suddenly, it can induce a longitudinal (compression/expansion) wave that travels down the link, causing vibrations at the end-effector (the robot's tool or gripper). This vibration can severely impact the robot's precision.
+
+We can model this phenomenon using the 1D wave equation, where `u(x,t)` now represents the longitudinal displacement of the material from its resting position.
+
+![Sudden motor movement](sudden-motor-movement.png)
+
+#### Your Task
+
+Model the vibration in a **2.0-meter long** flexible robot link.
+*   *Physical Setup:*
+    *   *Base (x=0):* Connected to a motor. We will model a sudden "jolt" by giving the base a brief, sharp displacement and then returning it to zero.
+    *   *End-Effector (x=L):* The end of the link is free to move. This is a *Neumann boundary condition*, which physically means the stress at the end is zero, or $\frac{\partial u}{\partial x}(L, t) = 0$.
+*   *Initial Conditions:* The link is initially at rest.
+    *   Initial displacement $u(x,0) = 0$.
+    *   Initial velocity $\frac{\partial u}{\partial t}(x,0) = 0$.
+*   **Wave Speed:** The speed of sound (and thus stress waves) in this material is $c = 50$ m/s.
+
+#### The Challenge
+
+1.  *Implement a New Boundary Condition:* The motor's jolt can be modeled by forcing the displacement at the base, `u[n, 0]`, to be a short pulse. For example, a sine pulse for a very short duration at the beginning of the simulation.
+2.  *Implement the "Free End" (Neumann) Boundary:* The condition $\frac{\partial u}{\partial x}(L, t) = 0$ can be approximated with a finite difference as $\frac{u_{nx-1}^n - u_{nx-2}^n}{\Delta x} = 0$, which simplifies to $u_{nx-1}^n = u_{nx-2}^n$. This means the last point always has the same displacement as the point next to it. You must enforce this at every time step.
+3.  *Analyze the Result:* Plot the displacement of the *end-effector (`u[:, -1]`)* over time to see how it vibrates in response to the motor's jolt.
+
+#### Hints
+
+*   *Motor Jolt:* You can create the motor jolt inside the time-stepping loop. Use an `if` condition to apply the pulse only for a short time (e.g., when `n*dt < pulse_duration`). A simple pulse could be `u[n, 0] = A * np.sin(omega * n * dt)`.
+
+*   *Neumann Boundary:* After the main update loop for the interior points, add a line to enforce the free-end condition: `u[n + 1, -1] = u[n + 1, -2]`. The `-1` index refers to the last element, and `-2` refers to the second-to-last.
+
+*   *Stability:* With a high wave speed (`c=50`), you will need a very small time step `dt` to satisfy the CFL condition ($C \le 1$). Be prepared to use a large `nt`.
+
+### Solution to the Robotics Application Challenge
+
+Here is the Python code that models the robot link vibration, incorporating the driving pulse at the base and the free-end boundary condition.
+
+```{python}
+#| label: fig-robot-link-vibration
+#| fig-cap: "Displacement of the robot link's end-effector over time, showing vibrations induced by a motor jolt."
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Parameters for the Robot Link ---
+L = 2.0             # Length of the robot link (m)
+c = 50.0            # Wave speed in the material (m/s)
+T = 0.15            # Total simulation time (s)
+
+# Discretization - fine grid needed for high wave speed
+dx = 0.04
+# dt must be chosen carefully for stability
+dt = dx / c * 0.9   # Choose dt based on dx and c to guarantee C=0.9
+C = c * dt / dx
+
+print(f"--- Robotics Challenge Parameters ---")
+print(f"Wave Speed c = {c} m/s")
+print(f"Courant Number C = {C:.2f}")
+if C > 1:
+    raise ValueError("CFL condition failed!")
+
+# --- Grid setup ---
+x = np.arange(0, L + dx, dx)
+t_vec = np.arange(0, T + dt, dt)
+nx = len(x)
+nt = len(t_vec)
+u = np.zeros((nt, nx))
+
+# --- Motor Jolt Parameters ---
+pulse_duration = 0.02  # s
+pulse_amplitude = 0.001 # 1 mm jolt
+pulse_frequency = 2 * np.pi / pulse_duration
+
+# --- 5. Time-stepping Loop with New Boundary Conditions ---
+for n in range(1, nt - 1):
+    # Main update for interior points (from 2nd point to 2nd-to-last)
+    u[n + 1, 1:-1] = (2 * u[n, 1:-1] - u[n - 1, 1:-1] +
+                      C**2 * (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]))
+
+    # Boundary Condition 1: Motor Jolt at the Base (x=0)
+    current_time = n * dt
+    if current_time < pulse_duration:
+        u[n + 1, 0] = pulse_amplitude * np.sin(pulse_frequency * current_time)
+    else:
+        u[n + 1, 0] = 0.0 # Motor holds firm at base after jolt
+
+    # Boundary Condition 2: Free End at x=L (Neumann)
+    # u_last = u_second_to_last
+    u[n + 1, -1] = u[n + 1, -2]
+
+# --- 6. Plot the End-Effector's Vibration ---
+end_effector_displacement = u[:, -1]
+
+plt.figure(figsize=(12, 6))
+plt.plot(t_vec, end_effector_displacement * 1000) # Convert to mm
+plt.title("Vibration of Robot End-Effector Over Time")
+plt.xlabel("Time (s)")
+plt.ylabel("Displacement (mm)")
+plt.grid(True)
+plt.axhline(0, color='black', linewidth=0.5) # Zero line
+plt.show()
+```
+
+### 3D plot of the solution
+
+```{python}
+#| label: fig-robot-link-vibration-3D
+#| fig-cap: "3D surface plot showing how displacement $u(x,t)$ evolves in both space and time."
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# --- 1. Parameters for the Robot Link ---
+L = 2.0             # Length of the robot link (m)
+c = 50.0            # Wave speed in the material (m/s)
+T = 0.15            # Total simulation time (s)
+
+# Discretization - fine grid needed for high wave speed
+dx = 0.04
+dt = dx / c * 0.9   # Choose dt based on dx and c to guarantee C=0.9
+C = c * dt / dx
+
+print(f"--- Robotics Challenge Parameters ---")
+print(f"Wave Speed c = {c} m/s")
+print(f"Courant Number C = {C:.2f}")
+if C > 1:
+    raise ValueError("CFL condition failed!")
+
+# --- Grid setup ---
+x = np.arange(0, L + dx, dx)
+t_vec = np.arange(0, T + dt, dt)
+nx = len(x)
+nt = len(t_vec)
+u = np.zeros((nt, nx))
+
+# --- Motor Jolt Parameters ---
+pulse_duration = 0.02  # s
+pulse_amplitude = 0.001 # 1 mm jolt
+pulse_frequency = 2 * np.pi / pulse_duration
+
+# --- 5. Time-stepping Loop with New Boundary Conditions ---
+for n in range(1, nt - 1):
+    # Main update for interior points (from 2nd point to 2nd-to-last)
+    u[n + 1, 1:-1] = (2 * u[n, 1:-1] - u[n - 1, 1:-1] +
+                      C**2 * (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]))
+
+    # Boundary Condition 1: Motor Jolt at the Base (x=0)
+    current_time = n * dt
+    if current_time < pulse_duration:
+        u[n + 1, 0] = pulse_amplitude * np.sin(pulse_frequency * current_time)
+    else:
+        u[n + 1, 0] = 0.0  # Motor holds firm at base after jolt
+
+    # Boundary Condition 2: Free End at x=L (Neumann)
+    u[n + 1, -1] = u[n + 1, -2]
+
+# --- 6. 2D Plot: End-Effector's Vibration Over Time ---
+end_effector_displacement = u[:, -1]
+
+# --- 7. 3D Surface Plot of u(x,t) ---
+X, T_grid = np.meshgrid(x, t_vec)
+
+fig = plt.figure(figsize=(14, 6))
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(X, T_grid, u, cmap='viridis', edgecolor='none')
+
+ax.set_title("3D Surface Plot of Wave Propagation: u(x,t)")
+ax.set_xlabel("Position x (m)")
+ax.set_ylabel("Time t (s)")
+ax.set_zlabel("Displacement u(x,t) (m)")
+fig.colorbar(surf, shrink=0.5, aspect=10, label='Displacement (m)')
+plt.tight_layout()
+plt.show()
+```
+----
+
 ## ID Heat Equation- Theoretical Background
 
 {{<video https://youtu.be/i8rnEl8O-r0?si=cB82MUHLk7RYTSzi>}}
 
-## Experiment 3: Solving the 1D Heat Equation
+## Experiment 4: Solving the 1D Heat Equation
 
 This experiment introduces the numerical solution of a *parabolic* partial differential equation: the one-dimensional heat equation. This equation is fundamental to understanding diffusion processes, not just in heat transfer but also in chemical concentration gradients and other physical phenomena.
 
@@ -346,6 +850,75 @@ plt.grid(True)
 plt.show()
 ```
 
+### 3D version of the solution in spatial temporal domain
+
+```{python}
+#| label: fig-heat-equation-explicit-3D
+#| fig-cap: "Diffusion of a central heat pulse over time, calculated with the FTCS explicit method in 3D."
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D
+
+# --- 1. Initialize Parameters ---
+L = 1.0
+T = 0.1
+nx = 21
+nt = 1000
+alpha = 0.01
+
+# --- 2. Discretize the Domain ---
+dx = L / (nx - 1)
+dt = T / nt
+
+# --- 3. Check Stability Condition ---
+r = alpha * dt / dx**2
+print(f"Space step dx = {dx:.4f} m")
+print(f"Time step dt = {dt:.4f} s")
+print(f"Stability parameter r = {r:.4f}")
+if r > 0.5:
+    print("\n--- WARNING: STABILITY CONDITION r > 0.5 NOT MET! ---")
+else:
+    print("\nStability condition r <= 0.5 is satisfied.")
+
+# --- 4. Initial and Boundary Conditions ---
+x = np.linspace(0, L, nx)
+u = np.zeros(nx)
+u[int((nx - 1) / 2)] = 100
+
+# --- 5. Time-stepping and Snapshot Storage ---
+snapshot_interval = 200
+snapshots = [u.copy()]
+t_values = [0]
+
+for n in range(nt):
+    u_old = u.copy()
+    for i in range(1, nx - 1):
+        u[i] = u_old[i] + r * (u_old[i+1] - 2*u_old[i] + u_old[i-1])
+    if (n + 1) % snapshot_interval == 0:
+        snapshots.append(u.copy())
+        t_values.append((n + 1) * dt)
+
+# --- 6. Convert to Array and Create Meshgrid ---
+U = np.array(snapshots).T  # Shape: (space, time)
+T_mesh, X_mesh = np.meshgrid(t_values, x)
+
+# --- 7. 3D Surface Plot ---
+fig = plt.figure(figsize=(10, 6))
+ax = fig.add_subplot(111, projection='3d')
+
+surf = ax.plot_surface(T_mesh, X_mesh, U, cmap=cm.viridis, edgecolor='none')
+
+ax.set_xlabel('Time (s)')
+ax.set_ylabel('Position (x)')
+ax.set_zlabel('Temperature (°C)')
+ax.set_title('3D View of Heat Diffusion (1D Heat Equation)')
+plt.tight_layout()
+plt.show()
+
+```
+
 ## Application Challenge: Heat Dissipation in a Longer Rod
 
 Now, let's apply what you've learned to a new set of physical parameters. This exercise simulates heat dissipation in a longer structural beam with a more intense initial heat source.
@@ -427,7 +1000,7 @@ snapshot_interval = nt // 4 # Store 4 snapshots over the total time
 for n in range(nt):
     u_old = u.copy()
     for i in range(1, nx - 1):
-        u[i] = u_old[i] + r * (u_old[i] + u_old[i-1] - 2*u_old[i]) # Corrected formula
+        u[i] = u_old[i] + r * (u_old[i] + u_old[i-1] - 2*u_old[i]) 
 
     if (n + 1) % snapshot_interval == 0:
         u_snapshots.append(u.copy())
@@ -448,7 +1021,65 @@ plt.legend()
 plt.grid(True)
 plt.show()
 ```
+### 3D visualization of the solution
 
+```{python}
+#| label: fig-heat-challenge-3D
+#| fig-cap: "Heat Dissipation in a 3.2m Rod."
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# --- 1. Initialize MODIFIED Parameters ---
+L = 3.2           # Length of the rod (meters)
+T = 2.0           # Total simulation time (seconds)
+nx = 51           # Number of spatial grid points (odd for center)
+nt = 8000         # Number of time steps (ensures stability)
+alpha = 0.01      # Thermal diffusivity
+
+# --- 2. Discretize the Domain ---
+dx = L / (nx - 1)
+dt = T / nt
+x = np.linspace(0, L, nx)
+t = np.linspace(0, T, nt + 1)
+
+# --- 3. Stability Check ---
+r = alpha * dt / dx**2
+print(f"--- Stability Check ---")
+print(f"r = {r:.4f}")
+if r > 0.5:
+    print("⚠️ WARNING: Stability condition not met (r > 0.5)")
+else:
+    print("✅ Stability condition r <= 0.5 is satisfied")
+
+# --- 4. Initial & Boundary Conditions ---
+u = np.zeros(nx)
+u[int((nx - 1) / 2)] = 300.0  # Pulse at center
+u_all = np.zeros((nt + 1, nx))  # For storing the whole time evolution
+u_all[0, :] = u.copy()
+
+# --- 5. Time-Stepping ---
+for n in range(1, nt + 1):
+    u_new = u.copy()
+    for i in range(1, nx - 1):
+        u_new[i] = u[i] + r * (u[i+1] + u[i-1] - 2*u[i])
+    u = u_new
+    u_all[n, :] = u.copy()
+
+# --- 6. 3D Surface Plot ---
+X, T_grid = np.meshgrid(x, t)
+fig = plt.figure(figsize=(12, 7))
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(X, T_grid, u_all, cmap='hot', edgecolor='none')
+ax.set_title("Heat Dissipation in a 3.2m Rod")
+ax.set_xlabel("Position x [m]")
+ax.set_ylabel("Time t [s]")
+ax.set_zlabel("Temperature u(x, t) [°C]")
+fig.colorbar(surf, shrink=0.5, aspect=10, label="Temperature [°C]")
+plt.tight_layout()
+plt.show()
+```
 #### Results and Discussion of the Challenge
 
 - Stability Management: The primary challenge was maintaining stability. By increasing the rod length L significantly, the space step Δx became larger. Since Δx is squared in the denominator of the stability parameter r, this drastically increased the tendency for r to be large. To counteract this, the number of time steps nt had to be substantially increased (to 8000 in this solution) to make Δt small enough to keep r below the 0.5 threshold. This is a critical lesson in numerical methods: changing one parameter often necessitates adjusting others to maintain a valid simulation.
@@ -462,256 +1093,3 @@ plt.show()
 The overall behavior remains physically consistent, demonstrating the robustness of the FTCS method when its stability condition is respected.
 
 ----
-
-## Second order 1D Wave Equation- Theoretical Background
-
-{{<video https://youtu.be/9TQCKWWAVjM?si=RYfufQo0Jb0NJP4y>}}
-
-## Experiment 4: The Second-Order 1D Wave Equation
-
-This experiment moves from first-order to second-order hyperbolic PDEs by tackling the classic one-dimensional wave equation. This equation models a vast range of physical phenomena, including the vibrations of a guitar string, pressure waves in a tube, and the propagation of electromagnetic waves in a transmission line.
-
-### Aim
-
-To solve the one-dimensional wave equation using the finite difference method with an explicit time-stepping scheme.
-
-### Objectives
-
-*   To solve the second-order wave equation for a 1D domain with given initial and boundary conditions.
-*   To implement the central difference scheme for both time and space derivatives.
-*   To understand the role of initial displacement and initial velocity.
-*   To simulate wave propagation and reflection and observe how waves evolve over time.
-
-
-### Governing Equation and Discretization
-
-The second-order, one-dimensional wave equation is given by:
-$$
-\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2}
-$$
-where $u(x,t)$ is the displacement at position `x` and time `t`, and `c` is the constant wave propagation speed.
-
-To solve this numerically, we use a **central difference** approximation for both derivatives:
-*   *Time Derivative:* $\frac{\partial^2 u}{\partial t^2} \approx \frac{u_i^{n+1} - 2u_i^n + u_i^{n-1}}{(\Delta t)^2}$
-*   *Space Derivative:* $\frac{\partial^2 u}{\partial x^2} \approx \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{(\Delta x)^2}$
-
-Substituting these into the governing equation and solving for the future displacement $u_i^{n+1}$ gives the explicit update formula.
-
-
-### Algorithm
-
-1.  **Discretize the Domain:**
-    *   Divide the spatial domain of length `L` into discrete points using a step size $\Delta x$.
-    *   Divide the time domain of total duration `T` using a time step $\Delta t$.
-
-2.  **Stability Check (CFL Condition):**
-    *   Calculate the **Courant Number**, $C = \frac{c \Delta t}{\Delta x}$.
-    *   For this explicit scheme to be stable, the Courant number must satisfy $C \le 1$. If $C > 1$, the numerical solution will grow without bound and become meaningless.
-
-3.  **Set Initial Conditions:**
-    *   This is a second-order equation in time, so we need **two** initial conditions:
-        1.  Initial displacement: $u(x, 0) = f(x)$
-        2.  Initial velocity: $\frac{\partial u}{\partial t}(x, 0) = g(x)$
-
-4.  **Set Boundary Conditions:**
-    *   Assume the boundaries of the domain are fixed (e.g., the ends of a guitar string). This is a **Dirichlet boundary condition**: $u(0, t) = u(L, t) = 0$ for all time `t`.
-
-5.  **Time-stepping Loop:**
-    *   The update rule requires information from two previous time steps (`n` and `n-1`). This poses a problem for the very first step (`n=1`), as we don't have a state at `n=-1`. We use a special formula for the first step derived from the initial velocity condition. For zero initial velocity, this simplifies.
-    *   For all subsequent time steps (`n > 1`), use the main finite difference formula:
-    $$
-    u_i^{n+1} = 2u_i^n - u_i^{n-1} + C^2 \left( u_{i+1}^n - 2u_i^n + u_{i-1}^n \right)
-    $$
-
-6.  **Plot and Visualize:**
-    *   After solving for all time steps, plot the wave's displacement `u(x)` at different time instances to observe its motion and reflection.
-
-
-### Application Problem and Python Implementation
-
-**Problem:** The vibration of a stretched string under tension is governed by the 1D wave equation. We are tasked with modeling the vibration of a string of length `L=1.0m` stretched between two fixed points. The string is given an initial displacement in the shape of a sine wave, $u(x,0) = \sin(\pi x)$, but *zero initial velocity*.
-
-```{python}
-#| label: fig-wave-equation-string
-#| fig-cap: "Vibration of a string with an initial sine-wave displacement, showing reflection."
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-# --- 1. Parameters & Discretization ---
-L = 1.0             # Length of the domain (string)
-c = 1.0             # Wave speed
-dx = 0.1            # Spatial step size
-dt = 0.05           # Time step size
-T = 2.0             # Total time (enough for one full reflection)
-
-# --- 2. Stability Check ---
-C = c * dt / dx
-print(f"Courant Number C = {C:.2f}")
-if C > 1:
-    raise ValueError("CFL condition (C <= 1) not met. Instability expected.")
-else:
-    print("CFL condition is satisfied.")
-
-# --- Grid setup ---
-x = np.arange(0, L + dx, dx)
-nx = len(x)
-nt = int(T / dt) + 1
-# Create a 2D array to store the solution at all time steps
-u = np.zeros((nt, nx))
-
-# --- 3. Initial Conditions ---
-# Initial displacement: u(x, 0) = sin(pi * x)
-u[0, :] = np.sin(np.pi * x)
-
-# Special formula for the first time step (n=1) assuming zero initial velocity
-# u_i^1 = u_i^0 + C^2/2 * (u_{i+1}^0 - 2u_i^0 + u_{i-1}^0)
-u[1, 1:-1] = u[0, 1:-1] + 0.5 * C**2 * (u[0, 2:] - 2*u[0, 1:-1] + u[0, :-2])
-# Boundary conditions u(0,t)=0 and u(L,t)=0 are already handled by slicing [1:-1]
-
-# --- 5. Time-stepping Loop ---
-for n in range(1, nt - 1):
-    u[n + 1, 1:-1] = (2 * u[n, 1:-1] - u[n - 1, 1:-1] +
-                      C**2 * (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]))
-# Print results
-print("x\t" + "\t".join([f"u^{n}" for n in range(5)]))  # First 5 steps
-for i in range(nx):
-    values = "\t".join(f"{u[n, i]:.4f}" for n in range(5))
-    print(f"{x[i]:.2f}\t{values}")
-# Optional: plot final wave
-# --- 6. Plot and Visualize ---
-plt.figure(figsize=(10, 6))
-plt.plot(x, u[0, :], 'r--', label='Initial (t=0)')
-# Time index for t = T/2
-mid_time_index = int(nt / 2)
-plt.plot(x, u[mid_time_index, :], 'g:', label=f'Mid-time (t={mid_time_index*dt:.2f}s)')
-plt.plot(x, u[-1, :], 'b-', label=f'Final (t={T:.2f}s)')
-
-plt.xlabel('Position along string (x)')
-plt.ylabel('Displacement (u)')
-plt.title('1D Wave Equation: Vibrating String Simulation')
-plt.legend()
-plt.grid(True)
-plt.show()
-```
-
-#### Result and Discussion
-
-The simulation effectively models the behavior of a vibrating string with fixed ends.
-
-- Initial State (t=0): The string starts in its initial sine wave shape, as defined.
-- Propagation and Reflection: At the mid-time point (t=1.0s), the wave has traveled, reflected off the fixed boundaries, and become inverted. This is physically accurate: when a wave on a string hits a fixed end, it reflects back with opposite polarity.
-
-- Final State (t=2.0s): After one full period of oscillation, the wave has traveled to both ends, reflected, and returned to its original position and shape, demonstrating the periodic nature of the solution.
-- Stability: The CFL number was calculated as $C=0.5$ , which satisfies the stability condition , $C\leq 1$. This ensures that the solution remains bounded and physically realistic.
-
-- Numerical Dispersion: While not highly prominent in this example due to the smooth initial condition, some slight changes in the wave's shape might be observed over longer simulation times. This is known as numerical dispersion, an artifact where different frequency components of the wave travel at slightly different speeds in the numerical grid.
-
-**Result**
-
-The explicit finite difference method accurately captures the key dynamics of wave propagation and reflection, making it a powerful tool for analyzing such systems.
-
----
-
-## Application Challenge: Vibration in a Flexible Robot Link
-
-In modern robotics, lightweight materials are used to create fast and efficient robots. However, these materials are often flexible. When a motor at the base of a robot link starts or stops suddenly, it can induce a longitudinal (compression/expansion) wave that travels down the link, causing vibrations at the end-effector (the robot's tool or gripper). This vibration can severely impact the robot's precision.
-
-We can model this phenomenon using the 1D wave equation, where `u(x,t)` now represents the longitudinal displacement of the material from its resting position.
-
-![Sudden motor movement](sudden-motor-movement.png)
-
-#### Your Task
-
-Model the vibration in a **2.0-meter long** flexible robot link.
-*   *Physical Setup:*
-    *   *Base (x=0):* Connected to a motor. We will model a sudden "jolt" by giving the base a brief, sharp displacement and then returning it to zero.
-    *   *End-Effector (x=L):* The end of the link is free to move. This is a *Neumann boundary condition*, which physically means the stress at the end is zero, or $\frac{\partial u}{\partial x}(L, t) = 0$.
-*   *Initial Conditions:* The link is initially at rest.
-    *   Initial displacement $u(x,0) = 0$.
-    *   Initial velocity $\frac{\partial u}{\partial t}(x,0) = 0$.
-*   **Wave Speed:** The speed of sound (and thus stress waves) in this material is $c = 50$ m/s.
-
-#### The Challenge
-
-1.  *Implement a New Boundary Condition:* The motor's jolt can be modeled by forcing the displacement at the base, `u[n, 0]`, to be a short pulse. For example, a sine pulse for a very short duration at the beginning of the simulation.
-2.  *Implement the "Free End" (Neumann) Boundary:* The condition $\frac{\partial u}{\partial x}(L, t) = 0$ can be approximated with a finite difference as $\frac{u_{nx-1}^n - u_{nx-2}^n}{\Delta x} = 0$, which simplifies to $u_{nx-1}^n = u_{nx-2}^n$. This means the last point always has the same displacement as the point next to it. You must enforce this at every time step.
-3.  *Analyze the Result:* Plot the displacement of the *end-effector (`u[:, -1]`)* over time to see how it vibrates in response to the motor's jolt.
-
-#### Hints
-
-*   *Motor Jolt:* You can create the motor jolt inside the time-stepping loop. Use an `if` condition to apply the pulse only for a short time (e.g., when `n*dt < pulse_duration`). A simple pulse could be `u[n, 0] = A * np.sin(omega * n * dt)`.
-
-*   *Neumann Boundary:* After the main update loop for the interior points, add a line to enforce the free-end condition: `u[n + 1, -1] = u[n + 1, -2]`. The `-1` index refers to the last element, and `-2` refers to the second-to-last.
-
-*   *Stability:* With a high wave speed (`c=50`), you will need a very small time step `dt` to satisfy the CFL condition ($C \le 1$). Be prepared to use a large `nt`.
-
-### Solution to the Robotics Application Challenge
-
-Here is the Python code that models the robot link vibration, incorporating the driving pulse at the base and the free-end boundary condition.
-
-```{python}
-#| label: fig-robot-link-vibration
-#| fig-cap: "Displacement of the robot link's end-effector over time, showing vibrations induced by a motor jolt."
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-# --- 1. Parameters for the Robot Link ---
-L = 2.0             # Length of the robot link (m)
-c = 50.0            # Wave speed in the material (m/s)
-T = 0.15            # Total simulation time (s)
-
-# Discretization - fine grid needed for high wave speed
-dx = 0.04
-# dt must be chosen carefully for stability
-dt = dx / c * 0.9   # Choose dt based on dx and c to guarantee C=0.9
-C = c * dt / dx
-
-print(f"--- Robotics Challenge Parameters ---")
-print(f"Wave Speed c = {c} m/s")
-print(f"Courant Number C = {C:.2f}")
-if C > 1:
-    raise ValueError("CFL condition failed!")
-
-# --- Grid setup ---
-x = np.arange(0, L + dx, dx)
-t_vec = np.arange(0, T + dt, dt)
-nx = len(x)
-nt = len(t_vec)
-u = np.zeros((nt, nx))
-
-# --- Motor Jolt Parameters ---
-pulse_duration = 0.02  # s
-pulse_amplitude = 0.001 # 1 mm jolt
-pulse_frequency = 2 * np.pi / pulse_duration
-
-# --- 5. Time-stepping Loop with New Boundary Conditions ---
-for n in range(1, nt - 1):
-    # Main update for interior points (from 2nd point to 2nd-to-last)
-    u[n + 1, 1:-1] = (2 * u[n, 1:-1] - u[n - 1, 1:-1] +
-                      C**2 * (u[n, 2:] - 2 * u[n, 1:-1] + u[n, :-2]))
-
-    # Boundary Condition 1: Motor Jolt at the Base (x=0)
-    current_time = n * dt
-    if current_time < pulse_duration:
-        u[n + 1, 0] = pulse_amplitude * np.sin(pulse_frequency * current_time)
-    else:
-        u[n + 1, 0] = 0.0 # Motor holds firm at base after jolt
-
-    # Boundary Condition 2: Free End at x=L (Neumann)
-    # u_last = u_second_to_last
-    u[n + 1, -1] = u[n + 1, -2]
-
-# --- 6. Plot the End-Effector's Vibration ---
-end_effector_displacement = u[:, -1]
-
-plt.figure(figsize=(12, 6))
-plt.plot(t_vec, end_effector_displacement * 1000) # Convert to mm
-plt.title("Vibration of Robot End-Effector Over Time")
-plt.xlabel("Time (s)")
-plt.ylabel("Displacement (mm)")
-plt.grid(True)
-plt.axhline(0, color='black', linewidth=0.5) # Zero line
-plt.show()
-```
