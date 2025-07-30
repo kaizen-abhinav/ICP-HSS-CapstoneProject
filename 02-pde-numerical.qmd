@@ -919,6 +919,10 @@ plt.show()
 
 ```
 
+**Result**
+
+The overall behavior remains physically consistent, demonstrating the robustness of the FTCS method when its stability condition is respected.
+
 ## Application Challenge: Heat Dissipation in a Longer Rod
 
 Now, let's apply what you've learned to a new set of physical parameters. This exercise simulates heat dissipation in a longer structural beam with a more intense initial heat source.
