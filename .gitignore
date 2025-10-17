@@ -1,1 +1,4 @@
 /.quarto/
+
+__pycache__/
+*.pyc

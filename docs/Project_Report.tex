@@ -1,0 +1,203 @@
+% Overleaf-ready LaTeX Report for the Coconut Harvester Dashboard
+% Notes:
+% - Minimal dependencies (no shell-escape); uses listings for code.
+% - To compile with bibliography, ensure references.bib is uploaded; path here assumes repo layout.
+% - If uploading only this file to Overleaf, also upload ../references.bib, or change the path to a local copy.
+
+\documentclass[12pt,a4paper]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{siunitx}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\lstdefinestyle{code}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue!60!black},
+  commentstyle=\color{green!40!black},
+  stringstyle=\color{red!60!black},
+  showstringspaces=false,
+  numberstyle=\tiny, numbers=left, numbersep=6pt,
+  frame=single, framerule=0.3pt, rulecolor=\color{black!30},
+  breaklines=true,
+}
+
+\title{Autonomous Coconut Harvester Dashboard\\\large PDE, Transform, and Optimization in a Robotics Context}
+\author{Siju K. S.}
+\date{October 17, 2025}
+
+\begin{document}
+\maketitle
+\pagenumbering{roman}
+
+\begin{abstract}
+This project presents an interactive, educational simulation of an autonomous coconut-harvesting rover that integrates ideas from Partial Differential Equations (PDEs), Laplace transforms, and Optimization.
+The system renders a realistic orchard map, a six-wheel rover with an articulated arm, and real-time telemetry. Planning respects field time, energy, and thermal constraints. The work is designed to reinforce the five course modules through a cohesive, hands-on application.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+\paragraph{Motivation.} Many engineering topics are taught in isolation. This work unifies (i) numerical PDEs, (ii) Laplace-domain modeling, and (iii) optimization, inside a robotics-flavored application: a coconut-harvesting rover.
+
+\paragraph{Contributions.}
+\begin{itemize}[noitemsep]
+  \item A realistic, Matplotlib-based dashboard with a dominant field view and framed telemetry panels.
+  \item A simple mission planner that enforces time and energy constraints while considering obstacles.
+  \item A thermal model of the cutting tool using a 1D heat equation (FTCS), yielding safe duty cycles.
+  \item A symbolic joint response (step input) to extract a settling time via Laplace-domain reasoning.
+  \item A clean mapping of code to five instructional modules with tests and reproducibility guidance.
+\end{itemize}
+
+\chapter{System Overview}
+\section{Architecture}
+Figure~\ref{fig:arch} summarizes the flow. The planner generates a mission queue (drive/scan/deploy/cut/cool) subject to constraints. The main loop updates environment, kinematics, thermal state, and telemetry. The UI presents panels for world, systems, AI, timeline, and logs.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[node distance=1.6cm, auto, >=latex']
+    \tikzstyle{block}=[rectangle, draw, rounded corners, align=center, minimum width=3.2cm, minimum height=0.9cm]
+    \node[block, fill=blue!5] (planner) {Planner\\\small optimizer.py};
+    \node[block, fill=green!5, right=2.6cm of planner] (mainloop) {Simulation Loop\\\small main.py};
+    \node[block, fill=orange!10, below=1.2cm of mainloop] (thermal) {Thermal (FTCS)\\\small thermal.py};
+    \node[block, fill=purple!10, above=1.2cm of mainloop] (dynamics) {Arm Step Response\\\small dynamics.py};
+    \node[block, fill=cyan!10, right=2.8cm of mainloop] (ui) {Dashboard UI\\\small Matplotlib};
+    \node[block, fill=yellow!10, below=1.2cm of planner] (kin) {Kinematics\\\small kinematics.py};
+
+    \draw[->] (planner) -- node[sloped, above]{mission queue} (mainloop);
+    \draw[->] (dynamics) -- node[right]{settling time} (mainloop);
+    \draw[->] (thermal) -- node[right]{tool temp profile} (mainloop);
+    \draw[->] (kin) -- node[sloped, above]{FK, world pose} (mainloop);
+    \draw[->] (mainloop) -- node[sloped, above]{telemetry \& visuals} (ui);
+  \end{tikzpicture}
+  \caption{High-level architecture and data flow.}
+  \label{fig:arch}
+\end{figure}
+
+\section{Key Files}
+\begin{itemize}[noitemsep]
+  \item \texttt{main.py}: Orchestrates the simulation, rendering, and telemetry.
+  \item \texttt{optimizer.py}: Builds a feasible path under time/energy constraints with obstacle checks.
+  \item \texttt{dynamics.py}: Solves a second-order joint ODE and extracts 2\% settling time.
+  \item \texttt{kinematics.py}: Planar 2-link forward kinematics and world coordinate projection.
+  \item \texttt{thermal.py}: 1D heat equation (FTCS) for drilling/cooling and duty-cycle discovery.
+\end{itemize}
+
+\chapter{Methods}
+\section{Numerical PDE: 1D Heat Equation (FTCS)}
+We model the cutting tool’s temperature along its length using the heat equation
+\begin{equation}
+  \frac{\partial u}{\partial t} = \alpha\,\frac{\partial^2 u}{\partial x^2} + Q,\qquad x \in [0,L].
+\end{equation}
+Using FTCS: \(u^{n+1}_i = u^n_i + r\,(u^n_{i+1}-2u^n_i+u^n_{i-1}) + Q\,\Delta t\), with \(r=\alpha\,\Delta t/\Delta x^2 \le 0.5\) for stability. The model heats during cutting (\(Q>0\)) and cools with \(Q=0\). The \texttt{find\_duty\_cycle} routine determines safe drill/cool durations under a temperature cap.
+
+\section{Laplace Domain: Joint Step Response}
+A simplified joint obeys \(I\,\theta'' + c\,\theta' + k\,\theta = k\,u(t)\). Solving in the Laplace domain and applying inverse transforms yields \(\theta(t)\) for a unit step. We detect the 2\% settling time numerically and feed it to the planner to time the arm deployment.
+
+\section{Optimization: Feasible Harvest Plan}
+The planner evaluates candidates from the current rover position, estimating time and energy for (drive, scan, deploy, cut, cool). Lines-of-sight intersecting circular obstacles are marked blocked. A greedy selection (nearest feasible) continues while respecting global time and energy budgets. The output is a mission path, totals, and a list of blocked/skipped trees.
+
+\chapter{Implementation}
+\section{World Rendering and Rover}
+The field uses a procedural orchard texture, canopy discs, and coconut scatters. The rover is a polygon chassis with six wheel footprints; the articulated arm overlay is drawn from forward kinematics of a 2-link chain at the rover base.
+
+\section{Telemetry and Panels}
+The UI displays: (i) a large world map, (ii) tree tracker, (iii) AI “Mission Brain,” (iv) mission utilization, arm response, tool temperature, (v) systems telemetry, obstacles, (vi) real-time telemetry blocks, mission timeline, summary, and planner console. Telemetry is logged per frame and can be saved to CSV.
+
+\section{Representative Code}
+\begin{lstlisting}[style=code, caption={Thermal update in CUT/COOL actions.}]
+# main.py (excerpt)
+if action == 'CUT_TREE':
+    # Heating phase
+    tool_temp_profile = thermal.solve_heat_equation(
+        elapsed_dt, Q=60, initial_temp_profile=tool_temp_profile)
+elif action == 'COOL_TOOL':
+    # Cooling phase
+    tool_temp_profile = thermal.solve_heat_equation(
+        elapsed_dt, Q=0, initial_temp_profile=tool_temp_profile)
+\end{lstlisting}
+
+\chapter{Results}
+\section{Functional Outcomes}
+The simulation runs interactively or headlessly, generating a feasible path with status coloring for trees (pending, scanning, arm\_ready, harvested, empty, blocked, skipped). The AI panel surfaces intent, risk level, and next action. Telemetry captures environment, drivetrain, manipulator, comms/nav, tasking, and AI labels.
+
+\section{Testing}
+Unit tests verify: (i) thermal monotonic cooling and heating energy rise, (ii) planner constraint adherence and obstacle blocking, (iii) dashboard headless initialization and CSV logging. In our run, all tests passed (6/6).
+
+\chapter{Telemetry Schema}
+Table~\ref{tab:telemetry} lists key fields. Vector-valued entries are serialized as comma-joined strings.
+
+\begin{table}[h]
+  \centering
+  \small
+  \begin{tabular}{ll}
+    \toprule
+    Field & Description \\
+    \midrule
+    time & Simulation time (s) \\
+    action, tree & Current action and target tree \\
+    rover\_x, rover\_y & Rover position (m) \\
+    energy & Cumulative energy used (J) \\
+    max\_tool\_temp & Peak blade temperature (\si{\celsius}) \\
+    battery\_pct, pack\_V/A & Battery state, pack voltage/current \\
+    wheel\_currents/torques/temps & Per-wheel metrics \\
+    suspension\_loads & Per-suspension loads (kN) \\
+    cutter\_rpm & Cutter speed (rpm) \\
+    arm\_joint\_angles/temps & 6-DOF angles (rad) and joint temperatures (\si{\celsius}) \\
+    end\_effector\_force & Force at tool (N) \\
+    nav\_confidence, risk & Navigation confidence and AI risk label \\
+    \bottomrule
+  \end{tabular}
+  \caption{Selected telemetry fields written per frame.}
+  \label{tab:telemetry}
+\end{table}
+
+\chapter{Module Mapping (01--05)}
+\begin{description}[style=unboxed,leftmargin=0cm]
+  \item[01: Intro to Python \'\& Scientific Stack] Arrays, plotting, and kinematics warm-ups echo \texttt{kinematics.py}.
+  \item[02: PDE Numerical] Upwind advection and wave equation complement the FTCS heat solver \texttt{thermal.py}.
+  \item[03: Laplace Basics] Frequency response and time-domain pairs underpin the joint step response \texttt{dynamics.py}.
+  \item[04: Laplace Applications] Piecewise/impulse inputs relate to mission phases and switching behavior.
+  \item[05: Optimization] Linear programming motifs motivate constrained plan generation in \texttt{optimizer.py}.
+\end{description}
+
+\chapter{Discussion and Future Work}
+\paragraph{Limitations.} Greedy planning may be suboptimal; terrain and sensing are simplified; the thermal model is 1D and phenomenological.
+\paragraph{Extensions.} Replace greedy with MILP/TSP variants; introduce stochastic sensing; add dynamics-based control policies; export richer telemetry (Parquet/JSON) and a replay tool.
+
+\chapter{Reproducibility}
+\begin{itemize}[noitemsep]
+  \item Python \texttt{3.11+}; install dependencies from \texttt{requirements.txt}.
+  \item Run tests with \texttt{pytest}; headless mode writes telemetry CSV for CI checks.
+  \item Deterministic runs via \texttt{--seed}.
+\end{itemize}
+
+\chapter{Conclusion}
+The dashboard links PDEs, Laplace transforms, and optimization into a coherent robotics application. It serves as a capstone for computational engineering methods with practical visuals, telemetry, and tests.
+
+\chapter{References}
+\begin{enumerate}[label={[R\arabic*]},leftmargin=*,itemsep=0.25em]
+  \item Project repository: \url{https://github.com/sijuswamyresearch/PDE-T-and-OT}
+  \item Course book configuration (Quarto): \texttt{\_quarto.yml} and modules \texttt{01--05 .qmd} in the repository.
+  \item Core implementation files: \texttt{main.py}, \texttt{optimizer.py}, \texttt{dynamics.py}, \texttt{kinematics.py}, \texttt{thermal.py}.
+  \item Matplotlib, NumPy, SymPy documentation for API usage.
+\end{enumerate}
+
+\end{document}
