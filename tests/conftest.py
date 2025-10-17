@@ -1,0 +1,12 @@
+import os
+import sys
+import matplotlib
+
+# Ensure tests can import project modules (main, dynamics, kinematics, optimizer, thermal)
+# when pytest is invoked from the workspace root instead of the project folder.
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+if PROJECT_ROOT not in sys.path:
+	sys.path.insert(0, PROJECT_ROOT)
+
+# Use a non-interactive backend for matplotlib during tests.
+matplotlib.use('Agg', force=True)

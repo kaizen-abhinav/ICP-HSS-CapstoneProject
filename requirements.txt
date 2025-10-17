@@ -1,0 +1,4 @@
+matplotlib>=3.10
+numpy>=2.0
+sympy>=1.13
+pytest>=8.0
